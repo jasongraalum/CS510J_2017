@@ -1,6 +1,5 @@
 package edu.pdx.cs410J.jgraalum;
 
-import org.apache.commons.lang3.StringUtils;
 import java.util.*;
 
 /**
@@ -86,7 +85,7 @@ public class Project1 {
       {
           System.out.println(
                   "    " +
-                  StringUtils.rightPad(argNamesIter.next(),NameToDescriptionsPadding) +
+                  argNamesIter.next() +
                   argDescriptionsIter.next()
           );
       }
@@ -97,7 +96,7 @@ public class Project1 {
       {
           System.out.println(
                   "    " +
-                  StringUtils.rightPad( optionNameIter.next(), NameToDescriptionsPadding) +
+                  optionNameIter.next() +
                   optionDescriptionIter.next()
           );
       }
