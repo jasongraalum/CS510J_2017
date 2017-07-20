@@ -1,6 +1,11 @@
 package edu.pdx.cs410J.jgraalum;
 
+import edu.pdx.cs410J.ParserException;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -13,7 +18,21 @@ public class Project2 {
     private static final ArrayList<String> OPTION_NAMES;
     private static final ArrayList<String> OPTION_DESCRIPTIONS;
 
-    private static boolean[] optionValues = new boolean[3];
+    private static boolean printOption;
+    private static boolean ReadMeOption;
+    private static boolean fileOperation;
+    private static boolean createNewFile;
+
+    private static List<String> flightData;
+
+    private static Airline airline;
+    private static Airline airlineFromFile;
+    private static String airlineFromFileName;
+
+    private static Flight newFlight;
+    private static String newAirlineName;
+
+    private static String fileName;
 
     static {
         ARGUMENT_NAMES = new ArrayList<String>(Arrays.asList(
@@ -47,34 +66,132 @@ public class Project2 {
 
     public static void main(String[] args) {
 
-        String[] flightData;
+        printOption = false;
+        ReadMeOption = false;
+        fileOperation = false;
+        createNewFile = false;
 
-        Arrays.fill(optionValues,false);
-        flightData = stripAndParseCmdLindOptions(args);
+        flightData = new ArrayList();
 
+        newAirlineName = "";
 
-        if(optionValues[1] == true || flightData.length == 0) {
-            printUsageMessageandExit();
+        List<String> argsList = new ArrayList();
+        Collections.addAll(argsList, args);
+
+        // Parse command line arguments into options, new airline name, and new flight data.
+        parseCmdLindOptions(argsList);
+
+        // If -README given, simply display Usage and exit.
+        if(ReadMeOption)
+            printUsageMessageAndExit(1);
+
+        // If there is "some" flight data, valid and create a new Flight.
+        if(flightData.size() != 0 && flightData.size() != 7)
+        {
+            System.out.println("Incorrect Flight Data");
+            System.out.println(flightData);
+            printUsageMessageAndExit(2);
+        }
+        else if(flightData.size() == 7) {
+            String[] flightDataArray = new String[flightData.size()];
+            flightDataArray = flightData.toArray(flightDataArray);
+            newFlight = new Flight(Arrays.copyOfRange(flightDataArray,0, flightDataArray.length));
+            if(!newFlight.isValidFlight) {
+                newFlight = null;
+                System.out.println("Flight data is invalid. Flight not included.");
+            }
         }
 
-        Airline airline = new Airline(flightData[0]);
-        Flight flight = new Flight(Arrays.copyOfRange(flightData,1, flightData.length));
+        // If -fileName was given, check if it exists and if so, parse it into airlineFromFile
+        if(fileOperation)
+        {
+            try {
+                checkForAndParseFile();
 
-        airline.addFlight(flight) ;
+                // File does not exist - needs to be created if possible
+                if(createNewFile) {
+                    if(newFlight != null) {
+                        Airline newAirline = new Airline(newAirlineName);
+                        newAirline.addFlight(newFlight);
+                        printAirlineAndFlights(newAirline);
+                        tryDumpAirline(newAirline);
+                    }
+                }
+                // File exists and airline and flights have been parsed into airlineFromFile
+                else {
+                    if(newFlight != null) {
+                        if(newAirlineName == airlineFromFileName) {
+                            airlineFromFile.addFlight(newFlight);
+                            printAirlineAndFlights(airlineFromFile);
+                            tryDumpAirline(airlineFromFile);
+                        }
+                        else
+                        {
+                            System.out.println("The airline name in the input file, " +
+                                    airlineFromFileName +
+                                    ", does not match the airline name on the command line, " +
+                                    flightData.get(0));
+                            System.exit(-3);;
+                        }
 
-        if(optionValues[0] == true) {
-            Collection flights = airline.getFlights();
-            Iterator<Flight> flightIter = flights.iterator();
+
+                    }
+                }
+            }
+            catch (ParserException e) {
+                System.out.println("Unable to parse input file: " + fileName);
+                System.exit(-2);
+            }
+        }
+
+        // If no file operation or new flight data, print usage
+        else if(flightData.size() == 0)
+            printUsageMessageAndExit(3);
+
+
+        //
+
+        else {
+            String[] flightDataArray = new String[flightData.size()];
+            flightDataArray = flightData.toArray(flightDataArray);
+            Flight newFlight = new Flight(Arrays.copyOfRange(flightDataArray,0, flightDataArray.length));
+
+            Airline newAirline = new Airline(newAirlineName);
+            newAirline.addFlight(newFlight);
+
+            printAirlineAndFlights(newAirline);
+        }
+
+
+
+    System.exit(0);
+
+  }
+
+    private static void tryDumpAirline(Airline newAirline) {
+        try {
+            TextDumper dumper = new TextDumper();
+            dumper.setFileName(fileName);
+            dumper.dump(newAirline);
+        } catch (IOException e) {
+            System.out.println("Error dumping airline and flight data to: " + fileName);
+            System.exit(-1);
+        }
+    }
+
+    private static void printAirlineAndFlights(Airline newAirline) {
+        if(printOption) {
+            newAirline.toString();
+            Collection newAirlineFlights = newAirline.getFlights();
+            Iterator<Flight> flightIter = newAirlineFlights.iterator();
             while(flightIter.hasNext())
             {
                 System.out.print(flightIter.next().toString());
             }
         }
+    }
 
-        System.exit(0);
-  }
-
-  public static void printUsageMessageandExit() {
+    public static void printUsageMessageAndExit(Integer e) {
 
       Integer NameToDescriptionsPadding = 22;
 
@@ -104,7 +221,7 @@ public class Project2 {
           );
       }
       System.out.println("Data and time should be in the format: mm/dd/yyyy hh:mm");
-      System.exit(1);
+      System.exit(e);
   }
 
   private static boolean isValidOption(String optionName)
@@ -113,32 +230,57 @@ public class Project2 {
   }
 
 
-  private static String[] stripAndParseCmdLindOptions(String[] args)
+  private static void parseCmdLindOptions(List<String> args)
   {
-    int optionCount = 0;
 
-    for(String arg: args) {
-        if(arg.charAt(0) == '-')
-        {
-            if(isValidOption(arg)) {
-                optionValues[OPTION_NAMES.indexOf(arg)] = true;
-                optionCount++;
-            }
-            else {
-                IllegalOption(arg);
-            }
-        }
+      if(args.size() == 0) {
+          return;
+      }
 
-    }
-    return Arrays.copyOfRange(args,optionCount,args.length);
+      Iterator<String> argListIterator = args.iterator();
+
+
+      while(argListIterator.hasNext())
+      {
+          String arg = argListIterator.next();
+          if(arg == "-README")
+              ReadMeOption = true;
+          else if(arg == "-print")
+              printOption = true;
+          else if(arg == "-textFile")
+          {
+              fileOperation = true;
+              fileName = argListIterator.next();
+          }
+          else if(arg.startsWith("-")) {
+              System.out.println("Illegal option given: " + arg);
+              System.exit(-2);
+          }
+          else if(newAirlineName == "") {
+              newAirlineName = arg;
+          }
+          else
+          {
+              flightData.add(arg);
+              //System.out.println("Adding " + arg + " to flight data list");
+          }
+
+      }
   }
 
-  private static void IllegalOption(String optionString)
-  {
-    System.out.println("Illegal Option given: " + optionString);
-    System.out.println("");
-    printUsageMessageandExit();
-  }
-
+   private static void checkForAndParseFile() throws ParserException{
+       File inputFile = new File(fileName);
+       if (inputFile.exists() && !inputFile.isDirectory()) {
+           TextParser airlineParser = new TextParser(fileName);
+           try {
+               airlineFromFile = airlineParser.parse();
+               airlineFromFileName = airlineFromFile.getName();
+           } catch (ParserException e) {
+               throw new ParserException("Unable to parse input file: " + fileName);
+           }
+       } else {
+           createNewFile = true;
+       }
+   }
 
 }

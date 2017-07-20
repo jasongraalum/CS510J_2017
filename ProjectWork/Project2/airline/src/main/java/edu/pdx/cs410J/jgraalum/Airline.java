@@ -60,12 +60,12 @@ public class Airline extends AbstractAirline {
                 + " flights";
     }
 
+
     /**
      * Create a new Airline instance with the airlineName: name
      * @param name
      */
     Airline(String name) {
-
         airlineName = name;
     }
 }

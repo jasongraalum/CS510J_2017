@@ -2,7 +2,9 @@ package edu.pdx.cs410J.jgraalum;
 
 import edu.pdx.cs410J.ParserException;
 import org.apache.commons.io.FileUtils;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,10 @@ import static org.junit.Assert.fail;
  */
 public class TextParserTest {
 
-    private void parserTestExpected(String testInputFilename) throws IOException {
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
+    public void parserTestExpected(String testInputFilename) throws IOException {
 
         ClassLoader classLoader = getClass().getClassLoader();
         String testInputFileWithPath = classLoader.getResource(testInputFilename).getPath();

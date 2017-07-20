@@ -77,8 +77,6 @@ public class TextParser implements AirlineParser<Airline> {
 
         Airline airline;
 
-
-
         String line = inputLinesIterator.next();
         while(!line.contains("<airline>"))
         {
