@@ -13,7 +13,7 @@ public class Project2 {
     private static final ArrayList<String> OPTION_NAMES;
     private static final ArrayList<String> OPTION_DESCRIPTIONS;
 
-    private static boolean[] optionValues = new boolean[2];
+    private static boolean[] optionValues = new boolean[3];
 
     static {
         ARGUMENT_NAMES = new ArrayList<String>(Arrays.asList(
@@ -34,10 +34,12 @@ public class Project2 {
         );
         OPTION_DESCRIPTIONS = new ArrayList<String>(Arrays.asList(
                 "Prints a description of the new flight",
+                "Read Airline and Flight data from a file",
                 "Prints a README for this project and exits")
         );
         OPTION_NAMES = new ArrayList<String>(Arrays.asList(
                 "-print",
+                "-fileName",
                 "-README")
         );
     }

@@ -9,9 +9,12 @@ import java.util.Collection;
 /**
  * Airline Class
  * Created by Jason Graalum on 7/8/17.
+ *
  */
 public class Airline extends AbstractAirline {
 
+    /**
+     */
     private String airlineName;
     private ArrayList<Flight> flights = new ArrayList<Flight>();
 

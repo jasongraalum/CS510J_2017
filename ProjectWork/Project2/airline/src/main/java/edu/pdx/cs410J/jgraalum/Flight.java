@@ -1,7 +1,6 @@
 package edu.pdx.cs410J.jgraalum;
 
 import edu.pdx.cs410J.AbstractFlight;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * <h1>Flight Class</h1>
@@ -208,7 +207,7 @@ public class Flight extends AbstractFlight {
      */
     private boolean isValidFlightNumber(String flightNumber) {
 
-        return (StringUtils.isNumeric(flightNumber));
+        return (flightNumber.matches("[0-9]*"));
     }
 
     /**
@@ -217,7 +216,7 @@ public class Flight extends AbstractFlight {
      * @return  Boolean
      */
     private boolean isValidAirportCode(String airportCode) {
-        return StringUtils.isAlpha(airportCode) && airportCode.length() == 3;
+        return airportCode.matches("[a-zA-Z][a-zA-Z][a-zA-Z]");
     }
 
     /**
@@ -234,11 +233,9 @@ public class Flight extends AbstractFlight {
             day = dateFields[1];
             year = dateFields[2];
 
-            return (StringUtils.isNumeric(day) && StringUtils.isNumeric(month) && StringUtils.isNumeric(year) &&
-                    (Integer.parseInt(day) < 32) &&
-                    (Integer.parseInt(month) < 13) &&
-                    (Integer.parseInt(year) > 1900)
-            );
+            return ((day.matches("[0-9]") || day.matches("[0-2][0-9]") || day.matches("[3][0-1]"))
+                    && (month.matches("[0-9]") || month.matches("0[0-9]") || month.matches("1[0-2]"))
+                    && (year.matches("[1-2][0-9][0-9][0-9]")));
         } else {
             return false;
         }
@@ -258,10 +255,8 @@ public class Flight extends AbstractFlight {
             hour = dateFields[0];
             minutes = dateFields[1];
 
-            return (StringUtils.isNumeric(hour) && StringUtils.isNumeric(minutes) &&
-                    (Integer.parseInt(hour) < 25) &&
-                    (Integer.parseInt(minutes) < 61)
-            );
+            return ((hour.matches("[0-9]") || hour.matches("[0-1][0-9]")  || hour.matches("[2][0-3]"))
+                    && (minutes.matches("[0-9]") || minutes.matches("[0-5][0-9]")));
         } else {
             return false;
         }
