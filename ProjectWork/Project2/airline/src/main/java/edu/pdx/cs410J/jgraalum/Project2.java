@@ -23,7 +23,7 @@ public class Project2 {
     private static boolean fileOperation;
     private static boolean createNewFile;
 
-    private static List<String> flightData = new ArrayList<>();
+    private static List<String> flightData;
 
     private static Airline airlineFromFile;
     private static String airlineFromFileName;
@@ -71,8 +71,14 @@ public class Project2 {
         createNewFile = false;
 
         newAirlineName = "";
+        airlineFromFileName = "";
+
+        fileName = "";
 
         newFlight = null;
+        airlineFromFile = null;
+
+        flightData = new ArrayList<>();
 
         ArrayList<String> argsList;
         argsList = new ArrayList<>();
@@ -117,6 +123,10 @@ public class Project2 {
                         newAirline.addFlight(newFlight);
                         printAirlineAndFlights(newAirline);
                         tryDumpAirline(newAirline);
+                    }
+                    else
+                    {
+                        System.exit(0);
                     }
                 }
                 // File exists and airline and flights have been parsed into airlineFromFile
