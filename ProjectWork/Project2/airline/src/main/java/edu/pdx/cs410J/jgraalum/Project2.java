@@ -1,9 +1,6 @@
 package edu.pdx.cs410J.jgraalum;
 
 import edu.pdx.cs410J.ParserException;
-import org.apache.commons.lang3.StringUtils;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -62,7 +59,12 @@ public class Project2 {
         );
     }
 
-
+    /**
+     * Main method for Project2.
+     * Implements simple state machine to respond to command line arguments and input file.
+     *
+     * @param args     Command line arguments
+     */
     public static void main(String[] args) {
 
         printOption = false;
@@ -143,10 +145,8 @@ public class Project2 {
                                     airlineFromFileName + "\"" +
                                     ", does not match the airline name on the command line, \"" +
                                     newAirlineName + "\"");
-                            System.exit(-3);;
+                            System.exit(-3);
                         }
-
-
                     }
                     // No new flight data, so just try to print
                     else
@@ -182,6 +182,11 @@ public class Project2 {
 
   }
 
+    /**
+     * Dumps the newAirline instance to fileName
+     *
+     * @param newAirline
+     */
     private static void tryDumpAirline(Airline newAirline) {
         try {
             TextDumper dumper = new TextDumper();
@@ -193,6 +198,11 @@ public class Project2 {
         }
     }
 
+    /**
+     * If the printOption is true, call toString on the airline and flights
+     *
+     * @param newAirline
+     */
     private static void printAirlineAndFlights(Airline newAirline) {
         if(printOption) {
             System.out.println(newAirline.toString());
@@ -205,9 +215,12 @@ public class Project2 {
         }
     }
 
+    /**
+     * Print the usage message and exit with status e
+     *
+     * @param e
+     */
     public static void printUsageMessageAndExit(Integer e) {
-
-        Integer NameToDescriptionsPadding = 22;
 
         String packageName = Project2.class.getCanonicalName();
 
@@ -238,12 +251,10 @@ public class Project2 {
         System.exit(e);
     }
 
-  private static boolean isValidOption(String optionName)
-  {
-    return Project2.OPTION_NAMES.contains(optionName);
-  }
-
-
+    /**
+     * Set command option booleans based on command line args.  Remaining args are stored in the flight data.
+     * @param args
+     */
   private static void parseCmdLindOptions(List<String> args)
   {
 
@@ -284,6 +295,12 @@ public class Project2 {
       }
   }
 
+    /**
+     * If the input file exists, try to parse it and create airlineFromFile.
+     * If the input file does not exist, set createNewFile to true
+     *
+     * @throws ParserException
+     */
    private static void checkForAndParseFile() throws ParserException{
        File inputFile = new File(fileName);
        if (inputFile.exists() && !inputFile.isDirectory()) {

@@ -101,14 +101,22 @@ public class Flight extends AbstractFlight {
         return (departureDate + " " + departureTime);
     }
 
+    /**
+     * Return the departureDate string
+     * @return  String with departure date
+     */
     public String getDepartureDate()
     {
-        return(departureDate);
+        return departureDate;
     }
 
+    /**
+     * Return the departureTime string
+     * @return  String with departure time
+     */
     public String getDepartureTime()
     {
-        return(departureTime);
+        return departureTime;
     }
     /**
      * Sets the departure date and time after validating the format
@@ -167,14 +175,22 @@ public class Flight extends AbstractFlight {
     }
 
 
+    /**
+     * Return the arrivalDate string
+     * @return  String with arrival date
+     */
     public String getArrivalDate()
     {
-        return(arrivalDate);
+        return arrivalDate;
     }
 
+    /**
+     * Return the arriveTime string
+     * @return  String with arrive time
+     */
     public String getArrivalTime()
     {
-        return(arrivalTime);
+        return arrivalTime;
     }
 
     /**
@@ -203,17 +219,17 @@ public class Flight extends AbstractFlight {
     /**
      * Validates that the flightNumber is a string of numeric digits
      * @param flightNumber      Flight number string
-     * @return
+     * @return  Return true if flightNumber is composed of only digits.
      */
     private boolean isValidFlightNumber(String flightNumber) {
 
-        return (flightNumber.matches("[0-9]*"));
+        return flightNumber.matches("[0-9]*");
     }
 
     /**
      * Validate that the airportCode string is three letters.
-     * @param airportCode
-     * @return  Boolean
+     * @param airportCode   Airport code from Flight data
+     * @return  Boolean     Return treu is fhte airportCode is three letters(upper or lower case)
      */
     private boolean isValidAirportCode(String airportCode) {
         return airportCode.matches("[a-zA-Z][a-zA-Z][a-zA-Z]");
@@ -221,8 +237,8 @@ public class Flight extends AbstractFlight {
 
     /**
      * Validate that the string is of mm/dd/yyyy format
-     * @param dateString
-     * @return Boolean
+     * @param dateString    Date string text
+     * @return Boolean      Return true if dateString follows mm/dd/yyyy format
      */
     private boolean isValidDateString(String dateString) {
         String day, month, year;
@@ -233,9 +249,9 @@ public class Flight extends AbstractFlight {
             day = dateFields[1];
             year = dateFields[2];
 
-            return ((day.matches("[0-9]") || day.matches("[0-2][0-9]") || day.matches("[3][0-1]"))
+            return (day.matches("[0-9]") || day.matches("[0-2][0-9]") || day.matches("[3][0-1]"))
                     && (month.matches("[0-9]") || month.matches("0[0-9]") || month.matches("1[0-2]"))
-                    && (year.matches("[1-2][0-9][0-9][0-9]")));
+                    && year.matches("[1-2][0-9][0-9][0-9]");
         } else {
             return false;
         }
@@ -244,8 +260,8 @@ public class Flight extends AbstractFlight {
 
     /**
      * Validate that the string is of hh:mm format
-     * @param timeString
-     * @return Boolean
+     * @param timeString    Time string text
+     * @return Boolean      Return true if timeString follows hh:mm format
      */
     private boolean isValidTimeString(String timeString) {
         String hour, minutes;
@@ -255,8 +271,8 @@ public class Flight extends AbstractFlight {
             hour = dateFields[0];
             minutes = dateFields[1];
 
-            return ((hour.matches("[0-9]") || hour.matches("[0-1][0-9]")  || hour.matches("[2][0-3]"))
-                    && (minutes.matches("[0-9]") || minutes.matches("[0-5][0-9]")));
+            return (hour.matches("[0-9]") || hour.matches("[0-1][0-9]")  || hour.matches("[2][0-3]"))
+                    && (minutes.matches("[0-9]") || minutes.matches("[0-5][0-9]"));
         } else {
             return false;
         }

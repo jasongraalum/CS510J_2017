@@ -10,6 +10,7 @@ import java.util.Collection;
  * Airline Class
  * Created by Jason Graalum on 7/8/17.
  *
+ *
  */
 public class Airline extends AbstractAirline {
 
@@ -63,7 +64,7 @@ public class Airline extends AbstractAirline {
 
     /**
      * Create a new Airline instance with the airlineName: name
-     * @param name
+     * @param name  Airline name
      */
     Airline(String name) {
         airlineName = name;

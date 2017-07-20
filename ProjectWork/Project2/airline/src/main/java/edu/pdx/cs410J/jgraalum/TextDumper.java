@@ -5,7 +5,6 @@ import edu.pdx.cs410J.AbstractAirline;
 import edu.pdx.cs410J.AbstractFlight;
 import edu.pdx.cs410J.AirlineDumper;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -34,7 +33,7 @@ public class TextDumper implements AirlineDumper {
             dumpFile = new FileWriter(fileName);
 
             writeHeader();
-            
+
             writeTagOpen("airline");
 
             writeTagWithData("name",airline.getName());

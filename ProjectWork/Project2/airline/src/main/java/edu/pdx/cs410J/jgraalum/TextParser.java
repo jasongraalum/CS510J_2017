@@ -52,7 +52,7 @@ public class TextParser implements AirlineParser<Airline> {
             System.out.println("Unable to read file: " + fileName);
             return null;
         }
-        return(lines);
+        return lines;
     }
     @Override
     public Airline parse() throws ParserException {
@@ -64,16 +64,21 @@ public class TextParser implements AirlineParser<Airline> {
         else {
 
             if(inputFileLines.get(0).equals(airlineXMLHeader)) {
-                airline = readAirlineXMLData(inputFileLines);
+                airline = readAirlineXMLData();
             }
-            return(airline);
+            return airline;
         }
 
 
 
     }
 
-    private Airline readAirlineXMLData(List<String> inputFileLines) {
+    /**
+     * Method to parse Airline XML Data.  Nothing is assumed about the format.
+     *
+     * @return  Return an instance of Airline containing data read from input file
+     */
+    private Airline readAirlineXMLData() {
 
         Airline airline;
 
@@ -147,7 +152,7 @@ public class TextParser implements AirlineParser<Airline> {
             line = inputLinesIterator.next();
         }
 
-        return(airline);
+        return airline;
 
     }
 
