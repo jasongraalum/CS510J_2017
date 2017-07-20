@@ -2,15 +2,317 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a20e268c-d244-4874-9897-8a73e53bb2cf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/P2_Int_Dump_One_Flight_Test.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/P2_Int_Two_Plus_One_Flights_Test.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/P2_Int_One_Plus_One_Flight_Test.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/checkstyle-cachefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/checkstyle-checker.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/checkstyle-header.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/checkstyle-result.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/cobertura/cobertura.ser" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/cpd.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/failsafe-reports/TEST-edu.pdx.cs410J.jgraalum.Project1IT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/failsafe-reports/TEST-edu.pdx.cs410J.jgraalum.Project2IT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/failsafe-reports/edu.pdx.cs410J.jgraalum.Project1IT.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/failsafe-reports/edu.pdx.cs410J.jgraalum.Project2IT.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/failsafe-reports/failsafe-summary.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/findbugsXml.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/cobertura.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/java-basic.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/java-imports.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/java-unusedcode.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/javadoc-bundle-options/javadoc-options-javadoc-resources.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/javadoc-bundle-options/package-list" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/jdepend-report.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/compile-integration-test/createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/compile-integration-test/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/pmd.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/allclasses-noframe.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/constant-values.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/deprecated-list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/class-use/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/class-use/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/class-use/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/class-use/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/package-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/edu/pdx/cs410J/jgraalum/package-use.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/help-doc.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/index-all.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/overview-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/package-list" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/script.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/serialized-form.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/src-html/edu/pdx/cs410J/jgraalum/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/src-html/edu/pdx/cs410J/jgraalum/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/src-html/edu/pdx/cs410J/jgraalum/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/src-html/edu/pdx/cs410J/jgraalum/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/apidocs/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/checkstyle-aggregate.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/checkstyle.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/checkstyle.rss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/css/help.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/css/main.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/css/sortabletable.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/css/source-viewer.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/css/tooltip.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/edu.pdx.cs410J.jgraalum.Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/edu.pdx.cs410J.jgraalum.Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/edu.pdx.cs410J.jgraalum.Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/edu.pdx.cs410J.jgraalum.Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/frame-packages.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/frame-sourcefiles-edu.pdx.cs410J.jgraalum.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/frame-sourcefiles.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/frame-summary-edu.pdx.cs410J.jgraalum.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/frame-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/help.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/images/blank.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/images/downsimple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/images/upsimple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/js/customsorttypes.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/js/popup.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/js/sortabletable.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/cobertura/js/stringbuilder.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/css/maven-base.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/css/maven-theme.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/css/print.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/css/site.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/dependencies.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/dependency-info.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/dependency-updates-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/distribution-management.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/failsafe-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/findbugs.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/findbugs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/close.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/collapsed.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/expanded.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/external.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/icon_error_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/icon_info_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/icon_success_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/icon_warning_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/logos/build-by-maven-black.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/logos/build-by-maven-white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/logos/maven-feather.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/newwindow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/images/rss.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/integration.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/issue-tracking.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/jdepend-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/license.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/mail-lists.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/plugin-management.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/plugin-updates-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/plugins.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/pmd.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/project-info.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/project-reports.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/project-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/property-updates-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/source-repository.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/surefire-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/team-list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/allclasses-noframe.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/constant-values.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/deprecated-list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/class-use/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/class-use/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/package-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/edu/pdx/cs410J/jgraalum/package-use.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/help-doc.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/index-all.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/overview-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/package-list" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/script.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/src-html/edu/pdx/cs410J/jgraalum/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/src-html/edu/pdx/cs410J/jgraalum/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/testapidocs/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/edu/pdx/cs410J/jgraalum/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/edu/pdx/cs410J/jgraalum/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/overview-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/overview-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref-test/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/edu/pdx/cs410J/jgraalum/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/edu/pdx/cs410J/jgraalum/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/edu/pdx/cs410J/jgraalum/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/edu/pdx/cs410J/jgraalum/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/overview-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/overview-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/site/xref/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/allclasses-noframe.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/constant-values.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/deprecated-list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/class-use/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/class-use/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/class-use/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/class-use/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/package-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/edu/pdx/cs410J/jgraalum/package-use.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/help-doc.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/index-all.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/overview-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/package-list" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/script.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/serialized-form.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/src-html/edu/pdx/cs410J/jgraalum/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/src-html/edu/pdx/cs410J/jgraalum/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/src-html/edu/pdx/cs410J/jgraalum/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/src-html/edu/pdx/cs410J/jgraalum/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/apidocs/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/checkstyle-aggregate.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/checkstyle.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/checkstyle.rss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/css/help.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/css/main.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/css/sortabletable.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/css/source-viewer.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/css/tooltip.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/edu.pdx.cs410J.jgraalum.Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/edu.pdx.cs410J.jgraalum.Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/edu.pdx.cs410J.jgraalum.Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/edu.pdx.cs410J.jgraalum.Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/frame-packages.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/frame-sourcefiles-edu.pdx.cs410J.jgraalum.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/frame-sourcefiles.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/frame-summary-edu.pdx.cs410J.jgraalum.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/frame-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/help.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/images/blank.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/images/downsimple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/images/upsimple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/js/customsorttypes.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/js/popup.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/js/sortabletable.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/cobertura/js/stringbuilder.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/css/maven-base.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/css/maven-theme.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/css/print.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/css/site.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/dependencies.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/dependency-info.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/dependency-updates-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/distribution-management.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/failsafe-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/findbugs.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/findbugs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/close.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/collapsed.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/expanded.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/external.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/icon_error_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/icon_info_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/icon_success_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/icon_warning_sml.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/logos/build-by-maven-black.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/logos/build-by-maven-white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/logos/maven-feather.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/newwindow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/images/rss.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/integration.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/issue-tracking.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/jdepend-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/license.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/mail-lists.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/plugin-management.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/plugin-updates-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/plugins.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/pmd.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/project-info.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/project-reports.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/project-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/property-updates-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/source-repository.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/surefire-report.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/team-list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/allclasses-noframe.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/constant-values.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/deprecated-list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/class-use/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/class-use/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/package-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/edu/pdx/cs410J/jgraalum/package-use.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/help-doc.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/index-all.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/overview-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/package-list" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/script.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/src-html/edu/pdx/cs410J/jgraalum/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/src-html/edu/pdx/cs410J/jgraalum/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/testapidocs/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/edu/pdx/cs410J/jgraalum/AirlineTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/edu/pdx/cs410J/jgraalum/FlightTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/overview-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/overview-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref-test/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/allclasses-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/edu/pdx/cs410J/jgraalum/Airline.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/edu/pdx/cs410J/jgraalum/Flight.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/edu/pdx/cs410J/jgraalum/Project1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/edu/pdx/cs410J/jgraalum/Project2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/edu/pdx/cs410J/jgraalum/package-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/edu/pdx/cs410J/jgraalum/package-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/overview-frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/overview-summary.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/staging/airline/xref/stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.pdx.cs410J.jgraalum.AirlineTest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.pdx.cs410J.jgraalum.FlightTest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/surefire-reports/edu.pdx.cs410J.jgraalum.AirlineTest.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/surefire-reports/edu.pdx.cs410J.jgraalum.FlightTest.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/testDumperAirlineOneFlights.out.xml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DumperAirlineSingleFlights.xml" afterPath="$PROJECT_DIR$/src/test/resources/P2_Int_One_Flight_Test.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Project1/airline/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Project1/airline/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/it/java/edu/pdx/cs410J/jgraalum/Project2IT.java" afterPath="$PROJECT_DIR$/src/it/java/edu/pdx/cs410J/jgraalum/Project2IT.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Airline.java" afterPath="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Airline.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java" afterPath="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/TextParser.java" afterPath="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/TextParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/edu/pdx/cs410J/jgraalum/TextParserTest.java" afterPath="$PROJECT_DIR$/src/test/java/edu/pdx/cs410J/jgraalum/TextParserTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,24 +325,57 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Project2.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java">
+      <file leaf-file-name="Flight.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Flight.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+            <state relative-caret-position="180">
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvokeMainTestCase.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/edu/pdx/cs410J/projects/Summer2017/projects-Summer2017-tests.jar!/edu/pdx/cs410J/InvokeMainTestCase.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="257">
+              <caret line="72" column="17" lean-forward="true" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Airline.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Airline.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
               <folding>
-                <element signature="e#7957#7958#0" expanded="true" />
-                <element signature="e#8016#8017#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Project2IT.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Project2.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="85" column="40" lean-forward="true" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#8266#8267#0" expanded="true" />
+                <element signature="e#8325#8326#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Project2IT.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/it/java/edu/pdx/cs410J/jgraalum/Project2IT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+            <state relative-caret-position="304">
+              <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
               <folding>
                 <element signature="e#1225#1226#0" expanded="true" />
                 <element signature="e#1282#1283#0" expanded="true" />
@@ -49,94 +384,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReflectiveCallable.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <file leaf-file-name="TextDumper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/TextDumper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ParentRunner.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/ParentRunner.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="226" column="43" lean-forward="false" selection-start-line="226" selection-start-column="43" selection-end-line="226" selection-end-column="43" />
-              <folding>
-                <element signature="e#2137#2138#0" expanded="true" />
-                <element signature="e#2181#2182#0" expanded="true" />
-                <element signature="e#5962#6097#0" expanded="true" />
-                <element signature="e#6096#6097#0" expanded="true" />
-                <element signature="e#6495#6659#0" expanded="true" />
-                <element signature="e#6658#6659#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JUnitCore.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runner/JUnitCore.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RunBefores.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunBefores.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RunAfters.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunAfters.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlockJUnit4ClassRunner.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runners/BlockJUnit4ClassRunner.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="P2_Int_Two_Plus_One_Flights_Test.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Int_Two_Plus_One_Flights_Test.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" column="21" lean-forward="true" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="P2_Two_Flights_Test.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Two_Flights_Test.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+            <state relative-caret-position="792">
+              <caret line="123" column="82" lean-forward="true" selection-start-line="123" selection-start-column="82" selection-end-line="123" selection-end-column="82" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Illegal</find>
+      <find>does not mat</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -155,9 +419,12 @@
         <option value="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Airline.java" />
         <option value="$PROJECT_DIR$/src/test/java/edu/pdx/cs410J/jgraalum/TextParserTest.java" />
         <option value="$PROJECT_DIR$/src/test/resources/P2_Int_Dump_One_Flight_Test.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java" />
         <option value="$PROJECT_DIR$/src/test/resources/P2_Int_Two_Plus_One_Flights_Test.xml" />
+        <option value="$PROJECT_DIR$/src/test/resources/P2_Int_One_Plus_One_Flight_Text.xml" />
+        <option value="$PROJECT_DIR$/src/test/resources/P2_Int_One_Flight_Test.xml" />
+        <option value="$PROJECT_DIR$/src/test/resources/P2_Int_One_Plus_One_Flight_Test.xml" />
         <option value="$PROJECT_DIR$/src/it/java/edu/pdx/cs410J/jgraalum/Project2IT.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java" />
       </list>
     </option>
   </component>
@@ -168,10 +435,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="94" />
-    <option name="y" value="41" />
-    <option name="width" value="1671" />
-    <option name="height" value="989" />
+    <option name="x" value="50" />
+    <option name="y" value="91" />
+    <option name="width" value="1837" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -195,6 +462,56 @@
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="airline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="airline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Maven: edu.pdx.cs410J:projects:tests:Summer2017" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="projects-Summer2017-tests.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="airline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Maven: edu.pdx.cs410J:projects:tests:Summer2017" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="projects-Summer2017-tests.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cs410J" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="airline" />
@@ -365,110 +682,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.jgraalum in airline">
-    <configuration default="false" name="Project2IT.testCorrectFlightArgumentsWriteToFileWithPrint" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="edu.pdx.cs410J.jgraalum.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="airline" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="edu.pdx.cs410J.jgraalum" />
-      <option name="MAIN_CLASS_NAME" value="edu.pdx.cs410J.jgraalum.Project2IT" />
-      <option name="METHOD_NAME" value="testCorrectFlightArgumentsWriteToFileWithPrint" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="Project2IT.testCorrectFlightArgumentsPrintWithWriteToFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="edu.pdx.cs410J.jgraalum.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="airline" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="edu.pdx.cs410J.jgraalum" />
-      <option name="MAIN_CLASS_NAME" value="edu.pdx.cs410J.jgraalum.Project2IT" />
-      <option name="METHOD_NAME" value="testCorrectFlightArgumentsPrintWithWriteToFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="Project2IT.testReadAndReWrite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="edu.pdx.cs410J.jgraalum.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="airline" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="edu.pdx.cs410J.jgraalum" />
-      <option name="MAIN_CLASS_NAME" value="edu.pdx.cs410J.jgraalum.Project2IT" />
-      <option name="METHOD_NAME" value="testReadAndReWrite" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="Project2IT.testTryReadAndReWriteWithBadAirlineName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="edu.pdx.cs410J.jgraalum.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="airline" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="edu.pdx.cs410J.jgraalum" />
-      <option name="MAIN_CLASS_NAME" value="edu.pdx.cs410J.jgraalum.Project2IT" />
-      <option name="METHOD_NAME" value="testTryReadAndReWriteWithBadAirlineName" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="false" name="jgraalum in airline" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="airline" />
@@ -478,6 +691,101 @@
       <option name="MAIN_CLASS_NAME" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="directory" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <dir value="$PROJECT_DIR$/src/it/java/edu/pdx/cs410J/jgraalum" />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="jgraalum in airline (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="airline" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <dir value="$PROJECT_DIR$/src/test/java/edu/pdx/cs410J/jgraalum" />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Project2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.pdx.cs410J.jgraalum.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="edu.pdx.cs410J.jgraalum.Project2" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="airline" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Project2IT.testWriteFlightToNewFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.pdx.cs410J.jgraalum.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="airline" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.pdx.cs410J.jgraalum" />
+      <option name="MAIN_CLASS_NAME" value="edu.pdx.cs410J.jgraalum.Project2IT" />
+      <option name="METHOD_NAME" value="testWriteFlightToNewFile" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Project2IT.testReadFromFileAndPrint" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="edu.pdx.cs410J.jgraalum.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="airline" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="edu.pdx.cs410J.jgraalum" />
+      <option name="MAIN_CLASS_NAME" value="edu.pdx.cs410J.jgraalum.Project2IT" />
+      <option name="METHOD_NAME" value="testReadFromFileAndPrint" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -879,19 +1187,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.Project2IT.testCorrectFlightArgumentsWriteToFileWithPrint" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.Project2IT.testCorrectFlightArgumentsPrintWithWriteToFile" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.Project2IT.testReadAndReWrite" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.Project2IT.testTryReadAndReWriteWithBadAirlineName" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.jgraalum in airline" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.jgraalum in airline" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.jgraalum in airline (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Project2" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.Project2IT.testWriteFlightToNewFile" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.Project2IT.testReadFromFileAndPrint" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="JUnit.jgraalum in airline" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.Project2IT.testReadAndReWrite" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.Project2IT.testTryReadAndReWriteWithBadAirlineName" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.Project2IT.testCorrectFlightArgumentsPrintWithWriteToFile" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.Project2IT.testCorrectFlightArgumentsWriteToFileWithPrint" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.jgraalum in airline (1)" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.Project2IT.testReadFromFileAndPrint" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.Project2IT.testWriteFlightToNewFile" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Project2" />
       </list>
     </recent_temporary>
   </component>
@@ -906,7 +1214,7 @@
       <option name="presentableId" value="Default" />
       <updated>1500338831473</updated>
       <workItem from="1500338832706" duration="2876000" />
-      <workItem from="1500414845397" duration="27887000" />
+      <workItem from="1500414845397" duration="37137000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit with IntelliJ config">
       <created>1500339293084</created>
@@ -922,43 +1230,50 @@
       <option name="project" value="LOCAL" />
       <updated>1500514737356</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Updates to Project2 class and Integration tests.">
+      <created>1500532667115</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1500532667115</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 20m 35s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
+    <history-entry file="Project2IT_testReadFromFileAndPrint - 2017.07.20 at 15h 15m 46s.xml">
+      <configuration name="Project2IT.testReadFromFileAndPrint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 21m 52s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
+    <history-entry file="Project2IT_testReadFromFileAndPrint - 2017.07.20 at 15h 18m 41s.xml">
+      <configuration name="Project2IT.testReadFromFileAndPrint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 24m 48s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 27m 38s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 27m 54s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 28m 29s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 30m 36s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 33m 44s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Project2IT_testReadAndReWrite - 2017.07.19 at 23h 33m 46s.xml">
-      <configuration name="Project2IT.testReadAndReWrite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="jgraalum_in_airline - 2017.07.19 at 23h 35m 18s.xml">
+    <history-entry file="jgraalum_in_airline - 2017.07.20 at 15h 13m 35s.xml">
       <configuration name="jgraalum in airline" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jgraalum_in_airline - 2017.07.20 at 15h 15m 58s.xml">
+      <configuration name="jgraalum in airline" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jgraalum_in_airline - 2017.07.20 at 15h 16m 52s.xml">
+      <configuration name="jgraalum in airline" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jgraalum_in_airline - 2017.07.20 at 15h 19m 16s.xml">
+      <configuration name="jgraalum in airline" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jgraalum_in_airline - 2017.07.20 at 15h 19m 39s.xml">
+      <configuration name="jgraalum in airline" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jgraalum_in_airline - 2017.07.20 at 15h 21m 06s.xml">
+      <configuration name="jgraalum in airline" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jgraalum_in_airline_(1) - 2017.07.20 at 15h 16m 43s.xml">
+      <configuration name="jgraalum in airline (1)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="jgraalum_in_airline_(1) - 2017.07.20 at 15h 20m 58s.xml">
+      <configuration name="jgraalum in airline (1)" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30763000" />
+    <option name="totallyTimeSpent" value="40013000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -970,32 +1285,32 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="94" y="41" width="1671" height="989" extended-state="0" />
+    <frame x="50" y="91" width="1837" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.49790543" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.49790543" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.50448835" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32885906" sideWeight="0.49551168" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3937173" sideWeight="0.49551168" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27468583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24986391" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39932886" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39895287" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1012,7 +1327,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit with IntelliJ config" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit with IntelliJ config" />
+    <MESSAGE value="Updates to Project2 class and Integration tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updates to Project2 class and Integration tests." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1025,7 +1341,7 @@
           </properties>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1039,8 +1355,8 @@
         <state relative-caret-position="195">
           <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
-            <element signature="e#6127#6128#0" expanded="true" />
-            <element signature="e#6197#6198#0" expanded="true" />
+            <element signature="e#6127#6128#0" expanded="false" />
+            <element signature="e#6197#6198#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1086,8 +1402,8 @@
         <state relative-caret-position="210">
           <caret line="14" column="50" lean-forward="true" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#804#812#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#804#812#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1115,14 +1431,6 @@
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/TextDumper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="79" column="63" lean-forward="true" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1187,19 +1495,8 @@
         <state relative-caret-position="158">
           <caret line="57" column="49" lean-forward="true" selection-start-line="57" selection-start-column="34" selection-end-line="57" selection-end-column="49" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#804#812#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Airline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="e#1311#1312#0" expanded="true" />
-            <element signature="e#1345#1346#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#804#812#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1209,17 +1506,6 @@
         <state relative-caret-position="182">
           <caret line="428" column="0" lean-forward="false" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Flight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#6127#6128#0" expanded="true" />
-            <element signature="e#6197#6198#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1241,26 +1527,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_One_Flight_Test.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testDumperAirlineNoFlights.out.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Int_Dump_One_Flight_Test.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1299,14 +1569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/edu/pdx/cs410J/projects/Summer2017/projects-Summer2017-tests.jar!/edu/pdx/cs410J/InvokeMainTestCase.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1323,6 +1585,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunAfters.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunBefores.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -1331,10 +1601,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/statements/RunAfters.class">
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runner/JUnitCore.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+        <state relative-caret-position="209">
+          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1354,48 +1624,123 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runner/JUnitCore.class">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Int_Two_Plus_One_Flights_Test.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding>
-            <element signature="e#7957#7958#0" expanded="true" />
-            <element signature="e#8016#8017#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Two_Flights_Test.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+        <state relative-caret-position="390">
+          <caret line="26" column="29" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="29" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Int_Two_Plus_One_Flights_Test.xml">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_One_Flight_Test.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="21" lean-forward="true" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
+        <state relative-caret-position="240">
+          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Int_One_Flight_Test.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Int_One_Plus_One_Flight_Test.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/edu/pdx/cs410J/projects/Summer2017/projects-Summer2017-sources.jar!/edu/pdx/cs410J/AbstractFlight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="62" column="68" lean-forward="true" selection-start-line="62" selection-start-column="68" selection-end-line="62" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Airline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Flight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/P2_Int_Dump_One_Flight_Test.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/edu/pdx/cs410J/projects/Summer2017/projects-Summer2017-sources.jar!/edu/pdx/cs410J/AbstractAirline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/java/edu/pdx/cs410J/jgraalum/Project2IT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+        <state relative-caret-position="304">
+          <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
           <folding>
             <element signature="e#1225#1226#0" expanded="true" />
             <element signature="e#1282#1283#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/edu/pdx/cs410J/projects/Summer2017/projects-Summer2017-tests.jar!/edu/pdx/cs410J/InvokeMainTestCase.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="72" column="17" lean-forward="true" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/TextDumper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="123" column="82" lean-forward="true" selection-start-line="123" selection-start-column="82" selection-end-line="123" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/pdx/cs410J/jgraalum/Project2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="85" column="40" lean-forward="true" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8266#8267#0" expanded="true" />
+            <element signature="e#8325#8326#0" expanded="true" />
           </folding>
         </state>
       </provider>

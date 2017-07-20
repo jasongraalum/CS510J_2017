@@ -3,9 +3,9 @@ package edu.pdx.cs410J.jgraalum;
 import edu.pdx.cs410J.ParserException;
 import org.apache.commons.lang3.StringUtils;
 
+
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -23,9 +23,8 @@ public class Project2 {
     private static boolean fileOperation;
     private static boolean createNewFile;
 
-    private static List<String> flightData;
+    private static List<String> flightData = new ArrayList<>();
 
-    private static Airline airline;
     private static Airline airlineFromFile;
     private static String airlineFromFileName;
 
@@ -71,11 +70,12 @@ public class Project2 {
         fileOperation = false;
         createNewFile = false;
 
-        flightData = new ArrayList();
-
         newAirlineName = "";
 
-        List<String> argsList = new ArrayList();
+        newFlight = null;
+
+        ArrayList<String> argsList;
+        argsList = new ArrayList<>();
         Collections.addAll(argsList, args);
 
         // Parse command line arguments into options, new airline name, and new flight data.
@@ -101,6 +101,8 @@ public class Project2 {
                 System.out.println("Flight data is invalid. Flight not included.");
             }
         }
+        else
+            newFlight = null;
 
         // If -fileName was given, check if it exists and if so, parse it into airlineFromFile
         if(fileOperation)
@@ -120,21 +122,26 @@ public class Project2 {
                 // File exists and airline and flights have been parsed into airlineFromFile
                 else {
                     if(newFlight != null) {
-                        if(newAirlineName == airlineFromFileName) {
+                        if(newAirlineName.equals(airlineFromFileName)) {
                             airlineFromFile.addFlight(newFlight);
                             printAirlineAndFlights(airlineFromFile);
                             tryDumpAirline(airlineFromFile);
                         }
                         else
                         {
-                            System.out.println("The airline name in the input file, " +
-                                    airlineFromFileName +
-                                    ", does not match the airline name on the command line, " +
-                                    flightData.get(0));
+                            System.out.println("The airline name in the input file, \"" +
+                                    airlineFromFileName + "\"" +
+                                    ", does not match the airline name on the command line, \"" +
+                                    newAirlineName + "\"");
                             System.exit(-3);;
                         }
 
 
+                    }
+                    // No new flight data, so just try to print
+                    else
+                    {
+                        printAirlineAndFlights(airlineFromFile);
                     }
                 }
             }
@@ -149,8 +156,7 @@ public class Project2 {
             printUsageMessageAndExit(3);
 
 
-        //
-
+        // If we get here, there are 7 field in the flightData and no file operation
         else {
             String[] flightDataArray = new String[flightData.size()];
             flightDataArray = flightData.toArray(flightDataArray);
@@ -161,8 +167,6 @@ public class Project2 {
 
             printAirlineAndFlights(newAirline);
         }
-
-
 
     System.exit(0);
 
@@ -181,48 +185,48 @@ public class Project2 {
 
     private static void printAirlineAndFlights(Airline newAirline) {
         if(printOption) {
-            newAirline.toString();
+            System.out.println(newAirline.toString());
             Collection newAirlineFlights = newAirline.getFlights();
             Iterator<Flight> flightIter = newAirlineFlights.iterator();
             while(flightIter.hasNext())
             {
-                System.out.print(flightIter.next().toString());
+                System.out.println(flightIter.next().toString());
             }
         }
     }
 
     public static void printUsageMessageAndExit(Integer e) {
 
-      Integer NameToDescriptionsPadding = 22;
+        Integer NameToDescriptionsPadding = 22;
 
-      String packageName = Project2.class.getCanonicalName();
+        String packageName = Project2.class.getCanonicalName();
 
-      System.out.println("usage: java " + packageName + " [options] <args>");
-      System.out.println("  args are (in this order):");
-      Iterator<String> argNamesIter = Project2.ARGUMENT_NAMES.iterator();
-      Iterator<String> argDescriptionsIter = Project2.ARGUMENT_DESCRIPTIONS.iterator();
-      while(argNamesIter.hasNext())
-      {
-          System.out.println(
-                  "    " +
-                  StringUtils.rightPad(argNamesIter.next(),NameToDescriptionsPadding) +
-                  argDescriptionsIter.next()
-          );
-      }
-      System.out.println("  options are (options may appear in any order):");
-      Iterator<String> optionNameIter = Project2.OPTION_NAMES.iterator();
-      Iterator<String> optionDescriptionIter = Project2.OPTION_DESCRIPTIONS.iterator();
-      while(optionNameIter.hasNext())
-      {
-          System.out.println(
-                  "    " +
-                  StringUtils.rightPad( optionNameIter.next(), NameToDescriptionsPadding) +
-                  optionDescriptionIter.next()
-          );
-      }
-      System.out.println("Data and time should be in the format: mm/dd/yyyy hh:mm");
-      System.exit(e);
-  }
+        System.out.println("usage: java " + packageName + " [options] <args>");
+        System.out.println("  args are (in this order):");
+        Iterator<String> argNamesIter = Project2.ARGUMENT_NAMES.iterator();
+        Iterator<String> argDescriptionsIter = Project2.ARGUMENT_DESCRIPTIONS.iterator();
+        while(argNamesIter.hasNext())
+        {
+            System.out.println(
+                    "    " +
+                            argNamesIter.next() +
+                            argDescriptionsIter.next()
+            );
+        }
+        System.out.println("  options are (options may appear in any order):");
+        Iterator<String> optionNameIter = Project2.OPTION_NAMES.iterator();
+        Iterator<String> optionDescriptionIter = Project2.OPTION_DESCRIPTIONS.iterator();
+        while(optionNameIter.hasNext())
+        {
+            System.out.println(
+                    "    " +
+                            optionNameIter.next() +
+                            optionDescriptionIter.next()
+            );
+        }
+        System.out.println("Data and time should be in the format: mm/dd/yyyy hh:mm");
+        System.exit(e);
+    }
 
   private static boolean isValidOption(String optionName)
   {
@@ -243,11 +247,13 @@ public class Project2 {
       while(argListIterator.hasNext())
       {
           String arg = argListIterator.next();
-          if(arg == "-README")
+   //       System.out.println("arg = " + arg);
+
+          if(arg.equals("-README"))
               ReadMeOption = true;
-          else if(arg == "-print")
+          else if(arg.equals("-print"))
               printOption = true;
-          else if(arg == "-textFile")
+          else if(arg.equals("-textFile"))
           {
               fileOperation = true;
               fileName = argListIterator.next();
@@ -256,7 +262,7 @@ public class Project2 {
               System.out.println("Illegal option given: " + arg);
               System.exit(-2);
           }
-          else if(newAirlineName == "") {
+          else if(newAirlineName.equals("")) {
               newAirlineName = arg;
           }
           else

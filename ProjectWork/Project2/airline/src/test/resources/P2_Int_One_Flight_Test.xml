@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <airline>
-    <name>Airline with one flight</name>
+    <name>Airline XYZ</name>
     <flight>
         <number>123</number>
         <source>
@@ -12,19 +12,6 @@
             <id>FGH</id>
             <date>01/02/1901</date>
             <time>1:30</time>
-        </destination>
-    </flight>
-    <flight>
-        <number>321</number>
-        <source>
-            <id>ABC</id>
-            <date>02/02/1902</date>
-            <time>2:00</time>
-        </source>
-        <destination>
-            <id>FGH</id>
-            <date>1/5/2017</date>
-            <time>3:30</time>
         </destination>
     </flight>
 </airline>
