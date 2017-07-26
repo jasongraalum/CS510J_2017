@@ -16,6 +16,7 @@ public class Project3 {
     private static final ArrayList<String> OPTION_DESCRIPTIONS;
 
     private static boolean printOption;
+    private static boolean prettyPrintOption;
     private static boolean ReadMeOption;
     private static boolean fileOperation;
     private static boolean createNewFile;
@@ -28,7 +29,8 @@ public class Project3 {
     private static Flight newFlight;
     private static String newAirlineName;
 
-    private static String fileName;
+    private static String airlineFileName;
+    private static String prettyPrintFileName;
 
     static {
         ARGUMENT_NAMES = new ArrayList<String>(Arrays.asList(
@@ -49,12 +51,14 @@ public class Project3 {
         );
         OPTION_DESCRIPTIONS = new ArrayList<String>(Arrays.asList(
                 "Prints a description of the new flight",
+                "Prints a pretty description of the new flight to either a file or standard output",
                 "Read Airline and Flight data from a file",
                 "Prints a README for this project and exits")
         );
         OPTION_NAMES = new ArrayList<String>(Arrays.asList(
                 "-print",
-                "-fileName",
+                "-pretty",
+                "-airlineFileName",
                 "-README")
         );
     }
@@ -65,9 +69,10 @@ public class Project3 {
      *
      * @param args     Command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserException {
 
         printOption = false;
+        prettyPrintOption = false;
         ReadMeOption = false;
         fileOperation = false;
         createNewFile = false;
@@ -75,7 +80,7 @@ public class Project3 {
         newAirlineName = "";
         airlineFromFileName = "";
 
-        fileName = "";
+        airlineFileName = "";
 
         newFlight = null;
         airlineFromFile = null;
@@ -94,25 +99,24 @@ public class Project3 {
             printUsageMessageAndExit(1);
 
         // If there is "some" flight data, valid and create a new Flight.
-        if(flightData.size() != 0 && flightData.size() != 7)
+        if(flightData.size() > 0)
         {
-            System.out.println("Incorrect Flight Data");
-            System.out.println(flightData);
-            printUsageMessageAndExit(2);
-        }
-        else if(flightData.size() == 7) {
-            String[] flightDataArray = new String[flightData.size()];
-            flightDataArray = flightData.toArray(flightDataArray);
-            newFlight = new Flight(Arrays.copyOfRange(flightDataArray,0, flightDataArray.length));
-            if(!newFlight.isValidFlight) {
-                newFlight = null;
-                System.out.println("Flight data is invalid. Flight not included.");
-            }
+          String[] flightDataArray = new String[flightData.size()];
+          flightDataArray = flightData.toArray(flightDataArray);
+          try {
+              newFlight = new Flight(Arrays.copyOfRange(flightDataArray, 0, flightDataArray.length));
+          }
+          catch (ParserException e)
+          {
+              System.err.println("ParserException: " + e.getMessage());
+              System.exit(-1);
+          }
+
         }
         else
             newFlight = null;
 
-        // If -fileName was given, check if it exists and if so, parse it into airlineFromFile
+        // If -airlineFileName was given, check if it exists and if so, parse it into airlineFromFile
         if(fileOperation)
         {
             try {
@@ -156,7 +160,7 @@ public class Project3 {
                 }
             }
             catch (ParserException e) {
-                System.out.println("Unable to parse input file: " + fileName);
+                System.out.println("Unable to parse input file: " + airlineFileName);
                 System.exit(-2);
             }
         }
@@ -183,17 +187,17 @@ public class Project3 {
   }
 
     /**
-     * Dumps the newAirline instance to fileName
+     * Dumps the newAirline instance to airlineFileName
      *
      * @param newAirline
      */
     private static void tryDumpAirline(Airline newAirline) {
         try {
             TextDumper dumper = new TextDumper();
-            dumper.setFileName(fileName);
+            dumper.setFileName(airlineFileName);
             dumper.dump(newAirline);
         } catch (IOException e) {
-            System.out.println("Error dumping airline and flight data to: " + fileName);
+            System.out.println("Error dumping airline and flight data to: " + airlineFileName);
             System.exit(-1);
         }
     }
@@ -211,6 +215,16 @@ public class Project3 {
             while(flightIter.hasNext())
             {
                 System.out.println(flightIter.next().toString());
+            }
+        }
+        if(prettyPrintOption) {
+            try {
+                PrettyPrinter prettyPrinter = new PrettyPrinter();
+                prettyPrinter.setFileName(prettyPrintFileName);
+                prettyPrinter.dump(newAirline);
+            } catch (IOException e) {
+                System.out.println("Error during print of airline and flight data to: " + prettyPrintFileName);
+                System.exit(-1);
             }
         }
     }
@@ -277,7 +291,12 @@ public class Project3 {
           else if(arg.equals("-textFile"))
           {
               fileOperation = true;
-              fileName = argListIterator.next();
+              airlineFileName = argListIterator.next();
+          }
+          else if(arg.equals("-pretty"))
+          {
+              prettyPrintOption = true;
+              prettyPrintFileName = argListIterator.next();
           }
           else if(arg.startsWith("-")) {
               System.out.println("Illegal option given: " + arg);
@@ -302,14 +321,14 @@ public class Project3 {
      * @throws ParserException
      */
    private static void checkForAndParseFile() throws ParserException{
-       File inputFile = new File(fileName);
+       File inputFile = new File(airlineFileName);
        if (inputFile.exists() && !inputFile.isDirectory()) {
-           TextParser airlineParser = new TextParser(fileName);
+           TextParser airlineParser = new TextParser(airlineFileName);
            try {
                airlineFromFile = airlineParser.parse();
                airlineFromFileName = airlineFromFile.getName();
            } catch (ParserException e) {
-               throw new ParserException("Unable to parse input file: " + fileName);
+               throw new ParserException("Unable to parse input file: " + airlineFileName);
            }
        } else {
            createNewFile = true;

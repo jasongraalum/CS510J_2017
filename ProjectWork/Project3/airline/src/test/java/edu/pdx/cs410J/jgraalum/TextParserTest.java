@@ -47,17 +47,14 @@ public class TextParserTest {
             assertThat(expectedStrings, equalTo(outputStrings));
 
         } catch (ParserException e) {
-            System.out.println("Unable to parse input file: " + testInputFilename);
-
+            System.out.println("Unable to parse input file: " + testInputFilename + e.getMessage());
         }
-
-
     }
 
     @Test
     public void testParserAirlineNoFlights() {
 
-        String testInputFileName = "P2_No_Flights_Test.xml";
+        String testInputFileName = "P3_No_Flights_Test.xml";
         try {
             parserTestExpected(testInputFileName);
         } catch (IOException e) {
@@ -69,7 +66,7 @@ public class TextParserTest {
     @Test
     public void testParserAirlineSingleFlights() {
 
-        String testInputFileName = "P2_One_Flight_Test.xml";
+        String testInputFileName = "P3_One_Flight_Test.xml";
         try {
             parserTestExpected(testInputFileName);
         } catch (IOException e) {
@@ -81,7 +78,7 @@ public class TextParserTest {
     @Test
     public void testDumperAirlineTwoFlights() {
 
-        String testInputFileName = "P2_Two_Flights_Test.xml";
+        String testInputFileName = "P3_Two_Flights_Test.xml";
         try {
             parserTestExpected(testInputFileName);
         } catch (IOException e) {

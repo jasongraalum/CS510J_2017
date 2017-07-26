@@ -62,16 +62,13 @@ public class TextDumper implements AirlineDumper {
         writeTagWithData("number",flight.getNumber());
         writeTagOpen("source");
         writeTagWithData("id",flight.getSource());
-        writeTagWithData( "date", flight.getDepartureDate());
-        writeTagWithData("time", flight.getDepartureTime());
+        writeTagWithData( "date", flight.getDepartureString());
         writeTagClose("source");
         writeTagOpen("destination");
         writeTagWithData("id",flight.getDestination());
-        writeTagWithData( "date", flight.getArrivalDate());
-        writeTagWithData("time", flight.getArrivalTime());
+        writeTagWithData( "date", flight.getArrivalString());
         writeTagClose("destination");
         writeTagClose("flight");
-
 
     }
 

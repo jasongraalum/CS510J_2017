@@ -21,4 +21,14 @@ public class AirlineTest {
         assertThat(airline.getName(),equalTo("Airline"));
     }
 
+    @Test
+    public void testPrettyPrintAirline() throws ParserException {
+        Airline airline = new Airline("Airline");
+        Flight flight1 = new Flight("123","EVV","12/31/1901","12:30","AM", "CVG","01/01/1902","23:45", "PM");
+        Flight flight2 = new Flight("123","PDX","12/31/1901", "12:30", "PM" ,"BOI","01/01/1902", "8:45", "AM");
+        airline.addFlight(flight1);
+        airline.addFlight(flight2);
+
+    }
+
 }

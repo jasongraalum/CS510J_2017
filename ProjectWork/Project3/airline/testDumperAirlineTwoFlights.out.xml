@@ -4,27 +4,23 @@
     <flight>
         <number>123</number>
         <source>
-            <id>ABC</id>
-            <date>01/01/1901</date>
-            <time>12:30</time>
+            <id>BOI</id>
+            <date>01/01/1901 12:30 AM</date>
         </source>
         <destination>
-            <id>FGH</id>
-            <date>01/02/1901</date>
-            <time>1:30</time>
+            <id>PDX</id>
+            <date>01/02/1901 01:30 PM</date>
         </destination>
     </flight>
     <flight>
         <number>321</number>
         <source>
-            <id>ABC</id>
-            <date>02/02/1902</date>
-            <time>2:00</time>
+            <id>PDX</id>
+            <date>02/02/1902 02:00 PM</date>
         </source>
         <destination>
-            <id>FGH</id>
-            <date>1/5/2017</date>
-            <time>3:30</time>
+            <id>BOI</id>
+            <date>01/05/2017 03:30 AM</date>
         </destination>
     </flight>
 </airline>

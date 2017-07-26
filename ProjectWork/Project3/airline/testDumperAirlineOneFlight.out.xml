@@ -4,14 +4,12 @@
     <flight>
         <number>123</number>
         <source>
-            <id>ABC</id>
-            <date>01/01/1901</date>
-            <time>12:30</time>
+            <id>SFO</id>
+            <date>01/01/1901 12:30 PM</date>
         </source>
         <destination>
-            <id>FGH</id>
-            <date>01/02/1901</date>
-            <time>23:30</time>
+            <id>LAX</id>
+            <date>01/01/1901 02:30 PM</date>
         </destination>
     </flight>
 </airline>

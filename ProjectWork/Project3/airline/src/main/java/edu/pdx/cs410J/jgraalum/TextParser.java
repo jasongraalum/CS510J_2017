@@ -78,7 +78,7 @@ public class TextParser implements AirlineParser<Airline> {
      *
      * @return  Return an instance of Airline containing data read from input file
      */
-    private Airline readAirlineXMLData() {
+    private Airline readAirlineXMLData() throws ParserException {
 
         Airline airline;
 
@@ -116,11 +116,11 @@ public class TextParser implements AirlineParser<Airline> {
 
             while(!line.contains("<date>"))
                 line = inputLinesIterator.next();
-            String departureDate = line.replaceAll("<date>","").replaceAll("</date>","").trim();
+            String[] departureDateTime = line.replaceAll("<date>","").replaceAll("</date>","").trim().split(" ");
+            String departureDate = departureDateTime[0];
+            String departureTime = departureDateTime[1];
+            String departureAMPM= departureDateTime[2];
 
-            while(!line.contains("<time>"))
-                line = inputLinesIterator.next();
-            String departureTime = line.replaceAll("<time>","").replaceAll("</time>","").trim();
 
             while(!line.contains("</source>"))
                 line = inputLinesIterator.next();
@@ -134,11 +134,10 @@ public class TextParser implements AirlineParser<Airline> {
 
             while(!line.contains("<date>"))
                 line = inputLinesIterator.next();
-            String arrivalDate = line.replaceAll("<date>","").replaceAll("</date>","").trim();
-
-            while(!line.contains("<time>"))
-                line = inputLinesIterator.next();
-            String arrivalTime = line.replaceAll("<time>","").replaceAll("</time>","").trim();
+            String[] arrivalDateTime = line.replaceAll("<date>","").replaceAll("</date>","").trim().split(" ");
+            String arrivalDate = arrivalDateTime[0];
+            String arrivalTime = arrivalDateTime[1];
+            String arrivalAMPM= arrivalDateTime[2];
 
             while(!line.contains("</destination>"))
                 line = inputLinesIterator.next();
@@ -146,7 +145,7 @@ public class TextParser implements AirlineParser<Airline> {
             while(!line.contains("</flight>"))
                 line = inputLinesIterator.next();
 
-            Flight flight = new Flight(flightNumber, sourceID, departureDate, departureTime, destinationID, arrivalDate, arrivalTime);
+            Flight flight = new Flight(flightNumber, sourceID, departureDate, departureTime, departureAMPM, destinationID, arrivalDate, arrivalTime, arrivalAMPM);
             airline.addFlight(flight);
 
             line = inputLinesIterator.next();

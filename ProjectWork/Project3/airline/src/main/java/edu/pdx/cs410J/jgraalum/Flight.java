@@ -1,6 +1,16 @@
 package edu.pdx.cs410J.jgraalum;
 
 import edu.pdx.cs410J.AbstractFlight;
+import edu.pdx.cs410J.AirportNames;
+import edu.pdx.cs410J.ParserException;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+
+import static java.text.DateFormat.getDateTimeInstance;
 
 /**
  * <h1>Flight Class</h1>
@@ -10,16 +20,19 @@ import edu.pdx.cs410J.AbstractFlight;
  * @version 1.0
  *
  */
-public class Flight extends AbstractFlight {
+public class Flight extends AbstractFlight implements Comparable<Flight> {
 
     boolean isValidFlight;
-    Integer number;
-    String sourceAirport;
-    String departureDate;
-    String departureTime;
-    String destinationAirport;
-    String arrivalDate;
-    String arrivalTime;
+    private Integer number;
+    private String sourceAirportName;
+    private String sourceAirportCode;
+    private Date departureDateAndTime;
+    private String destinationAirportName;
+    private String destinationAirportCode;
+    private Date arrivalDateAndTime;
+    private DateFormat flightDateAndTime = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+
+    private AirportNames airportNames;
 
     /**
      * Creates a new <code>Flight</code>
@@ -27,21 +40,62 @@ public class Flight extends AbstractFlight {
      * @param flightData
      *      List of Strings representing flight number, source, departure data and time, destination and arrival date and time.
      */
-    Flight(String... flightData) {
-        isValidFlight = true;
-        setNumber(flightData[0].trim());
-        setSource(flightData[1].trim());
-        setDepartureString(flightData[2].trim(), flightData[3].trim());
-        setDestination(flightData[4].trim());
-        setArrivalString(flightData[5].trim(), flightData[6].trim());
-    }
+    Flight(String... flightData) throws ParserException {
 
-    /**
-     * Creates a new empty <code>Flight</code>
-     *
-     */
-    Flight() {
-        this("", "", "", "", "", "", "");
+        if(flightData.length != 9) {
+            throw new ParserException("Invalid number of flight arguments:  " + Arrays.toString(flightData));
+        }
+
+        isValidFlight = true;
+
+        String flightNumberString = flightData[0].trim();
+        if(flightNumberString.matches("[0-9]*")) {
+            number = Integer.parseInt(flightNumberString);
+        }
+        else {
+            throw new ParserException("Invalid flight number: " + flightNumberString);
+        }
+
+        sourceAirportCode = flightData[1].trim().toUpperCase();
+        sourceAirportName = airportNames.getName(sourceAirportCode);
+        if(sourceAirportName == null) {
+            throw new ParserException("Invalid source airport code: " + sourceAirportCode);
+        }
+
+
+        String departureDateString = flightData[2].trim();
+        String departureTimeString = flightData[3].trim();
+        String departureAMPMString = flightData[4].trim();
+        String departureDateTimeString =
+                departureDateString + " " +
+                departureTimeString + " " +
+                departureAMPMString;
+
+        try {
+            departureDateAndTime = flightDateAndTime.parse(departureDateTimeString);
+        } catch (ParseException e) {
+            throw new ParserException("Invalid departure date/time format: " + departureDateTimeString);
+        }
+
+        destinationAirportCode = flightData[5].trim().toUpperCase();
+        destinationAirportName = airportNames.getName(destinationAirportCode);
+        if(destinationAirportName == null) {
+            throw new ParserException("Invalid destination airport code: " + destinationAirportCode);
+        }
+
+        String arrivalDateString = flightData[6].trim();
+        String arrivalTimeString = flightData[7].trim();
+        String arrivalAMPMString = flightData[8].trim();
+        String arrivalDateTimeString =
+                arrivalDateString + " " +
+                        arrivalTimeString + " " +
+                        arrivalAMPMString;
+        try {
+            arrivalDateAndTime = flightDateAndTime.parse(arrivalDateTimeString);
+        } catch (ParseException e) {
+            throw new ParserException("Invalid arrival date/time format: " + arrivalDateTimeString);
+        }
+
     }
 
 
@@ -55,42 +109,17 @@ public class Flight extends AbstractFlight {
     }
 
     /**
-     * Converts flight number string and stores as an integer
-     * @param numberString      String of digits representing the flight number
-     */
-    public void setNumber(String numberString) {
-        if (isValidFlightNumber(numberString))
-            number = Integer.parseInt(numberString);
-        else {
-            System.out.println("Invalid flight number " + numberString + " Number between 1 and 99999 expected.");
-            number = 0;
-            isValidFlight = false;
-        }
-    }
-
-    /**
      * Returns the source airport string
      * @return sourceAirport Three letter code of source airport
      */
     @Override
-    public String getSource() {
-        return sourceAirport;
-    }
+    public String getSource() { return sourceAirportCode; }
 
     /**
-     * Sets the source airport code
-     * @param airportCode   Three letter code of source airport
+     * Returns the source airport string
+     * @return sourceAirportName Validated name of airport
      */
-    public void setSource(String airportCode) {
-
-        if (isValidAirportCode(airportCode)) {
-            sourceAirport = airportCode;
-        } else {
-            System.out.println("Invalid source airport code: " + airportCode + " A three letter code expected.");
-            sourceAirport = "NAN";
-            isValidFlight = false;
-        }
-    }
+    public String getSourceName() { return sourceAirportName; }
 
     /**
      * Returns the departure date and time
@@ -98,47 +127,7 @@ public class Flight extends AbstractFlight {
      */
     @Override
     public String getDepartureString() {
-        return (departureDate + " " + departureTime);
-    }
-
-    /**
-     * Return the departureDate string
-     * @return  String with departure date
-     */
-    public String getDepartureDate()
-    {
-        return departureDate;
-    }
-
-    /**
-     * Return the departureTime string
-     * @return  String with departure time
-     */
-    public String getDepartureTime()
-    {
-        return departureTime;
-    }
-    /**
-     * Sets the departure date and time after validating the format
-     * @param date      String in mm/dd/yyyy format
-     * @param time      String in hh:mm formate
-     */
-    public void setDepartureString(String date, String time) {
-        if (isValidDateString(date)) {
-            departureDate = date;
-        } else {
-            System.out.println("Invalid departure date: " + date + " A date of format dd/mm/yyyy expected.");
-            departureDate = "00/00/0000";
-            isValidFlight = false;
-        }
-
-        if (isValidTimeString(time)) {
-            departureTime = time;
-        } else {
-            System.out.println("Invalid departure time: " + time + " A time of format hh:mm expected.");
-            departureTime = "00:00";
-            isValidFlight = false;
-        }
+        return (flightDateAndTime.format(departureDateAndTime));
     }
 
     /**
@@ -147,22 +136,15 @@ public class Flight extends AbstractFlight {
      */
     @Override
     public String getDestination() {
-        return destinationAirport;
+        return destinationAirportCode;
     }
 
     /**
-     * Set the destination airport code
-     * @param airportCode   Three letter airport code
+     * Retrieves the destination airport code
+     * @return destinationAirport   Three letter airport code
      */
-    public void setDestination(String airportCode) {
-
-        if (isValidAirportCode(airportCode)) {
-            destinationAirport = airportCode;
-        } else {
-            System.out.println("Invalid destination airport code " + airportCode + " A three letter code expected.");
-            destinationAirport = "NAN";
-            isValidFlight = false;
-        }
+    public String getDestinationName() {
+        return destinationAirportName;
     }
 
     /**
@@ -171,60 +153,9 @@ public class Flight extends AbstractFlight {
      */
     @Override
     public String getArrivalString() {
-        return (arrivalDate + " " + arrivalTime);
+        return (flightDateAndTime.format(arrivalDateAndTime));
     }
 
-
-    /**
-     * Return the arrivalDate string
-     * @return  String with arrival date
-     */
-    public String getArrivalDate()
-    {
-        return arrivalDate;
-    }
-
-    /**
-     * Return the arriveTime string
-     * @return  String with arrive time
-     */
-    public String getArrivalTime()
-    {
-        return arrivalTime;
-    }
-
-    /**
-     * Sets the arrival date and time after validating the format
-     * @param date      String in mm/dd/yyyy format
-     * @param time      String in hh:mm formate
-     */
-    public void setArrivalString(String date, String time) {
-        if (isValidDateString(date)) {
-            arrivalDate = date;
-        } else {
-            System.out.println("Invalid arrival date " + date + " A date of format dd/mm/yyyy expected.");
-            arrivalDate = "00/00/0000";
-            isValidFlight = false;
-        }
-
-        if (isValidTimeString(time)) {
-            arrivalTime = time;
-        } else {
-            System.out.println("Invalid arrival date " + date + " A time of format hh:mm expected.");
-            arrivalTime = "00:00";
-            isValidFlight = false;
-        }
-    }
-
-    /**
-     * Validates that the flightNumber is a string of numeric digits
-     * @param flightNumber      Flight number string
-     * @return  Return true if flightNumber is composed of only digits.
-     */
-    private boolean isValidFlightNumber(String flightNumber) {
-
-        return flightNumber.matches("[0-9]*");
-    }
 
     /**
      * Validate that the airportCode string is three letters.
@@ -235,47 +166,16 @@ public class Flight extends AbstractFlight {
         return airportCode.matches("[a-zA-Z][a-zA-Z][a-zA-Z]");
     }
 
-    /**
-     * Validate that the string is of mm/dd/yyyy format
-     * @param dateString    Date string text
-     * @return Boolean      Return true if dateString follows mm/dd/yyyy format
-     */
-    private boolean isValidDateString(String dateString) {
-        String day, month, year;
-        String[] dateFields = dateString.split("/");
+    public Long getFlightDuration() {
 
-        if (dateFields.length == 3) {
-            month = dateFields[0];
-            day = dateFields[1];
-            year = dateFields[2];
-
-            return (day.matches("[0-9]") || day.matches("[0-2][0-9]") || day.matches("[3][0-1]"))
-                    && (month.matches("[0-9]") || month.matches("0[0-9]") || month.matches("1[0-2]"))
-                    && year.matches("[1-2][0-9][0-9][0-9]");
-        } else {
-            return false;
-        }
-
+        return(arrivalDateAndTime.getTime()/60000 - departureDateAndTime.getTime()/60000);
     }
 
-    /**
-     * Validate that the string is of hh:mm format
-     * @param timeString    Time string text
-     * @return Boolean      Return true if timeString follows hh:mm format
-     */
-    private boolean isValidTimeString(String timeString) {
-        String hour, minutes;
-        String[] dateFields = timeString.split(":");
-
-        if (dateFields.length == 2) {
-            hour = dateFields[0];
-            minutes = dateFields[1];
-
-            return (hour.matches("[0-9]") || hour.matches("[0-1][0-9]")  || hour.matches("[2][0-3]"))
-                    && (minutes.matches("[0-9]") || minutes.matches("[0-5][0-9]"));
-        } else {
-            return false;
-        }
-
+    @Override
+    public int compareTo(Flight o) {
+        if(this.getSource().equals(o.getSource()))
+            return(this.getArrival().compareTo(o.getDeparture()));
+        else
+            return(this.getSource().compareTo(o.getSource()));
     }
 }

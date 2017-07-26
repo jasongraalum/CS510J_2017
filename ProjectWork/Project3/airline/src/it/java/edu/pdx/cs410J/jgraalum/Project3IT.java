@@ -15,6 +15,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
@@ -22,7 +23,7 @@ import static org.junit.Assert.fail;
  */
 public class Project3IT extends InvokeMainTestCase {
 
-    private static String tempDirectoryName = "./Project2IT_TempFiles";
+    private static String tempDirectoryName = "./Project3IT_TempFiles";
     private static File temporaryDirectory;
     @BeforeClass
     public static void setup() {
@@ -57,15 +58,15 @@ public class Project3IT extends InvokeMainTestCase {
 
     @Test
     public void testCorrectFlightArguments() {
-        MainMethodResult result = invokeMain("AirlineName","123","SRC","12/31/1901","12:30","DES","01/01/1902","23:59");
+        MainMethodResult result = invokeMain("AirlineName","123","BOI","12/31/1901","12:30","AM", "PDX","01/01/1902","12:59", "PM");
         assertThat(result.getTextWrittenToStandardOut(), equalTo(""));
         assertThat(result.getExitCode(), equalTo(0));
     }
 
     @Test
     public void testCorrectFlightArgumentsWithPrint() {
-        MainMethodResult result = invokeMain("-print","AirlineName","123","SRC","12/31/1901","12:30","DES","01/01/1902","23:45");
-        assertThat(result.getTextWrittenToStandardOut(), equalTo("AirlineName with 1 flights\nFlight 123 departs SRC at 12/31/1901 12:30 arrives DES at 01/01/1902 23:45\n"));
+        MainMethodResult result = invokeMain("-print","AirlineName","123","BOI","12/31/1901","12:30","AM", "PDX","01/01/1902","12:59", "PM");
+        assertThat(result.getTextWrittenToStandardOut(), equalTo("AirlineName with 1 flights\nFlight 123 departs BOI at 12/31/1901 12:30 AM arrives PDX at 01/01/1902 12:59 PM\n"));
         assertThat(result.getExitCode(), equalTo(0));
     }
     @Test
@@ -77,15 +78,15 @@ public class Project3IT extends InvokeMainTestCase {
 
     @Test
     public void testAddFlightToFile() throws IOException {
-        String testExpectedFileName = "P2_Int_One_Plus_One_Flight_Test.xml";
-        String testInputFileName = "P2_Int_One_Flight_Test.xml";
+        String testExpectedFileName = "P3_Int_One_Plus_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_One_Flight_Test.xml";
         String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
 
         ClassLoader classLoader = getClass().getClassLoader();
         String testInputFileWithPath = classLoader.getResource(testInputFileName).getPath();
 
         copyTestFile(testInputFileWithPath,testOutputFileName);
-        MainMethodResult result = invokeMain("-textFile",testOutputFileName, "Airline XYZ","321","ABC","02/02/1902","2:00","FGH","1/5/2017","3:30");
+        MainMethodResult result = invokeMain("-textFile",testOutputFileName, "Airline XYZ","321","SEA","02/02/1902","2:00", "PM", "PDX","1/5/2017","3:30", "AM");
 
         final File expected = new File(classLoader.getResource(testExpectedFileName).getFile());
         List<String> expectedStrings = FileUtils.readLines(expected);
@@ -96,15 +97,15 @@ public class Project3IT extends InvokeMainTestCase {
     }
     @Test
     public void testAddFlightToFileAndPrint() throws IOException {
-        String testExpectedFileName = "P2_Int_One_Plus_One_Flight_Test.xml";
-        String testInputFileName = "P2_Int_One_Flight_Test.xml";
+        String testExpectedFileName = "P3_Int_One_Plus_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_One_Flight_Test.xml";
         String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
 
         ClassLoader classLoader = getClass().getClassLoader();
         String testInputFileWithPath = classLoader.getResource(testInputFileName).getPath();
 
         copyTestFile(testInputFileWithPath,testOutputFileName);
-        MainMethodResult result = invokeMain("-print", "-textFile",testOutputFileName, "Airline XYZ","321","ABC","02/02/1902","2:00","FGH","1/5/2017","3:30");
+        MainMethodResult result = invokeMain("-print", "-textFile",testOutputFileName, "Airline XYZ","321","SEA","02/02/1902","2:00", "PM", "PDX","1/5/2017","3:30", "AM");
 
         final File expected = new File(classLoader.getResource(testExpectedFileName).getFile());
         List<String> expectedStrings = FileUtils.readLines(expected);
@@ -112,16 +113,16 @@ public class Project3IT extends InvokeMainTestCase {
         final File output = new File(testOutputFileName);
         List<String> outputStrings = FileUtils.readLines(output);
         assertThat(outputStrings, equalTo(expectedStrings));
-        assertThat(result.getTextWrittenToStandardOut(), equalTo("Airline XYZ with 2 flights\nFlight 123 departs ABC at 01/01/1901 12:30 arrives FGH at 01/02/1901 1:30\nFlight 321 departs ABC at 02/02/1902 2:00 arrives FGH at 1/5/2017 3:30\n"));
+        assertThat(result.getTextWrittenToStandardOut(), equalTo("Airline XYZ with 2 flights\nFlight 123 departs DET at 01/01/1901 12:30 AM arrives SEA at 01/02/1901 01:30 PM\nFlight 321 departs SEA at 02/02/1902 02:00 PM arrives PDX at 01/05/2017 03:30 AM\n"));
 
     }
 
     @Test
     public void testWriteFlightToNewFile() throws IOException {
-        String testInputFileName = "P2_Int_Dump_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_Dump_One_Flight_Test.xml";
         String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
 
-        MainMethodResult result = invokeMain("-print", "-textFile",testOutputFileName, "Airline with one flight","123","ABC","12/31/1901","12:30","DES","01/01/1902","23:30");
+        MainMethodResult result = invokeMain("-print", "-textFile",testOutputFileName, "Airline with one flight","123","SFO","12/31/1901","12:30", "PM", "BOI","01/01/1902","11:30", "AM");
 
         ClassLoader classLoader = getClass().getClassLoader();
         String testInputFileWithPath = classLoader.getResource(testInputFileName).getPath();
@@ -131,16 +132,16 @@ public class Project3IT extends InvokeMainTestCase {
 
         final File output = new File(testOutputFileName);
         List<String> outputStrings = FileUtils.readLines(output);
-        assertThat(result.getTextWrittenToStandardOut(), equalTo("Airline with one flight with 1 flights\nFlight 123 departs ABC at 12/31/1901 12:30 arrives DES at 01/01/1902 23:30\n"));
+        assertThat(result.getTextWrittenToStandardOut(), equalTo("Airline with one flight with 1 flights\nFlight 123 departs SFO at 12/31/1901 12:30 PM arrives BOI at 01/01/1902 11:30 AM\n"));
         assertThat(expectedStrings, equalTo(outputStrings));
     }
 
     @Test
     public void testReadMe2ArgumentWithOtherOptions() {
-        String testInputFileName = "P2_Int_Dump_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_Dump_One_Flight_Test.xml";
         String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
 
-        MainMethodResult result = invokeMain("-print", "-README", "-textFile",testOutputFileName,  "Airline with one flight","123","ABC","12/31/1901","12:30","DES","01/01/1902","23:30");
+        MainMethodResult result = invokeMain("-print", "-README", "-textFile", testOutputFileName,  "Airline with one flight","123","ABC","12/31/1901","12:30","DES","01/01/1902","23:30");
 
         assertThat(result.getTextWrittenToStandardOut(), startsWith("usage:"));
         assertThat(result.getExitCode(), equalTo(1));
@@ -148,7 +149,7 @@ public class Project3IT extends InvokeMainTestCase {
 
     @Test
     public void testReadMe3ArgumentWithOtherOptions() {
-        String testInputFileName = "P2_Int_Dump_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_Dump_One_Flight_Test.xml";
         String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
 
         MainMethodResult result = invokeMain("-print", "-textFile",testOutputFileName, "-README", "Airline with one flight","123","ABC","12/31/1901","12:30","DES","01/01/1902","23:30");
@@ -161,14 +162,14 @@ public class Project3IT extends InvokeMainTestCase {
 
     @Test
     public void testReadFromFileAndPrint() throws IOException {
-        String testInputFileName = "P2_Int_Dump_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_Dump_One_Flight_Test.xml";
 
         ClassLoader classLoader = getClass().getClassLoader();
         String testInputFileWithPath = classLoader.getResource(testInputFileName).getPath();
 
         MainMethodResult result = invokeMain("-textFile",testInputFileWithPath, "-print");
 
-        assertThat(result.getTextWrittenToStandardOut(), equalTo("Airline with one flight with 1 flights\nFlight 123 departs ABC at 12/31/1901 12:30 arrives DES at 01/01/1902 23:30\n"));
+        assertThat(result.getTextWrittenToStandardOut(), equalTo("Airline with one flight with 1 flights\nFlight 123 departs SFO at 12/31/1901 12:30 PM arrives BOI at 01/01/1902 11:30 AM\n"));
     }
 
     public static void copyTestFile(String srcFile, String destFile) {
@@ -195,6 +196,63 @@ public class Project3IT extends InvokeMainTestCase {
 
     }
 
+    @Test
+    public void testAddFlightToFileAndPrettyPrintFile() throws IOException {
+        String testExpectedFileName = "P3_Int_One_Plus_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_One_Flight_Test.xml";
+        String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
+
+        String testExpectedPrettyFileName = "P3_Int_One_Plus_One_Flight_Test_output.txt";
+        String testOutputPrettyFileName = tempDirectoryName + "/P3_Int_One_Plus_One_Flight_Test_output.txt";
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        String testInputFileWithPath = classLoader.getResource(testInputFileName).getPath();
+
+        copyTestFile(testInputFileWithPath,testOutputFileName);
+        MainMethodResult result = invokeMain("-pretty", testExpectedPrettyFileName, "-textFile",testOutputFileName, "Airline XYZ","321","SEA","02/02/1902","2:00", "PM", "PDX","1/5/2017","3:30", "AM");
+
+        final File expected = new File(classLoader.getResource(testExpectedFileName).getFile());
+        List<String> expectedStrings = FileUtils.readLines(expected);
+
+        final File output = new File(testOutputFileName);
+        List<String> outputStrings = FileUtils.readLines(output);
+        assertThat(outputStrings, equalTo(expectedStrings));
+
+        final File expectedPretty = new File(classLoader.getResource(testExpectedPrettyFileName).getFile());
+        //List<String> expectedStrings = FileUtils.readLines(expected);
+
+        final File outputPretty = new File(testOutputPrettyFileName);
+        //List<String> outputStrings = FileUtils.readLines(output);
+
+        assertEquals("The files differ", FileUtils.readFileToString(expectedPretty, "utf-8"),FileUtils.readFileToString(outputPretty,"utf-8"));
+    }
+
+    @Test
+    public void testAddFlightToFileAndPrettyPrintStdOut() throws IOException {
+        String testExpectedFileName = "P3_Int_One_Plus_One_Flight_Test.xml";
+        String testInputFileName = "P3_Int_One_Flight_Test.xml";
+        String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        String testInputFileWithPath = classLoader.getResource(testInputFileName).getPath();
+
+        copyTestFile(testInputFileWithPath,testOutputFileName);
+        MainMethodResult result = invokeMain("-pretty", "-", "-textFile",testOutputFileName, "Airline XYZ","321","SEA","02/02/1902","2:00", "PM", "PDX","1/5/2017","3:30", "AM");
+
+        final File expected = new File(classLoader.getResource(testExpectedFileName).getFile());
+        List<String> expectedStrings = FileUtils.readLines(expected);
+
+        final File output = new File(testOutputFileName);
+        List<String> outputStrings = FileUtils.readLines(output);
+        assertThat(outputStrings, equalTo(expectedStrings));
+        assertThat(result.getTextWrittenToStandardOut(), equalTo("Flight Schedule for Airline: Airline XYZ\n" +
+                "========================================================================================================================================\n" +
+                "             Flight # |               Source |       Departure Time |          Destination |        Arrival Time  |      Flight Duration\n" +
+                "----------------------------------------------------------------------------------------------------------------------------------------\n" +
+                "                  123 |   Detroit, MI (City) |  01/01/1901 12:30 AM |          Seattle, WA |  01/02/1901 01:30 PM | 2220 minutes\n" +
+                "                  321 |          Seattle, WA |  02/02/1902 02:00 PM |         Portland, OR |  01/05/2017 03:30 AM | 60444810 minutes"));
+
+    }
     @AfterClass
     public static void teardown() throws IOException {
         if(temporaryDirectory.exists()){
