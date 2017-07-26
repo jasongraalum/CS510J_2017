@@ -202,14 +202,14 @@ public class Project3IT extends InvokeMainTestCase {
         String testInputFileName = "P3_Int_One_Flight_Test.xml";
         String testOutputFileName = tempDirectoryName + "/" + testInputFileName + ".dump";
 
-        String testExpectedPrettyFileName = "P3_Int_One_Plus_One_Flight_Test_output.txt";
-        String testOutputPrettyFileName = tempDirectoryName + "/P3_Int_One_Plus_One_Flight_Test_output.txt";
+        String testExpectedPrettyFileName = "P3_Int_One_Plus_One_Flight_Test.txt";
+        String testOutputPrettyFileName = tempDirectoryName + "/" + testExpectedPrettyFileName + ".dump";
 
         ClassLoader classLoader = getClass().getClassLoader();
         String testInputFileWithPath = classLoader.getResource(testInputFileName).getPath();
 
         copyTestFile(testInputFileWithPath,testOutputFileName);
-        MainMethodResult result = invokeMain("-pretty", testExpectedPrettyFileName, "-textFile",testOutputFileName, "Airline XYZ","321","SEA","02/02/1902","2:00", "PM", "PDX","1/5/2017","3:30", "AM");
+        MainMethodResult result = invokeMain("-pretty", testOutputPrettyFileName, "-textFile",testOutputFileName, "Airline XYZ","321","SEA","02/02/1902","2:00", "PM", "PDX","1/5/2017","3:30", "AM");
 
         final File expected = new File(classLoader.getResource(testExpectedFileName).getFile());
         List<String> expectedStrings = FileUtils.readLines(expected);
