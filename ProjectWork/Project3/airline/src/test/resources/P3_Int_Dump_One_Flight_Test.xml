@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<airline>
+    <name>Airline with one flight</name>
+    <flight>
+        <number>123</number>
+        <source>
+            <id>SFO</id>
+            <date>12/31/1901 12:30 PM</date>
+        </source>
+        <destination>
+            <id>BOI</id>
+            <date>01/01/1902 11:30 AM</date>
+        </destination>
+    </flight>
+</airline>
