@@ -7,18 +7,22 @@ import edu.pdx.cs410J.AirlineDumper;
 import java.io.*;
 import java.util.*;
 
-import static java.lang.String.valueOf;
-
 /**
- * Created by Jason Graalum on 7/15/17.
+ * <h1>PrettyPrint Class</h1>
+ * The PrettyPrint Class includes methods and parameters to print formatted Airline
+ * and Flight data to either stdout or a text file.
+ *
+ * @author Jason Graalum
+ * @version 1.0
+ *
  */
 public class PrettyPrinter implements AirlineDumper {
 
-    String fileName;
-    Formatter formattedOutput = null;
+    private String fileName;
+    private Formatter formattedOutput = null;
     Integer openTags = 0;
 
-    public void setFileName(String name) {
+    void setFileName(String name) {
         fileName = name;
     }
 
@@ -37,20 +41,12 @@ public class PrettyPrinter implements AirlineDumper {
             }
             writePrettyHeader(airline.getName());
 
-
             List<Flight> flights = (List<Flight>) airline.getFlights();
-            Comparator<Flight> comparator = new Comparator<Flight>() {
+            Comparator<Flight> comparator = Flight::compareTo;
 
-                public int compare(Flight f1, Flight f2) {
-                    return f1.compareTo(f2); // use your logic
-                }
-            };
+            flights.sort(comparator);
 
-            Collections.sort(flights, comparator);
-
-            for(Iterator iterator = flights.iterator(); iterator.hasNext();)
-            {
-                Flight flight = (Flight) iterator.next();
+            for (Flight flight : flights) {
                 writePrettyFlight(flight);
             }
 
@@ -78,7 +74,6 @@ public class PrettyPrinter implements AirlineDumper {
     }
 
     private void writePrettyFlight(AbstractFlight f) throws IOException {
-        Flight flight = (Flight) f;
 
         formattedOutput.format("\n %20d | %20s | %20s | %20s | %20s | %d minutes",
                 f.getNumber(),
@@ -86,17 +81,7 @@ public class PrettyPrinter implements AirlineDumper {
                 f.getDepartureString(),
                 ((Flight) f).getDestinationName(),
                 f.getArrivalString(),
-                ((Flight) f).getFlightDuration(), ""
+                ((Flight) f).getFlightDuration()
         );
-
-
-
     }
-
-
-
-
-
-
-
 }
