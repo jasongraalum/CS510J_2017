@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>HTML Test Form for Airline Flight Add and Search</title>
+    <style type="text/css">
+        div {
+            padding-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+
+This page is used to test adding flights to an airline and searching flights originating from a specified airport.
+
+</h1>
+
+<h2>
+    These forms let you interact with the simple key/value REST API that
+    is created by the project archetype.
+</h2>
+
+<div>
+    <form method="get" action="flights">
+        Print all flights <br>
+        Airline Name: <input name="airlineName" type="text" size="10" title="airlineName"/> <br>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+<div>
+    <form method="get" action="flights">
+        Print all flights <br>
+        Airline Name: <input name="airlineName" type="text" size="10" title="airlineName"/> <br>
+        Source Airport: <input name="sourceAirportCode" type="text" size="10" title="sourceAirportCode"/> <br>
+        Destination Airport: <input name="destinationAirportCode" type="text" size="10" title="destinationAirportCode"/> <br>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+<div>
+    <form method="post" action="flights">
+        Create a new flight <br>
+        Airline Name: <input name="airlineName" type="text" size="10" title="airlineName"/> <br>
+        Flight Number: <input name="flightNumber" type="text" size="10" title="flightNumber"/> <br>
+        Source Airport: <input name="sourceAirportCode" type="text" size="10" title="sourceAirportCode"/> <br>
+        Departure Date/Time: <input name="departureDateTime" type="text" size="10" title="departureDateTime"/> <br>
+        Destination Airport: <input name="destinationAirportCode" type="text" size="10" title="destinationAirportCode"/> <br>
+        Arrival Date/Time: <input name="arrivalDateTime" type="text" size="10" title="arrivalDateTime"/> <br>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+</body>
+</html>
