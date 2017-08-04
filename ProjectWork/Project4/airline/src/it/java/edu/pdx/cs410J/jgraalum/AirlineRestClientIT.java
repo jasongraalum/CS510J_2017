@@ -40,11 +40,4 @@ public class AirlineRestClientIT {
     client.getAllFlights(airlineName);
   }
 
-  @Test
-  public void test4MissingRequiredParameterReturnsPreconditionFailed() throws IOException {
-    AirlineRestClient client = newAirlineRestClient();
-    Response response = client.postToMyURL();
-    assertThat(response.getContent(), containsString(Messages.missingRequiredParameter("key")));
-    assertThat(response.getCode(), equalTo(HttpURLConnection.HTTP_PRECON_FAILED));
-  }
 }

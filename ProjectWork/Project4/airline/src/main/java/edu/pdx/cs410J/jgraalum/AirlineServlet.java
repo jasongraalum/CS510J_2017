@@ -92,7 +92,7 @@ public class AirlineServlet extends HttpServlet {
             }
             //System.out.println("Searching for flights between " + sourceAirportCode + " and " + destinationAirportCode);
             prettyOutput = prettyPrinter.toString(airline, sourceAirportCode, destinationAirportCode);
-            System.out.print(prettyOutput);
+            //System.out.print(prettyOutput);
             if (prettyOutput == null) {
                 noFlightsForAirline(response, airlineName, sourceAirportCode, destinationAirportCode);
                 response.sendError(HttpServletResponse.SC_OK, "No Flights Found");
@@ -189,7 +189,7 @@ public class AirlineServlet extends HttpServlet {
             return;
         }
 
-        System.out.println(airlineName);
+        //System.out.println(airlineName);
 
         Airline airline = airlineData.get(airlineName);
 

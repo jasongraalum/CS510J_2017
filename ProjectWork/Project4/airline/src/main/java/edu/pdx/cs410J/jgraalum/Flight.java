@@ -45,7 +45,7 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
 
         isValidFlight = true;
 
-        System.out.print(flightData.toString());
+        //System.out.print(flightData.toString());
         if(flightData.length != 9 && flightData.length != 5) {
             throw new ParserException("Invalid number of flight arguments:  " + Arrays.toString(flightData));
         }

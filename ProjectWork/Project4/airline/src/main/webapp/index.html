@@ -27,7 +27,7 @@ This page is used to test adding flights to an airline and searching flights ori
 <div>
     <form method="get" action="flights">
         Print all flights <br>
-        Airline Name: <input name="airlineName" type="text" size="10" title="airlineName"/> <br>
+        Airline Name: <input name="name" type="text" size="10" title="name"/> <br>
         <input type="submit" value="Submit"/>
     </form>
 </div>
@@ -35,9 +35,9 @@ This page is used to test adding flights to an airline and searching flights ori
 <div>
     <form method="get" action="flights">
         Print all flights <br>
-        Airline Name: <input name="airlineName" type="text" size="10" title="airlineName"/> <br>
-        Source Airport: <input name="sourceAirportCode" type="text" size="10" title="sourceAirportCode"/> <br>
-        Destination Airport: <input name="destinationAirportCode" type="text" size="10" title="destinationAirportCode"/> <br>
+        Airline Name: <input name="name" type="text" size="10" title="name"/> <br>
+        Source Airport: <input name="src" type="text" size="10" title="src"/> <br>
+        Destination Airport: <input name="dest" type="text" size="10" title="dest"/> <br>
         <input type="submit" value="Submit"/>
     </form>
 </div>
@@ -45,12 +45,12 @@ This page is used to test adding flights to an airline and searching flights ori
 <div>
     <form method="post" action="flights">
         Create a new flight <br>
-        Airline Name: <input name="airlineName" type="text" size="10" title="airlineName"/> <br>
+        Airline Name: <input name="name" type="text" size="10" title="name"/> <br>
         Flight Number: <input name="flightNumber" type="text" size="10" title="flightNumber"/> <br>
-        Source Airport: <input name="sourceAirportCode" type="text" size="10" title="sourceAirportCode"/> <br>
-        Departure Date/Time: <input name="departureDateTime" type="text" size="10" title="departureDateTime"/> <br>
-        Destination Airport: <input name="destinationAirportCode" type="text" size="10" title="destinationAirportCode"/> <br>
-        Arrival Date/Time: <input name="arrivalDateTime" type="text" size="10" title="arrivalDateTime"/> <br>
+        Source Airport: <input name="src" type="text" size="10" title="src"/> <br>
+        Departure Date/Time: <input name="departTime" type="text" size="10" title="departTime"/> <br>
+        Destination Airport: <input name="dest" type="text" size="10" title="dest"/> <br>
+        Arrival Date/Time: <input name="arrivaeTime" type="text" size="10" title="arriveTime"/> <br>
         <input type="submit" value="Submit"/>
     </form>
 </div>

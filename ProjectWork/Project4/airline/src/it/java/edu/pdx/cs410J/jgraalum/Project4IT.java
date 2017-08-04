@@ -36,22 +36,7 @@ public class Project4IT extends InvokeMainTestCase {
         assertThat(result.getTextWrittenToStandardError(), containsString(Project4.MISSING_ARGS));
     }
 
-    @Test
-    public void test2EmptyServer() {
-        MainMethodResult result = invokeMain( Project4.class, HOSTNAME, PORT );
-        assertThat(result.getTextWrittenToStandardError(), result.getExitCode(), equalTo(0));
-        String out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(Messages.formatMappingCount(0)));
-    }
 
-    @Test
-    public void test3NoValues() {
-        String key = "KEY";
-        MainMethodResult result = invokeMain( Project4.class, HOSTNAME, PORT, key );
-        assertThat(result.getTextWrittenToStandardError(), result.getExitCode(), equalTo(0));
-        String out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(Messages.formatKeyValuePair(key, null)));
-    }
 
     @Test
     public void testAddFlight() {
