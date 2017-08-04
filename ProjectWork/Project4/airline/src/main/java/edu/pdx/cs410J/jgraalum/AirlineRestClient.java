@@ -1,10 +1,8 @@
 package edu.pdx.cs410J.jgraalum;
 
-import com.google.common.annotations.VisibleForTesting;
 import edu.pdx.cs410J.web.HttpRequestHelper;
 
 import java.io.IOException;
-import java.util.Map;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
@@ -32,21 +30,15 @@ public class AirlineRestClient extends HttpRequestHelper
     }
 
     /**
-     * Returns all flights for all airlines on server
-     */
-    public Map<String, String> getAllAirlinesAllFlights() throws IOException {
-      Response response = get(this.url);
-      return Messages.parseKeyValueMap(response.getContent());
-    }
-
-    /**
      * Returns all flights for given airline
      */
     public String getAllFlights(String airlineName) throws IOException {
-      Response response = get(this.url, "airlineName", airlineName);
-      throwExceptionIfNotOkayHttpStatus(response);
-      String content = response.getContent();
-      return content;
+        //System.out.println("Getting all flights for airline " + airlineName);
+
+        Response response = get(this.url, "name", airlineName);
+        throwExceptionIfNotOkayHttpStatus(response);
+        String content = response.getContent();
+        return content;
     }
 
     /**
@@ -54,8 +46,20 @@ public class AirlineRestClient extends HttpRequestHelper
      */
     public String getFromToFlights(String airlineName, String sourceAirport, String destinationAirport) throws IOException
     {
-        System.out.println("Getting flights for airline " + airlineName + " from " + sourceAirport + " to " + destinationAirport);
-        Response response = get(this.url, "airlineName", airlineName, "sourceAirportCode", sourceAirport, "destinationAirportCode", destinationAirport);
+        //System.out.println("Getting flights for airline " + airlineName + " from " + sourceAirport + " to " + destinationAirport);
+        Response response = get(this.url, "name", airlineName, "src", sourceAirport, "dest", destinationAirport);
+        throwExceptionIfNotOkayHttpStatus(response);
+        String content = response.getContent();
+        return content;
+    }
+
+    /**
+     * Returns specific flights for given airline
+     */
+    public String getFlightFromNumber(String airlineName, String flightNumberString) throws IOException
+    {
+        //System.out.println("Getting flights for airline " + airlineName + " from " + sourceAirport + " to " + destinationAirport);
+        Response response = get(this.url, "name", airlineName, "flightNumber", flightNumberString);
         throwExceptionIfNotOkayHttpStatus(response);
         String content = response.getContent();
         return content;
@@ -67,19 +71,14 @@ public class AirlineRestClient extends HttpRequestHelper
                                    String departureDateTimeAMPM,
                                    String destinationAirportCode,
                                    String arrivalDateTimeAMPM) throws IOException {
-      Response response = postToMyURL("airlineName", airlineName,
+      Response response = post(this.url, "name", airlineName,
               "flightNumber", flightNumber,
-              "sourceAirportCode", sourceAirportCode,
-              "departureDateTime", departureDateTimeAMPM,
-              "destinationAirportCode", destinationAirportCode,
-              "arrivalDateTime", arrivalDateTimeAMPM);
+              "src", sourceAirportCode,
+              "departTime", departureDateTimeAMPM,
+              "dest", destinationAirportCode,
+              "arriveTime", arrivalDateTimeAMPM);
 
       throwExceptionIfNotOkayHttpStatus(response);
-    }
-
-    @VisibleForTesting
-    Response postToMyURL(String... keysAndValues) throws IOException {
-      return post(this.url, keysAndValues);
     }
 
     public void removeAllMappings() throws IOException {
@@ -89,15 +88,11 @@ public class AirlineRestClient extends HttpRequestHelper
 
     private Response throwExceptionIfNotOkayHttpStatus(Response response) {
       int code = response.getCode();
+      String message = response.getContent();
       if (code != HTTP_OK) {
-        throw new AppointmentBookRestException(code);
+        System.out.println("HTTP Status Code: " + code);
+        System.out.println(message);
       }
       return response;
-    }
-
-    private class AppointmentBookRestException extends RuntimeException {
-      public AppointmentBookRestException(int httpStatusCode) {
-        super("Got an HTTP Status Code of " + httpStatusCode);
-      }
     }
 }

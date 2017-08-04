@@ -1,7 +1,5 @@
 package edu.pdx.cs410J.jgraalum;
 
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,30 +10,14 @@ import java.util.regex.Pattern;
  */
 public class Messages
 {
-    public static String formatMappingCount(int count )
-    {
-        return String.format( "Server contains %d key/value pairs", count );
-    }
 
-    public static String formatKeyValuePair( String key, String value )
-    {
-        return String.format("  %s -> %s", key, value);
-    }
+
 
     public static String missingRequiredParameter( String parameterName )
     {
         return String.format("The required parameter \"%s\" is missing", parameterName);
     }
 
-    public static String airlineNameNotFound( String airlineName )
-    {
-        return String.format("No flights for \"%s\" found", airlineName);
-    }
-
-    public static String mappedKeyValue( String key, String value )
-    {
-        return String.format( "Mapped %s to %s", key, value );
-    }
 
     public static String allMappingsDeleted() {
         return "All mappings have been deleted";
@@ -71,24 +53,23 @@ public class Messages
         };
     }
 
-    public static void formatKeyValueMap(PrintWriter pw, Map<String, String> map) {
-        pw.println(Messages.formatMappingCount(map.size()));
-
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            pw.println(Messages.formatKeyValuePair(entry.getKey(), entry.getValue()));
-        }
+    public static String airlineNotFound(String airlineName) {
+        return "Data for airline " + airlineName + " not found.";
     }
 
-    public static Map<String, String> parseKeyValueMap(String content) {
-        Map<String, String> map = new HashMap<>();
+    public static String noFlightsForAirline(String airlineName, String source, String destination) {
+        return "No flights found for airline " + airlineName + " between " + source + " and " + destination;
+    }
 
-        String[] lines = content.split("\n");
-        for (int i = 1; i < lines.length; i++) {
-            String line = lines[i];
-            Map.Entry<String, String> entry = parseKeyValuePair(line);
-            map.put(entry.getKey(), entry.getValue());
-        }
+    public static String noFlightsForAirline(String airlineName) {
+        return "No flights found for airline " + airlineName;
+    }
 
-        return map;
+    public static String invalidAirportCode(String code) {
+        return code + " is not a valid airport code";
+    }
+
+    public static String invalidDateFormat(String dateString) {
+        return dateString + " does not follow required the MM/DD/YYYY HH:MM AM/PM format";
     }
 }

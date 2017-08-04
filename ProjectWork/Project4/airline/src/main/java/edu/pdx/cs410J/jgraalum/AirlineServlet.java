@@ -1,9 +1,7 @@
 package edu.pdx.cs410J.jgraalum;
 
-import com.google.common.annotations.VisibleForTesting;
+import edu.pdx.cs410J.AirportNames;
 import edu.pdx.cs410J.ParserException;
-
-
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -35,49 +36,78 @@ public class AirlineServlet extends HttpServlet {
     protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
 
     {
-        response.setContentType( "text/plain" );
+        response.setContentType("text/plain");
 
-        String airlineName = getParameter("airlineName",request);
-        String sourceAirportCode = getParameter("sourceAirportCode",request);
-        String destinationAirportCode = getParameter("destinationAirportCode",request);
+        String airlineName = getParameter("name", request);
+        String sourceAirportCode = getParameter("src", request);
+        String destinationAirportCode = getParameter("dest", request);
+        String flightNumberString = getParameter("flightNumber", request);
 
-        if(airlineName == null)
-        {
+
+        //System.out.println("Source = " + sourceAirportCode);
+        //System.out.println("Destination = " + destinationAirportCode);
+
+        if (airlineName == null) {
             missingRequiredParameter(response, "Airline Name");
             return;
         }
 
         Airline airline = airlineData.get(airlineName);
-        if(airline == null)
+        if (airline == null) {
+            airlineNotFound(response, airlineName);
             return;
+        }
 
-        if(sourceAirportCode == null || destinationAirportCode == null) {
-            Collection<Flight> flights = airline.getFlights();
-            for(Flight flight : flights)
-            {
-                System.out.println(flight.getSource());
-            }
-        }
-        else
-        {
-            Collection<Flight> flights = airline.getFlightsFromTo(sourceAirportCode.toUpperCase(), destinationAirportCode.toUpperCase());
-            for(Flight flight : flights)
-            {
-                System.out.println(flight.getSource());
-            }
-        }
+
+        String prettyOutput;
         PrettyPrinter prettyPrinter = new PrettyPrinter();
-        String prettyContent = prettyPrinter.toString(airline);
 
-        PrintWriter pw = response.getWriter();
-        pw.print(prettyContent);
+        if (flightNumberString != null)
+        {
+            //System.out.println("Searching for flight by number");
+            prettyOutput = prettyPrinter.toString(airline,Integer.parseInt(flightNumberString));
+            if (prettyOutput == null) {
+                noFlightsForAirline(response, airlineName);
+                response.sendError(HttpServletResponse.SC_OK, "No Flights Found");
+            }
+        }
+        else if (sourceAirportCode == null || destinationAirportCode == null) {
+            //System.out.println("Searching for all flights");
+            prettyOutput = prettyPrinter.toString(airline);
+            if (prettyOutput == null) {
+                noFlightsForAirline(response, airlineName);
+                response.sendError(HttpServletResponse.SC_OK, "No Flights Found");
+            }
+        } else {
+            if(AirportNames.getName(sourceAirportCode) == null)
+            {
+                invalidAirportCode(response, sourceAirportCode);
+                return;
+            }
 
-        pw.flush();
+            if(AirportNames.getName(destinationAirportCode) == null)
+            {
+                invalidAirportCode(response, destinationAirportCode);
+                return;
+            }
+            //System.out.println("Searching for flights between " + sourceAirportCode + " and " + destinationAirportCode);
+            prettyOutput = prettyPrinter.toString(airline, sourceAirportCode, destinationAirportCode);
+            System.out.print(prettyOutput);
+            if (prettyOutput == null) {
+                noFlightsForAirline(response, airlineName, sourceAirportCode, destinationAirportCode);
+                response.sendError(HttpServletResponse.SC_OK, "No Flights Found");
+            }
 
-        response.setStatus( HttpServletResponse.SC_OK );
-        return;
+        }
+
+        if (prettyOutput != null)
+        {
+            PrintWriter pw = response.getWriter();
+            pw.print(prettyOutput);
+            pw.flush();
+            response.setStatus( HttpServletResponse.SC_OK );
+        }
     }
-
 
     /**
      * Handles an HTTP POST request by storing the key/value pair specified by the
@@ -87,15 +117,15 @@ public class AirlineServlet extends HttpServlet {
     @Override
     protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
     {
-        System.out.println("Executing Post");
+        //System.out.println("Executing Post");
         response.setContentType( "text/plain" );
 
-        String airlineName = getParameter("airlineName",request);
+        String airlineName = getParameter("name",request);
         String flightNumber = getParameter("flightNumber", request);
-        String sourceAirportCode = getParameter("sourceAirportCode",request);
-        String departureDateTime = getParameter("departureDateTime",request);
-        String destinationAirportCode = getParameter("destinationAirportCode",request);
-        String arrivalDateTime = getParameter("arrivalDateTime",request);
+        String sourceAirportCode = getParameter("src",request);
+        String departureDateTime = getParameter("departTime",request);
+        String destinationAirportCode = getParameter("dest",request);
+        String arrivalDateTime = getParameter("arriveTime",request);
 
         if(airlineName == null)
         {
@@ -127,10 +157,35 @@ public class AirlineServlet extends HttpServlet {
             return;
         }
 
-
         if(arrivalDateTime == null)
         {
             missingRequiredParameter(response, "Arrival Date and Time");
+            return;
+        }
+
+        if(AirportNames.getName(sourceAirportCode) == null)
+        {
+            invalidAirportCode(response, sourceAirportCode);
+            return;
+        }
+
+        if(AirportNames.getName(destinationAirportCode) == null)
+        {
+            invalidAirportCode(response, destinationAirportCode);
+            return;
+        }
+
+        DateFormat flightDateAndTime = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        try {
+            flightDateAndTime.parse(arrivalDateTime);
+        } catch (ParseException e) {
+            invalidDateFormat(response, arrivalDateTime);
+            return;
+        }
+        try {
+            flightDateAndTime.parse(departureDateTime);
+        } catch (ParseException e) {
+            invalidDateFormat(response, departureDateTime);
             return;
         }
 
@@ -145,14 +200,14 @@ public class AirlineServlet extends HttpServlet {
         Flight newFlight;
 
         try {
-            System.out.println("Adding Flight: " + flightNumber);
+            //System.out.println("Adding Flight: " + flightNumber);
             newFlight = new Flight(new String[]{flightNumber, sourceAirportCode, departureDateTime, destinationAirportCode, arrivalDateTime});
             airline.addFlight(newFlight);
             airlineData.put(airlineName,airline);
         } catch (ParserException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return;
         }
-
 
         response.setStatus( HttpServletResponse.SC_OK);
     }
@@ -187,20 +242,46 @@ public class AirlineServlet extends HttpServlet {
         String message = Messages.missingRequiredParameter(parameterName);
         response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, message);
     }
-
     /**
-     * Writes an error message about a missing parameter to the HTTP response.
+     * Writes an error message missing airline data to the HTTP response.
      *
-     * The text of the error message is created by {@link Messages#missingRequiredParameter(String)}
      */
-    private void airlineNameNotFound( HttpServletResponse response, String airlineName )
-            throws IOException
-    {
-        String message = Messages.airlineNameNotFound(airlineName);
-        response.sendError(HttpServletResponse.SC_NOT_FOUND , message);
+    private void airlineNotFound(HttpServletResponse response, String airlineName) throws IOException {
+        String message = Messages.airlineNotFound(airlineName);
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, message);
     }
-
-
+    /**
+     * Writes an error message about no flights between a source and destination to the HTTP response.
+     *
+     */
+    private void noFlightsForAirline(HttpServletResponse response, String airlineName, String source, String destination) throws IOException {
+        String message = Messages.noFlightsForAirline(airlineName, source, destination);
+        response.sendError(HttpServletResponse.SC_NO_CONTENT, message);
+    }
+    /**
+     * Writes an error message about no flights included in airline to the HTTP response.
+     *
+     */
+    private void noFlightsForAirline(HttpServletResponse response, String airlineName) throws IOException {
+        String message = Messages.noFlightsForAirline(airlineName);
+        response.sendError(HttpServletResponse.SC_NO_CONTENT, message);
+    }
+    /**
+     * Writes an error message about invalid airport code to the HTTP response.
+     *
+     */
+    private void invalidAirportCode(HttpServletResponse response, String code) throws IOException {
+        String message = Messages.invalidAirportCode(code);
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, message);
+    }
+    /**
+     * Writes an error message about incorrectly formatted date string to the HTTP response.
+     *
+     */
+    private void invalidDateFormat(HttpServletResponse response, String datestring) throws IOException {
+        String message = Messages.invalidDateFormat(datestring);
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, message);
+    }
 
     /**
      * Returns the value of the HTTP request parameter with the given name.
@@ -218,13 +299,12 @@ public class AirlineServlet extends HttpServlet {
         }
     }
 
-
-
     /**
      * If the input file exists, try to parse it and create airlineFromFile.
      * If the input file does not exist, set createNewFile to true
      *
-     * @throws ParserException
+     * @throws ParserException,FileNotFoundException
+     * @param airlineName - String containing name of airline.
      */
     private static Airline checkForAndParseFile(String airlineName) throws ParserException, FileNotFoundException {
 
@@ -251,7 +331,5 @@ public class AirlineServlet extends HttpServlet {
         }
         return airlineFromFile;
     }
-
-
 
 }

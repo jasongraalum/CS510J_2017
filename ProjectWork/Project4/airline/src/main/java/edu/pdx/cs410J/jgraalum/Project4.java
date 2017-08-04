@@ -90,12 +90,15 @@ public class Project4 {
         if(ReadMeOption)
             usage("ReadMe:", 0);
 
-        System.out.println("Host: " + hostName + " Port: " + portString);
+        if (airlineName == null)
+            usage("Missing Airline Name", 1);
+
         if ((hostName != null) && (portString == null) )
             usage( "Missing port",1 );
 
         if(hostName != null && portString != null)
         {
+            //System.out.println("Host: " + hostName + " Port: " + portString);
             int port;
             try {
                 port = Integer.parseInt( portString );
@@ -104,49 +107,65 @@ public class Project4 {
                 return;
             }
 
-
             AirlineRestClient client = new AirlineRestClient(hostName, port);
 
+            String message;
             try {
                 if(searchOption)
                 {
-                    String message;
-                    if(searchSource == null || searchDestination == null)
+                    if(searchSource == null || searchDestination == null) {
                         message = client.getAllFlights(airlineName);
-                    else
-                        message = client.getFromToFlights(airlineName,searchSource,searchDestination);
+                        //System.out.println("Search for all flights");
+                    }
+                    else {
+                        //System.out.println("Searching for flights");
+                        message = client.getFromToFlights(airlineName, searchSource, searchDestination);
+                    }
                     System.out.println(message);
                 }
-                else
+                else if(createNewFlight)
                 {
-                    if(createNewFlight)
-                    {
-                        String[] flightDataArray = new String[flightData.size()];
-                        flightDataArray = flightData.toArray(flightDataArray);
-
-                        String flightNumberString = flightDataArray[0].trim();
-
-                        String sourceAirportCode = flightDataArray[1].trim().toUpperCase();
-                        String departureDateString = flightDataArray[2].trim();
-                        String departureTimeString = flightDataArray[3].trim();
-                        String departureAMPMString = flightDataArray[4].trim();
-                        String departureDateTimeString = departureDateString + " " + departureTimeString + " " + departureAMPMString;
-
-                        String destinationAirportCode = flightDataArray[5].trim().toUpperCase();
-                        String arrivalDateString = flightDataArray[6].trim();
-                        String arrivalTimeString = flightDataArray[7].trim();
-                        String arrivalAMPMString = flightDataArray[8].trim();
-                        String arrivalDateTimeString = arrivalDateString + " " + arrivalTimeString + " " + arrivalAMPMString;
-
-
-                        client.addFlightToAirline(airlineName,
-                                flightNumberString,
-                                sourceAirportCode,
-                                departureDateTimeString,
-                                destinationAirportCode,
-                                arrivalDateTimeString);
-
+                    if (flightData.size() != 9) {
+                        usage("Incomplete flight parameters provided", 1);
                     }
+
+                    String[] flightDataArray = new String[flightData.size()];
+                    flightDataArray = flightData.toArray(flightDataArray);
+
+                    String flightNumberString = flightDataArray[0].trim();
+
+                    String sourceAirportCode = flightDataArray[1].trim().toUpperCase();
+                    String departureDateString = flightDataArray[2].trim();
+                    String departureTimeString = flightDataArray[3].trim();
+                    String departureAMPMString = flightDataArray[4].trim();
+                    String departureDateTimeString = departureDateString + " " + departureTimeString + " " + departureAMPMString;
+
+                    String destinationAirportCode = flightDataArray[5].trim().toUpperCase();
+                    String arrivalDateString = flightDataArray[6].trim();
+                    String arrivalTimeString = flightDataArray[7].trim();
+                    String arrivalAMPMString = flightDataArray[8].trim();
+                    String arrivalDateTimeString = arrivalDateString + " " + arrivalTimeString + " " + arrivalAMPMString;
+
+
+                    client.addFlightToAirline(airlineName,
+                            flightNumberString,
+                            sourceAirportCode,
+                            departureDateTimeString,
+                            destinationAirportCode,
+                            arrivalDateTimeString);
+
+                    if(printOption)
+                    {
+                        message = client.getFlightFromNumber(airlineName, flightNumberString);
+                        System.out.println(message);
+                    }
+
+
+                }
+                else if(printOption)
+                {
+                    message = client.getAllFlights(airlineName);
+                    System.out.println(message);
                 }
             } catch (IOException ex) {
                 error("While contacting server: " + ex);            }
@@ -165,9 +184,9 @@ public class Project4 {
     /**
      * Print the usage message and exit with status e
      *
-     * @param e
+     * @param e   return code
      */
-    public static void usage(String message, Integer e) {
+    private static void usage(String message, Integer e) {
 
         String packageName = Project4.class.getCanonicalName();
 
@@ -230,12 +249,15 @@ public class Project4 {
             else if(arg.equals("-search"))
             {
                 searchOption = true;
-                airlineNameSB.append(argListIterator.next());
-                if(airlineNameSB.charAt(0) == '\"')
-                    while(airlineNameSB.charAt(airlineNameSB.length()-1) != '\"') {
-                        airlineNameSB.append(" ");
-                        airlineNameSB.append(argListIterator.next());
-                    }
+                if(argListIterator.hasNext()) {
+                    airlineNameSB.append(argListIterator.next());
+                    if (airlineNameSB.charAt(0) == '\"')
+                        while (airlineNameSB.charAt(airlineNameSB.length() - 1) != '\"') {
+                            airlineNameSB.append(" ");
+                            airlineNameSB.append(argListIterator.next());
+                        }
+                }
+
                 if(argListIterator.hasNext())
                     searchSource = argListIterator.next();
                 else
@@ -244,9 +266,6 @@ public class Project4 {
                     searchDestination = argListIterator.next();
                 else
                     searchDestination = null;
-
-
-
             }
             else if(airlineNameSB.length() == 0) {
                 airlineNameSB.append(arg);
@@ -261,14 +280,18 @@ public class Project4 {
                 createNewFlight = true;
                 flightData.add(arg);
             }
-
         }
-        if(airlineNameSB.length() > 0)
-            if(airlineNameSB.charAt(0) == '\"') {
+        if(airlineNameSB.length() > 0) {
+            if (airlineNameSB.charAt(0) == '\"') {
                 airlineNameSB.deleteCharAt(0);
-                airlineNameSB.deleteCharAt(airlineNameSB.length()-1);
+                airlineNameSB.deleteCharAt(airlineNameSB.length() - 1);
             }
-        airlineName = airlineNameSB.toString();
-        System.out.println("Airline Name = " + airlineName);
+            airlineName = airlineNameSB.toString();
+            //System.out.println("Airline Name = " + airlineName);
+        }
+        else {
+            airlineName = null;
+            //System.out.println("Airline Name = empty");
+        }
     }
 }

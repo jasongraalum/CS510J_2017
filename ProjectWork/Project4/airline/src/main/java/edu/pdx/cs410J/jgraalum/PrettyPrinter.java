@@ -6,7 +6,6 @@ import edu.pdx.cs410J.AirlineDumper;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.Format;
 import java.util.*;
 
 /**
@@ -68,28 +67,80 @@ public class PrettyPrinter implements AirlineDumper {
 
     }
 
-    public String toString(Airline airline, String source, String destination) throws IOException {
+    /**
+     * Call prettyPrinter to print flight specified by flightNumber
+     *
+     * @param airline  - Airline object
+     * @param flightNumber - Number of flight to print
+     * @return  Return string with pretty printed strings
+     * @throws IOException
+     */
+    public String toString(Airline airline, Integer flightNumber) throws IOException {
 
         StringBuilder prettyBuffer = new StringBuilder();
-
-        boolean stdOutput = false;
-
         Formatter formattedOutput = new Formatter(prettyBuffer);
+
         writePrettyHeader(formattedOutput, airline.getName());
 
-        List<Flight> flights = (List<Flight>) airline.getFlightsFromTo(source, destination);
-
-        Comparator<Flight> comparator = Flight::compareTo;
-
-        flights.sort(comparator);
+        Collection<Flight> flights =  airline.getFlightsFromTo(flightNumber);
+        List<Flight> listOfFlights = new ArrayList(flights);
+        Collections.sort(listOfFlights,Flight::compareTo);
+        flights = listOfFlights;
 
         for (Flight flight : flights) {
             writePrettyFlight(formattedOutput, flight);
         }
+        formattedOutput.format("\n");
 
-        return formattedOutput.toString();
+        //formattedOutput.format("%d flight(s) were found with number %d\n", flights.size(), flightNumber);
+
+        //System.out.print(prettyBuffer);
+        formattedOutput.flush();
+        return prettyBuffer.toString();
     }
 
+    /**
+     * Call prettyPrinter to print flights with source and destination codes
+     *
+     * @param airline - Airline object
+     * @param source - Source airport code
+     * @param destination - Destination airport code
+     * @return Returns pretty printed string
+     * @throws IOException
+     */
+    public String toString(Airline airline, String source, String destination) throws IOException {
+
+        StringBuilder prettyBuffer = new StringBuilder();
+        Formatter formattedOutput = new Formatter(prettyBuffer);
+
+        writePrettyHeader(formattedOutput, airline.getName(), source, destination);
+
+        Collection<Flight> flights =  airline.getFlightsFromTo(source,destination);
+        List<Flight> listOfFlights = new ArrayList(flights);
+        Collections.sort(listOfFlights,Flight::compareTo);
+        flights = listOfFlights;
+
+
+
+        for (Flight flight : flights) {
+            //System.out.println("Flight: " + flight.getNumber());
+            writePrettyFlight(formattedOutput, flight);
+        }
+        formattedOutput.format("\n");
+
+        formattedOutput.format("%d flight(s) were found between %s and %s\n", flights.size(), source, destination);
+
+        //System.out.print(prettyBuffer);
+        formattedOutput.flush();
+        return prettyBuffer.toString();
+    }
+
+    /**
+     * Call prettyPrinter to print all flights from given airline
+     * @param airline - Airline object
+     * @return
+     * @throws IOException
+     */
     public String toString(Airline airline) throws IOException {
 
         StringBuilder prettyBuffer = new StringBuilder();
@@ -103,16 +154,24 @@ public class PrettyPrinter implements AirlineDumper {
         flights = listOfFlights;
 
         for (Flight flight : flights) {
-            System.out.println("Flight: " + flight.getNumber());
+            //System.out.println("Flight: " + flight.getNumber());
             writePrettyFlight(formattedOutput, flight);
         }
         formattedOutput.format("\n");
+        formattedOutput.format("%d flight(s) were found\n", flights.size());
 
         //System.out.print(prettyBuffer);
         formattedOutput.flush();
         return prettyBuffer.toString();
     }
 
+    /**
+     * Add pretty header for airline "name" to formatter.
+     *
+     * @param formatter
+     * @param name
+     * @throws IOException
+     */
     private void writePrettyHeader(Formatter formatter, String name) throws IOException {
         formatter.format("Flight Schedule for Airline: " + name + "\n");
         formatter.format("========================================================================================================================================\n");
@@ -120,6 +179,29 @@ public class PrettyPrinter implements AirlineDumper {
         formatter.format("----------------------------------------------------------------------------------------------------------------------------------------");
     }
 
+    /**
+     * Add pretty header for airline and flights between source and destination
+     *
+     * @param formatter
+     * @param name
+     * @param source
+     * @param destination
+     * @throws IOException
+     */
+    private void writePrettyHeader(Formatter formatter, String name, String source, String destination) throws IOException {
+        formatter.format("Flight Schedule for " + name + " between " + source + " and " + destination + "\n");
+        formatter.format("========================================================================================================================================\n");
+        formatter.format(" %20s | %20s | %20s | %20s | %20s | %20s\n", "Flight #", "Source", "Departure Time", "Destination", "Arrival Time ", "Flight Duration");
+        formatter.format("----------------------------------------------------------------------------------------------------------------------------------------");
+    }
+
+    /**
+     * Add details for flight f to the formatter
+     *
+     * @param formatter
+     * @param f
+     * @throws IOException
+     */
     private void writePrettyFlight(Formatter formatter, AbstractFlight f) throws IOException {
 
         formatter.format("\n %20d | %20s | %20s | %20s | %20s | %d minutes",

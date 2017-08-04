@@ -72,9 +72,32 @@ public class Airline extends AbstractAirline {
         Collection<Flight> flights = this.getFlights();
         for(Flight flight : flights)
         {
-            if(flight.getSource() == source && flight.getDestination() == destination)
+            if(flight.getSource().equals(source) && flight.getDestination().equals(destination)) {
+                System.out.println(flight.getSource() + " - " + flight.getDestination());
                 fromToFlights.add(flight);
+            }
         }
+        System.out.println("Found " + fromToFlights.size() + " flight(s)");
+        return fromToFlights;
+
+    }
+
+    /**
+     *
+     * @return      Collection of Flights
+     */
+    public Collection<Flight> getFlightsFromTo(Integer flightNumber) {
+
+        Collection fromToFlights = new ArrayList<Flight>();
+
+        Collection<Flight> flights = this.getFlights();
+        for(Flight flight : flights)
+        {
+            if(flight.getNumber() == flightNumber) {
+                fromToFlights.add(flight);
+            }
+        }
+        System.out.println("Found " + fromToFlights.size() + " flight(s)");
         return fromToFlights;
 
     }
