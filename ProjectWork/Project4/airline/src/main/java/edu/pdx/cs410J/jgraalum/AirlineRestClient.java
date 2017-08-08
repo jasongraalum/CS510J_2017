@@ -34,10 +34,9 @@ public class AirlineRestClient extends HttpRequestHelper
      */
     public String getAllFlights(String airlineName) throws IOException {
         //System.out.println("Getting all flights for airline " + airlineName);
-
         Response response = get(this.url, "name", airlineName);
-        throwExceptionIfNotOkayHttpStatus(response);
         String content = response.getContent();
+        throwExceptionIfNotOkayHttpStatus(response);
         return content;
     }
 

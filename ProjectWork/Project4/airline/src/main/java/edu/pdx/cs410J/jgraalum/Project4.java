@@ -93,6 +93,9 @@ public class Project4 {
         if (airlineName == null)
             usage("Missing Airline Name", 1);
 
+        if (hostName == null)
+            usage("Missing hostname",1);
+
         if ((hostName != null) && (portString == null) )
             usage( "Missing port",1 );
 
@@ -126,6 +129,7 @@ public class Project4 {
                 else if(createNewFlight)
                 {
                     if (flightData.size() != 9) {
+                        System.out.println(flightData.toString());
                         usage("Incomplete flight parameters provided", 1);
                     }
 
@@ -168,7 +172,9 @@ public class Project4 {
                     System.out.println(message);
                 }
             } catch (IOException ex) {
-                error("While contacting server: " + ex);            }
+
+                error("Unable to connect to server: " + hostName + ":" + portString + "\nPlease verify that server has been started and is running");
+            }
         }
         System.exit(0);
     }
@@ -210,7 +216,7 @@ public class Project4 {
         {
             System.out.println(
                     "    " +
-                            optionNameIter.next() +
+                            optionNameIter.next() + "\t" +
                             optionDescriptionIter.next()
             );
         }
@@ -232,66 +238,66 @@ public class Project4 {
         }
 
         Iterator<String> argListIterator = args.iterator();
-        while(argListIterator.hasNext())
-        {
+        boolean moreOptions = true;
+        String arg = "";
+        while(moreOptions) {
 
-
-            String arg = argListIterator.next();
-
-            if(arg.equals("-README"))
+            arg = argListIterator.next();
+            if (arg.equals("-README"))
                 ReadMeOption = true;
-            else if(arg.equals("-host"))
+            else if (arg.equals("-host"))
                 hostName = argListIterator.next();
-            else if(arg.equals("-port"))
+            else if (arg.equals("-port"))
                 portString = argListIterator.next();
-            else if(arg.equals("-print"))
+            else if (arg.equals("-print"))
                 printOption = true;
-            else if(arg.equals("-search"))
-            {
+            else if (arg.equals("-search")) {
                 searchOption = true;
-                if(argListIterator.hasNext()) {
-                    airlineNameSB.append(argListIterator.next());
-                    if (airlineNameSB.charAt(0) == '\"')
-                        while (airlineNameSB.charAt(airlineNameSB.length() - 1) != '\"') {
-                            airlineNameSB.append(" ");
-                            airlineNameSB.append(argListIterator.next());
-                        }
-                }
+            } else {
+                moreOptions = false;
+            }
+        }
 
-                if(argListIterator.hasNext())
-                    searchSource = argListIterator.next();
-                else
-                    searchSource = null;
-                if(argListIterator.hasNext())
-                    searchDestination = argListIterator.next();
-                else
-                    searchDestination = null;
-            }
-            else if(airlineNameSB.length() == 0) {
-                airlineNameSB.append(arg);
-                if(airlineNameSB.charAt(0) == '\"')
-                    while(airlineNameSB.charAt(airlineNameSB.length()-1) != '\"') {
-                        airlineNameSB.append(" ");
-                        airlineNameSB.append(argListIterator.next());
-                    }
-            }
+        if(arg.length() > 0) {
+            airlineNameSB.append(arg);
+            if (airlineNameSB.charAt(0) == '\"')
+                while (airlineNameSB.charAt(airlineNameSB.length() - 1) != '\"') {
+                    airlineNameSB.append(" ");
+                    airlineNameSB.append(argListIterator.next());
+                }
+        }
+
+        if(searchOption)
+        {
+            if(argListIterator.hasNext())
+                searchSource = argListIterator.next();
             else
+                searchSource = null;
+            if(argListIterator.hasNext())
+                searchDestination = argListIterator.next();
+            else
+                searchDestination = null;
+        }
+        else
+        {
+            while(argListIterator.hasNext())
             {
+                arg = argListIterator.next();
                 createNewFlight = true;
                 flightData.add(arg);
             }
+
         }
+
         if(airlineNameSB.length() > 0) {
             if (airlineNameSB.charAt(0) == '\"') {
                 airlineNameSB.deleteCharAt(0);
                 airlineNameSB.deleteCharAt(airlineNameSB.length() - 1);
             }
             airlineName = airlineNameSB.toString();
-            //System.out.println("Airline Name = " + airlineName);
         }
         else {
             airlineName = null;
-            //System.out.println("Airline Name = empty");
         }
     }
 }
