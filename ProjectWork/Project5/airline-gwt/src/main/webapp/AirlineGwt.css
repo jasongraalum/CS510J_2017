@@ -1,10 +1,15 @@
 .dockpanel2  td {
-    border: 1px solid #BBBBBB;
+    border: 2px solid #BBBBBB;
+    padding: 3px;
+}
+
+.airlinePanel .top {
+    border: 2px solid #BBBBBB;
     padding: 3px;
 }
 .gwt-Label{
-    font-size: 150%;
-    font-weight: bold;
+    font-size: 100%;
+    font-weight: normal;
     color:black;
     padding:5px;
     margin:5px;
