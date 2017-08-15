@@ -3,6 +3,9 @@ package edu.pdx.cs410J.jgraalum.client;
 import edu.pdx.cs410J.AbstractFlight;
 import edu.pdx.cs410J.AirportNames;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import static java.lang.Integer.compare;
 
 /**
@@ -44,8 +47,9 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
      * @param flightData
      *      List of Strings representing flight number, source, departure data and time, destination and arrival date and time.
      */
-    public Flight(String... flightData) {
+    public Flight(String... flightData) throws IllegalArgumentException {
 
+        /*
         sourceAirportCode = "XXX";
         departureDate = "01/01/1901";
         departureTime = "00:00 am";
@@ -54,13 +58,13 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
         arrivalTime = "00:00 am";
         airlineName = "Invalid Airline";
         duration = "-1";
+*/
 
-        if(flightData.length != 9) return;
+        if(flightData.length != 9) {
+            throw new IllegalArgumentException("Incorrect number of arguments: " + flightData.length + " given. 9 expected");
+        };
 
-
-        System.out.print("In Flight Class");
-
-
+        System.out.println("In Flight Class");
 
         Integer i = 0;
         airlineName = flightData[i++];
@@ -73,22 +77,31 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
         arrivalTime = flightData[i++];
         duration = flightData[i++];
 
-        if(flightNumberString.matches("[0-9]*")) {
+        if(!flightNumberString.matches("[0-9]*")) {
+            throw new IllegalArgumentException("Invalid flight number " + flightNumberString + ". Must only include digits[0-9]");
+        }
+        else
             number = Integer.parseInt(flightNumberString);
+
+        if(AirportNames.getName(sourceAirportCode)==null)
+        {
+            throw new IllegalArgumentException("Invalid departure Airport Code: " + sourceAirportCode);
         }
-        else {
-            number = -9999;
+        else
+            sourceAirportName = AirportNames.getName(sourceAirportCode);
+
+        if(AirportNames.getName(destinationAirportCode)==null)
+        {
+            throw new IllegalArgumentException("Invalid arrival Airport Code: " + destinationAirportCode);
+        }
+        else
+            destinationAirportName = AirportNames.getName(destinationAirportCode);
+
+        if(Long.parseLong(duration) < 0)
+        {
+            throw new IllegalArgumentException("Arrival date/time must be after departure date/time.");
         }
 
-        sourceAirportName =  AirportNames.getName(sourceAirportCode);
-        if(sourceAirportName == null) {
-            sourceAirportName = "Not found";
-        }
-
-        destinationAirportName = AirportNames.getName(destinationAirportCode);
-        if(destinationAirportName == null) {
-            destinationAirportName = "Not found";
-        }
 
     }
 

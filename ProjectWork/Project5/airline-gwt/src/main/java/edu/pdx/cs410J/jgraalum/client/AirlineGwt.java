@@ -40,17 +40,6 @@ public class AirlineGwt implements EntryPoint {
     private final Logger logger;
     private       DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
 
-    @VisibleForTesting
-    private Button showAirlineButton;
-
-    @VisibleForTesting
-    private Button showUndeclaredExceptionButton;
-
-    @VisibleForTesting
-    private Button showDeclaredExceptionButton;
-
-    @VisibleForTesting
-    private Button showClientSideExceptionButton;
 
     private VerticalPanel airlineInfoPanel;
     private ListBox airlineListBox;
@@ -77,8 +66,6 @@ public class AirlineGwt implements EntryPoint {
     private Button clearFlightsFilterButton;
 
     static String newAirlineName = "";
-
-    //private  ArrayList<String> airlineNames;
 
     /**
      *
@@ -120,8 +107,6 @@ public class AirlineGwt implements EntryPoint {
         this.airlineService = GWT.create(AirlineService.class);
         this.logger = Logger.getLogger("airline");
         Logger.getLogger("").setLevel(Level.INFO);  // Quiet down the default logging
-        //this.airlineNames = new ArrayList<String>();
-        //createTestAirlines();
     }
 
     /**
@@ -133,14 +118,7 @@ public class AirlineGwt implements EntryPoint {
         StringBuilder sb = new StringBuilder();
         sb.append(unwrapped.toString());
         sb.append('\n');
-
-        for (StackTraceElement element : unwrapped.getStackTrace()) {
-            sb.append("  at ");
-            sb.append(element.toString());
-            sb.append('\n');
-        }
-
-        this.alerter.alert(sb.toString());
+        Window.alert(sb.toString());
     }
 
     /**
@@ -158,51 +136,6 @@ public class AirlineGwt implements EntryPoint {
         }
         return throwable;
     }
-
-    /**
-     *
-     */
-    private void throwClientSideException() {
-        logger.info("About to throw a client-side exception");
-        throw new IllegalStateException("Expected exception on the client side");
-    }
-
-    /**
-     *
-     */
-    private void showUndeclaredException() {
-        logger.info("Calling throwUndeclaredException");
-        airlineService.throwUndeclaredException(new AsyncCallback<Void>() {
-            @Override
-            public void onFailure(Throwable ex) {
-                alertOnException(ex);
-            }
-
-            @Override
-            public void onSuccess(Void aVoid) {
-                alerter.alert("This shouldn't happen");
-            }
-        });
-    }
-
-    /**
-     *
-     */
-    private void showDeclaredException() {
-        logger.info("Calling throwDeclaredException");
-        airlineService.throwDeclaredException(new AsyncCallback<Void>() {
-            @Override
-            public void onFailure(Throwable ex) {
-                alertOnException(ex);
-            }
-
-            @Override
-            public void onSuccess(Void aVoid) {
-                alerter.alert("This shouldn't happen");
-            }
-        });
-    }
-
 
 
     /**
@@ -289,6 +222,7 @@ public class AirlineGwt implements EntryPoint {
                 departureDate + " " + departureTime + " " +
                 arrivalAirportCode + " " +
                 arrivalDate + " " + arrivalTime);
+
         airlineService.addFlight(airlineName,
                 flightNumber,
                 departureAirportCode,
@@ -468,9 +402,9 @@ public class AirlineGwt implements EntryPoint {
 
             final TextBox flightNumberTextBox = new TextBox();
             flightNumberTextBox.setTitle("Flight Number");
-            final AirlineDateTimePanel departDateTime = new AirlineDateTimePanel("Departure");
+            final AirlineDateTimePanel departDateTime = new AirlineDateTimePanel("addFlightDepart","Departure");
             final AirportNamesSelector sourceAirport = new AirportNamesSelector("Departure");
-            final AirlineDateTimePanel arrivalDateTime = new AirlineDateTimePanel("Arrival");
+            final AirlineDateTimePanel arrivalDateTime = new AirlineDateTimePanel("addFlightArrival", "Arrival");
             final AirportNamesSelector destinationAirport = new AirportNamesSelector("Arrival");
 
             final Button OKNewFlightButton = new Button("OK");
@@ -669,7 +603,7 @@ public class AirlineGwt implements EntryPoint {
                         flightTable.setRowData(0,flightCellTableData);
 
                     }
-                });
+                 });
             }
         }
 
@@ -679,39 +613,59 @@ public class AirlineGwt implements EntryPoint {
      */
     private class AirlineDateTimePanel extends AbsolutePanel {
 
-        DatePicker datePicker;
-        Label datePickerLabel;
-        Label boxLabel;
-        Label dateLabel;
-        DateBox dateBox;
-        Label timeLabel;
-        TextBox timeBox;
+        private Label boxLabel;
 
-        public AirlineDateTimePanel(String label) {
+        private Label dateLabel = new Label("Date:");
+        private DateBox dateBox;
+        private String dateString;
+
+        private Label timeLabel = new Label("Time:");
+        private TextBox timeBox;
+        private RadioButton amButton;
+        private RadioButton pmButton;
+        private String timeValue= "12:00";
+
+
+        public AirlineDateTimePanel(String groupName, String label) {
 
             super();
-            datePicker = new DatePicker();
-            datePickerLabel = new Label();
             boxLabel = new Label(label);
-            dateLabel = new Label("Date:");
-            dateBox = new DateBox();
-            timeLabel = new Label("Time:");
-            timeBox = new TextBox();
 
-            datePicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
+            DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
+            dateBox = new DateBox();
+            dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
+            dateBox.setValue(new Date());
+            dateBox.setSize("80px","15px");
+
+            timeBox = new TextBox();
+            timeBox.setText(timeValue);
+            timeBox.setSize("50px","15px");
+
+            amButton = new RadioButton(groupName,"AM");
+            pmButton = new RadioButton(groupName,"PM");
+            amButton.setValue(true);
+
+            dateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
                 @Override
                 public void onValueChange(ValueChangeEvent<Date> event) {
                     Date date = event.getValue();
-                    String dateString =
-                            DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
-                    datePickerLabel.setText(dateString);
+                    dateString = DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
                 }
             });
-            // Set the default value
-            datePicker.setValue(new Date(), true);
-
-            // Create a DateBox
-            dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
+            timeBox.addValueChangeHandler(new ValueChangeHandler<String>() {
+                @Override
+                public void onValueChange(ValueChangeEvent<String> event) {
+                    String newTime = event.getValue();
+                    if(newTime.matches("1[0-2]:[0-5][0-9]") ||
+                            newTime.matches("0[0-9]:[0-5][0-9]") ||
+                            newTime.matches("[0-9]:[0-5][0-9]"))
+                        timeValue = event.getValue();
+                    else {
+                        Window.alert("Invalid Time Format: " + newTime);
+                        timeBox.setValue(timeValue);
+                    }
+                }
+            });
 
             this.setSize("250px","70px");
             this.add(boxLabel,0, 15);
@@ -719,16 +673,55 @@ public class AirlineGwt implements EntryPoint {
             this.add(timeLabel, 60, 33);
             this.add(dateBox, 105, 7);
             this.add(timeBox, 105, 40);
-
+            this.add(amButton, 170, 45);
+            this.add(pmButton, 210, 45);
         }
         public String getDate()
         {
-            return(datePickerLabel.getText());
+            return(dateString);
         }
         public String getTime()
         {
-            return(timeBox.getValue());
+            return(timeValue + (amButton.isEnabled() ? " AM" : " PM"));
         }
+    }
+    /**
+     *
+     */
+    private class AirlineDatePanel extends AbsolutePanel {
+
+        private Label dateBoxLabel;
+        private DateBox dateBox;
+        private String dateString;
+
+        public AirlineDatePanel(String label) {
+
+            super();
+            dateBoxLabel = new Label(label + " Date:");
+
+            DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
+            dateBox = new DateBox();
+            dateBox.setFormat(new DateBox.DefaultFormat(dateFormat));
+            dateBox.setValue(new Date());
+            dateBox.setSize("80px","15px");
+
+            dateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
+                @Override
+                public void onValueChange(ValueChangeEvent<Date> event) {
+                    Date date = event.getValue();
+                    dateString = DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
+                }
+            });
+
+            this.setSize("220px", "50px");
+            this.add(dateBoxLabel, 0, 18);
+            this.add(dateBox, 105, 27);
+        }
+
+        public String getDate() {
+            return (dateString);
+        }
+
     }
 
     private class AirportNamesSelector extends AbsolutePanel
@@ -782,15 +775,15 @@ public class AirlineGwt implements EntryPoint {
         departureAirportNamesDropBox.ensureDebugId("AirlineGWT-FlightSearch-ArrivalAirport-DropBox");
 
 
-        final AirlineDateTimePanel departDate = new AirlineDateTimePanel("Departure");
-        final AirportNamesSelector sourceAirport = new AirportNamesSelector("Depature");
+        final AirlineDatePanel departDate = new AirlineDatePanel("Departure");
+        final AirportNamesSelector sourceAirport = new AirportNamesSelector("Departure");
         flightDepartureFilterPanel = new HorizontalPanel();
-        flightDepartureFilterPanel.setHeight("20px");
+        flightDepartureFilterPanel.setHeight("15px");
         flightDepartureFilterPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
         flightDepartureFilterPanel.add(departDate);
         flightDepartureFilterPanel.add(sourceAirport);
 
-        final AirlineDateTimePanel arrivalDate = new AirlineDateTimePanel("Arrival");
+        final AirlineDatePanel arrivalDate = new AirlineDatePanel("Arrival");
         final AirportNamesSelector destinationAirport = new AirportNamesSelector("Arrival");
         flightArrivalFilterPanel = new HorizontalPanel();
         flightArrivalFilterPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -807,7 +800,7 @@ public class AirlineGwt implements EntryPoint {
 
         HorizontalPanel flightFilterButtonPanel = new HorizontalPanel();
         flightFilterButtonPanel.setBorderWidth(0);
-        flightFilterButtonPanel.setHeight("20px");
+        flightFilterButtonPanel.setHeight("15px");
 
         filterFlightsButton = new Button("Filter Flights");
         filterFlightsButton.addClickHandler(new ClickHandler() {

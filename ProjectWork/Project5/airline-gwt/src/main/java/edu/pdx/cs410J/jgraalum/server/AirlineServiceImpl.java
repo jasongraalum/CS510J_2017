@@ -1,6 +1,8 @@
 package edu.pdx.cs410J.jgraalum.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import edu.pdx.cs410J.AirportNames;
+import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.jgraalum.client.Airline;
 import edu.pdx.cs410J.jgraalum.client.AirlineService;
 import edu.pdx.cs410J.jgraalum.client.Flight;
@@ -8,7 +10,6 @@ import edu.pdx.cs410J.jgraalum.client.Flight;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The server-side implementation of the Airline service
@@ -20,7 +21,7 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
     SimpleDateFormat flightDateTimeFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 
     @Override
-    public ArrayList<String> getAirlineNames() {
+    public ArrayList<String> getAirlineNames() throws IllegalStateException {
 
         ArrayList<String> airlineNames = new ArrayList<String>();
 
@@ -33,16 +34,19 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
     }
 
     @Override
-    public Airline getAirline(String airlineName) {
+    public Airline getAirline(String airlineName) throws IllegalStateException {
         Airline airline = airlineData.get(airlineName);
         return airline;
     }
 
-
-
     @Override
-    public String addAirline(String airlineName) {
-        Airline airline = new Airline(airlineName);
+    public String addAirline(String airlineName) throws IllegalArgumentException {
+        Airline airline = null;
+        try {
+            airline = new Airline(airlineName);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
         if((airlineName.length() > 0) && (airlineData.get(airlineName) == null)) {
             airlineData.put(airlineName, airline);
             System.out.println("Added " + airlineName);
@@ -74,59 +78,56 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
                           String departureTime,
                           String arrivalAirportCode,
                           String arrivalDate,
-                          String arrivalTime){
+                          String arrivalTime) throws IllegalArgumentException  {
+
 
         Long flightDuration = 0L;
+        Date departureDateTime = null;
+        Date arrivalDateTime = null;
         try {
-
-            Date departureDateTime = flightDateTimeFormat.parse(departureDate + " " + departureTime);
-            Date arrivalDateTime = flightDateTimeFormat.parse(arrivalDate + " " + arrivalTime);
-            flightDuration = (arrivalDateTime.getTime() - departureDateTime.getTime())/60000;
-            System.out.println("Calculating duration: " + String.valueOf(flightDuration));
-
+            departureDateTime = flightDateTimeFormat.parse(departureDate + " " + departureTime);
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Incorrect Date/Time Format (departure Date/Time)" + departureDate + " " + departureTime);
         }
+        try {
+            arrivalDateTime = flightDateTimeFormat.parse(arrivalDate + " " + arrivalTime);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Incorrect Date/Time Format (arrival Date/Time)" + arrivalDate + " " + arrivalTime);
+        }
+        flightDuration = (arrivalDateTime.getTime() - departureDateTime.getTime())/60000;
 
         Airline airline = airlineData.get(airlineName);
-        System.out.println("AirlineServiceImpl - Adding flight to airline: " + airline.getName());
-        System.out.println("Flight details: " + flightNumber + " " +
-                departureAirportCode + " " +
-                departureDate + " " +
-                departureTime + " " +
-                arrivalAirportCode + " " +
-                arrivalDate + " " +
-                arrivalTime + " " +
-                String.valueOf(flightDuration)
-               );
-        //Flight flight = null;
+        if(airline == null)
+            throw new IllegalArgumentException("Invalid airline. Unable to find: " + airlineName);
+        else {
+            System.out.println("AirlineServiceImpl - Adding flight to airline: " + airline.getName());
+            System.out.println("Flight details: " + flightNumber + " " +
+                    departureAirportCode + " " +
+                    departureDate + " " +
+                    departureTime + " " +
+                    arrivalAirportCode + " " +
+                    arrivalDate + " " +
+                    arrivalTime + " " +
+                    String.valueOf(flightDuration)
+            );
+            //Flight flight = null;
+            Flight newFlight;
+            try {
+                newFlight = new Flight(airlineName, flightNumber, departureAirportCode, departureDate, departureTime, arrivalAirportCode, arrivalDate, arrivalTime, String.valueOf(flightDuration));
+            } catch (IllegalArgumentException e)
+            {
+                throw new IllegalArgumentException(e);
+            }
+            System.out.println("Successfully created flight");
 
-        airline.addFlight(new Flight(airlineName, flightNumber, departureAirportCode, departureDate, departureTime, arrivalAirportCode, arrivalDate, arrivalTime, String.valueOf(flightDuration)));
+            airline.addFlight(newFlight);
+
+            System.out.println("Flight added to airline");
+
+        }
 
         System.out.println("Total flights for airline: " + airline.getName() + " == " + airline.getFlights().size());
 
-    }
-
-    @Override
-    public void throwUndeclaredException() {
-        throw new IllegalStateException("Expected undeclared exception");
-    }
-
-    @Override
-    public void throwDeclaredException() throws IllegalStateException {
-        throw new IllegalStateException("Expected declared exception");
-    }
-
-    /**
-     * Log unhandled exceptions to standard error
-     *
-     * @param unhandled
-     *        The exception that wasn't handled
-     */
-    @Override
-    protected void doUnexpectedFailure(Throwable unhandled) {
-        unhandled.printStackTrace(System.err);
-        super.doUnexpectedFailure(unhandled);
     }
 
 
