@@ -4,6 +4,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import edu.pdx.cs410J.ParserException;
 
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -35,13 +36,16 @@ public interface AirlineServiceAsync {
   void addFlight(String airlineName,
                  String flightNumber,
                  String departureAirportCode,
-                 String departureDateTime,
+                 String departureDate,
+                 String departureTime,
                  String arrivalAirportCode,
-                 String arrivalDateTime,
+                 String arrivalDate,
+                 String arrivalTime,
                  AsyncCallback<Void> async);
 
   void addAirline(String airlineName, AsyncCallback<String> async);
   void deleteAirline(String airlineName, AsyncCallback<String> async);
   void deleteAllAirline(AsyncCallback<Void> async);
+
 
 }

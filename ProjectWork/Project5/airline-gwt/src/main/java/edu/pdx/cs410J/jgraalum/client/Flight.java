@@ -1,13 +1,7 @@
 package edu.pdx.cs410J.jgraalum.client;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.Window;
 import edu.pdx.cs410J.AbstractFlight;
 import edu.pdx.cs410J.AirportNames;
-import edu.pdx.cs410J.ParserException;
-
-import java.util.Arrays;
-import java.util.Date;
 
 import static java.lang.Integer.compare;
 
@@ -25,84 +19,76 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
     private Integer number;
     private String sourceAirportName;
     private String sourceAirportCode;
-    private Date departureDateAndTime;
+    private String departureDate;
+    private String departureTime;
     private String destinationAirportName;
     private String destinationAirportCode;
-    private Date arrivalDateAndTime;
+    private String arrivalDate;
+    private String arrivalTime;
     private String airlineName;
+    private String duration;
 
-    private transient DateTimeFormat flightDateTime = DateTimeFormat.getFormat("MM/dd/yyyy hh:mm a");
-    private transient DateTimeFormat flightTime = DateTimeFormat.getFormat("hh:mm a");
-    private transient DateTimeFormat flightDate = DateTimeFormat.getFormat("MM/dd/yyyy");
+    //private transient DateTimeFormat flightDateTime = DateTimeFormat.getFormat("MM/dd/yyyy hh:mm a");
+    //private transient DateTimeFormat flightTime = DateTimeFormat.getFormat("hh:mm a");
+    //private transient DateTimeFormat flightDate = DateTimeFormat.getFormat("MM/dd/yyyy");
 
 
     public Flight()
     {
 
     }
+
     /**
      * Creates a new <code>Flight</code>
      *
      * @param flightData
      *      List of Strings representing flight number, source, departure data and time, destination and arrival date and time.
      */
-    public Flight(String... flightData) throws ParserException {
+    public Flight(String... flightData) {
 
-        isValidFlight = true;
+        sourceAirportCode = "XXX";
+        departureDate = "01/01/1901";
+        departureTime = "00:00 am";
+        destinationAirportCode = "XXX";
+        arrivalDate = "01/01/1901";
+        arrivalTime = "00:00 am";
+        airlineName = "Invalid Airline";
+        duration = "-1";
+
+        if(flightData.length != 9) return;
+
 
         System.out.print("In Flight Class");
-        if(flightData.length != 10 && flightData.length != 6) {
-            throw new ParserException("Invalid number of flight arguments:  " + Arrays.toString(flightData));
-        }
 
 
-        String flightNumberString = flightData[0].trim();
-        String departureDateTimeString;
-        String arrivalDateTimeString;
-        if(flightData.length == 6) {
-            sourceAirportCode = flightData[1].trim().toUpperCase();
-            departureDateTimeString = flightData[2];
-            destinationAirportCode = flightData[3].trim().toUpperCase();
-            arrivalDateTimeString = flightData[4];
-            airlineName = flightData[5];
-        }
-        else
-        {
-            sourceAirportCode = flightData[1].trim().toUpperCase();
-            String departureDateString = flightData[2].trim();
-            String departureTimeString = flightData[3].trim();
-            String departureAMPMString = flightData[4].trim();
-            departureDateTimeString = departureDateString + " " + departureTimeString + " " + departureAMPMString;
 
-            destinationAirportCode = flightData[5].trim().toUpperCase();
-            String arrivalDateString = flightData[6].trim();
-            String arrivalTimeString = flightData[7].trim();
-            String arrivalAMPMString = flightData[8].trim();
-            arrivalDateTimeString = arrivalDateString + " " + arrivalTimeString + " " + arrivalAMPMString;
-            airlineName = flightData[9];
-
-        }
+        Integer i = 0;
+        airlineName = flightData[i++];
+        String flightNumberString = flightData[i++].trim();
+        sourceAirportCode = flightData[i++].trim().toUpperCase();
+        departureDate = flightData[i++];
+        departureTime = flightData[i++];
+        destinationAirportCode = flightData[i++].trim().toUpperCase();
+        arrivalDate = flightData[i++];
+        arrivalTime = flightData[i++];
+        duration = flightData[i++];
 
         if(flightNumberString.matches("[0-9]*")) {
             number = Integer.parseInt(flightNumberString);
         }
         else {
-            throw new ParserException("Invalid flight number: " + flightNumberString);
+            number = -9999;
         }
 
         sourceAirportName =  AirportNames.getName(sourceAirportCode);
         if(sourceAirportName == null) {
-            throw new ParserException("Invalid source airport code: " + sourceAirportCode);
+            sourceAirportName = "Not found";
         }
 
         destinationAirportName = AirportNames.getName(destinationAirportCode);
         if(destinationAirportName == null) {
-            throw new ParserException("Invalid destination airport code: " + destinationAirportCode);
+            destinationAirportName = "Not found";
         }
-
-        departureDateAndTime = flightDateTime.parse(departureDateTimeString);
-
-        arrivalDateAndTime = flightDateTime.parse(arrivalDateTimeString);
 
     }
 
@@ -142,7 +128,7 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
      */
     @Override
     public String getDepartureString() {
-        return (flightDateTime.format(departureDateAndTime));
+        return departureDate + " " + departureTime;
     }
 
     /**
@@ -168,7 +154,7 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
      */
     @Override
     public String getArrivalString() {
-        return (flightDateTime.format(arrivalDateAndTime));
+        return arrivalDate + " " + arrivalTime;
     }
 
 
@@ -181,15 +167,11 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
         return airportCode.matches("[a-zA-Z][a-zA-Z][a-zA-Z]");
     }
 
-    public Long getFlightDuration() {
 
-        return(arrivalDateAndTime.getTime()/60000 - departureDateAndTime.getTime()/60000);
-    }
-
-    public String getDepartureTimeString() { return (flightTime.format(departureDateAndTime)); }
-    public String getArrivalTimeString() { return (flightTime.format(arrivalDateAndTime)); }
-    public String getDepartureDateString() { return (flightDate.format(departureDateAndTime)); }
-    public String getArrivalDateString() { return (flightDate.format(arrivalDateAndTime)); }
+    public String getDepartureTimeString() { return (departureTime); }
+    public String getArrivalTimeString() { return (arrivalTime); }
+    public String getDepartureDateString() { return (departureDate); }
+    public String getArrivalDateString() { return (arrivalDate); }
 
     @Override
     public int compareTo(Flight o) {
@@ -198,5 +180,9 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
         if(!this.getDestination().equals(o.getDestination()))
             return(this.getDestination().compareTo(o.getDestination()));
         return(compare(this.getNumber(), o.getNumber()));
+    }
+
+    public String getFlightDuration() {
+        return(this.duration);
     }
 }

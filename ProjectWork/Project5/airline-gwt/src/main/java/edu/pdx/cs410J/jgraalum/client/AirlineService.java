@@ -5,7 +5,9 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import edu.pdx.cs410J.ParserException;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A GWT remote service that returns a dummy airline
@@ -22,9 +24,11 @@ public interface AirlineService extends RemoteService {
   void addFlight(String airlineName,
                  String flightNumber,
                  String departureAirportCode,
-                 String departureDateTime,
+                 String departureDate,
+                 String departureTime,
                  String arrivalAirportCode,
-                 String arrivalDateTime);
+                 String arrivalDate,
+                 String arrivalTime);
 
   /**
    * Always throws an undeclared exception so that we can see GWT handles it.

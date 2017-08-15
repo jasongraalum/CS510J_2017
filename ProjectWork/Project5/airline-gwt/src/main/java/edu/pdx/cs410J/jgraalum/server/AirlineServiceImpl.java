@@ -1,14 +1,14 @@
 package edu.pdx.cs410J.jgraalum.server;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.jgraalum.client.Airline;
 import edu.pdx.cs410J.jgraalum.client.AirlineService;
 import edu.pdx.cs410J.jgraalum.client.Flight;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The server-side implementation of the Airline service
@@ -16,6 +16,8 @@ import java.util.*;
 public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineService
 {
     private Map<String, Airline> airlineData = new HashMap<>();
+
+    SimpleDateFormat flightDateTimeFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 
     @Override
     public ArrayList<String> getAirlineNames() {
@@ -37,6 +39,7 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
     }
 
 
+
     @Override
     public String addAirline(String airlineName) {
         Airline airline = new Airline(airlineName);
@@ -44,6 +47,7 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
             airlineData.put(airlineName, airline);
             System.out.println("Added " + airlineName);
         }
+        System.out.println("Total airlines: " + airlineData.size());
         return(airline.getName());
     }
 
@@ -51,6 +55,7 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
     public String deleteAirline(String airlineName) {
         System.out.println("Removing: " + airlineName);
         airlineData.remove(airlineName);
+        System.out.println("Total airlines: " + airlineData.size());
         return(airlineName);
     }
 
@@ -58,34 +63,47 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
     public void deleteAllAirline() {
         System.out.println("Removing all airlines");
         airlineData.clear();
+        System.out.println("Total airlines: " + airlineData.size());
     }
 
     @Override
     public void addFlight(String airlineName,
                           String flightNumber,
                           String departureAirportCode,
-                          String departureDateTime,
+                          String departureDate,
+                          String departureTime,
                           String arrivalAirportCode,
-                          String arrivalDateTime){
+                          String arrivalDate,
+                          String arrivalTime){
+
+        Long flightDuration = 0L;
+        try {
+
+            Date departureDateTime = flightDateTimeFormat.parse(departureDate + " " + departureTime);
+            Date arrivalDateTime = flightDateTimeFormat.parse(arrivalDate + " " + arrivalTime);
+            flightDuration = (arrivalDateTime.getTime() - departureDateTime.getTime())/60000;
+            System.out.println("Calculating duration: " + String.valueOf(flightDuration));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         Airline airline = airlineData.get(airlineName);
         System.out.println("AirlineServiceImpl - Adding flight to airline: " + airline.getName());
         System.out.println("Flight details: " + flightNumber + " " +
                 departureAirportCode + " " +
-                departureDateTime + " " +
+                departureDate + " " +
+                departureTime + " " +
                 arrivalAirportCode + " " +
-                arrivalDateTime);
-        Flight flight = null;
+                arrivalDate + " " +
+                arrivalTime + " " +
+                String.valueOf(flightDuration)
+               );
+        //Flight flight = null;
 
-        try {
-            flight = new Flight(airlineName, flightNumber, departureAirportCode, departureDateTime, arrivalAirportCode,arrivalDateTime);
-        } catch (ParserException e) {
+        airline.addFlight(new Flight(airlineName, flightNumber, departureAirportCode, departureDate, departureTime, arrivalAirportCode, arrivalDate, arrivalTime, String.valueOf(flightDuration)));
 
-            e.printStackTrace();
-        }
-
-        System.out.println("New flight added: " + flight.getNumber());
-        airline.addFlight(flight);
+        System.out.println("Total flights for airline: " + airline.getName() + " == " + airline.getFlights().size());
 
     }
 
@@ -110,4 +128,6 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
         unhandled.printStackTrace(System.err);
         super.doUnexpectedFailure(unhandled);
     }
+
+
 }

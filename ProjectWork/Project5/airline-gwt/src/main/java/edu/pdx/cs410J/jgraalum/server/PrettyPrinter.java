@@ -1,9 +1,12 @@
-package edu.pdx.cs410J.jgraalum.client;
+package edu.pdx.cs410J.jgraalum.server;
 
 import edu.pdx.cs410J.AbstractAirline;
 import edu.pdx.cs410J.AbstractFlight;
 import edu.pdx.cs410J.AirlineDumper;
+import edu.pdx.cs410J.jgraalum.client.Airline;
+import edu.pdx.cs410J.jgraalum.client.Flight;
 
+//import java.io.FileOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
@@ -53,7 +56,7 @@ public class PrettyPrinter implements AirlineDumper {
 
         } catch (IOException ioe) {
             System.out.println("Error writing to file: " + fileName);
-            System.exit(-1);
+            //System.exit(-1);
         }
         finally
             {

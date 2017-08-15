@@ -25,9 +25,7 @@ import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import edu.pdx.cs410J.AirportNames;
-import edu.pdx.cs410J.ParserException;
 
-import javax.swing.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,13 +65,13 @@ public class AirlineGwt implements EntryPoint {
 
 
     private CellTable<Flight> flightTable;
+    ArrayList<Flight> flightCellTableData;
     private HorizontalPanel flightDepartureFilterPanel;
     private HorizontalPanel flightArrivalFilterPanel;
     private VerticalPanel flightFilterPanel;
     private ListBox departureAirportNamesDropBox;
     private ListBox arrivalAirportNamesDropBox;
 
-    private TextBox flightTextBox;
 
     private Button filterFlightsButton;
     private Button clearFlightsFilterButton;
@@ -220,7 +218,7 @@ public class AirlineGwt implements EntryPoint {
             }
             @Override
             public void onSuccess(String name) {
-                airlineListBox.addItem(name);
+                updateAirlineListBox();
             }
         });
     }
@@ -238,15 +236,25 @@ public class AirlineGwt implements EntryPoint {
             }
             @Override
             public void onSuccess(String name) {
-                for(int i = 0; i < airlineListBox.getItemCount(); i++)
-                {
-                    if(airlineListBox.getValue(i).equals(name))
-                        airlineListBox.removeItem(i);
-                }
+                updateAirlineListBox();
             }
         });
     }
 
+    private void updateAirlineListBox()
+    {
+        airlineService.getAirlineNames(new AsyncCallback<ArrayList<String>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+            }
+            @Override
+            public void onSuccess(ArrayList<String> airlineNames) {
+                airlineListBox.clear();
+                for(String name : airlineNames)
+                    airlineListBox.addItem(name);
+            }
+        });
+    }
     /**
      *
      */
@@ -259,7 +267,7 @@ public class AirlineGwt implements EntryPoint {
             }
             @Override
             public void onSuccess(Void aVoid) {
-                airlineListBox.clear();
+                updateAirlineListBox();
             }
         });
     }
@@ -270,21 +278,25 @@ public class AirlineGwt implements EntryPoint {
      */
     private void addFlight(String airlineName, String flightNumber,
                            String departureAirportCode,
-                           String departureDateTime,
+                           String departureDate,
+                           String departureTime,
                            String arrivalAirportCode,
-                           String arrivalDateTime) {
+                           String arrivalDate,
+                           String arrivalTime) {
         logger.info("AirlineGWT - Adding flight to airline: " + airlineName);
         logger.info("Flight details: " + flightNumber + " " +
-               departureAirportCode + " " +
-                departureDateTime + " " +
+                departureAirportCode + " " +
+                departureDate + " " + departureTime + " " +
                 arrivalAirportCode + " " +
-                arrivalDateTime);
+                arrivalDate + " " + arrivalTime);
         airlineService.addFlight(airlineName,
                 flightNumber,
                 departureAirportCode,
-                departureDateTime,
+                departureDate,
+                departureTime,
                 arrivalAirportCode,
-                arrivalDateTime,
+                arrivalDate,
+                arrivalTime,
                 new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable throwable) {
@@ -292,7 +304,8 @@ public class AirlineGwt implements EntryPoint {
                     }
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                        logger.info("Updating Flight Table");
+                        updateFlightCellTable();
                     }
                 });
 
@@ -359,10 +372,17 @@ public class AirlineGwt implements EntryPoint {
 
         airlineListBox = new ListBox();
         airlineListBox.ensureDebugId("airline-multiBox");
-        airlineListBox.setMultipleSelect(true);
+        airlineListBox.setMultipleSelect(false);
         airlineListBox.setVisibleItemCount(10);
         airlineListBox.setWidth("210px");
         airlineInfoPanel.add(airlineListBox);
+
+        airlineListBox.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+                updateFlightCellTable();
+            }
+        });
     }
 
     /**
@@ -458,24 +478,29 @@ public class AirlineGwt implements EntryPoint {
                 @Override
                 public void onClick(ClickEvent clickEvent) {
 
-                    String departureDateTimeString = departDateTime.getDate() + " " + departDateTime.getTime();
-                    String arrivalDateTimeString = arrivalDateTime.getDate() + " " + arrivalDateTime.getTime();
+                    String departureDateString = departDateTime.getDate();
+                    String arrivalDateString = arrivalDateTime.getDate();
+                    String departureTimeString = departDateTime.getTime();
+                    String arrivalTimeString = arrivalDateTime.getTime();
 
                     logger.info("AirlineGWT - Adding new flight with fields: ");
                     logger.info(newFlightAirlineListBox.getSelectedItemText() + " " +
                             flightNumberTextBox.getText() + " " +
                             sourceAirport.getSelectedAirportCode() + " " +
-                            departureDateTimeString + " " +
+                            departureDateString + " " + departureTimeString + " " +
                             destinationAirport.getSelectedAirportCode() + " " +
-                            arrivalDateTimeString);
-                        addFlight(newFlightAirlineListBox.getSelectedItemText(),
-                                flightNumberTextBox.getText(),
-                                sourceAirport.getSelectedAirportCode(),
-                                departureDateTimeString,
-                                destinationAirport.getSelectedAirportCode(),
-                                arrivalDateTimeString);
+                            arrivalDateString + " " + arrivalTimeString);
+                    addFlight(newFlightAirlineListBox.getSelectedItemText(),
+                            flightNumberTextBox.getText(),
+                            sourceAirport.getSelectedAirportCode(),
+                            departureDateString,
+                            departureTimeString,
+                            destinationAirport.getSelectedAirportCode(),
+                            arrivalDateString,
+                            arrivalTimeString);
 
 
+                    newFlightPopup.super.hide();
                 }
             });
 
@@ -514,7 +539,7 @@ public class AirlineGwt implements EntryPoint {
     private void createFlightCellTable()
     {
         flightTable = new CellTable<Flight>(KEY_PROVIDER);
-        flightTable.setSize("600px", "200px");
+        //flightTable.setSize("600px", "200px");
         flightTable.setWidth("100%",true);
         flightTable.setAutoHeaderRefreshDisabled(true);
         flightTable.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED);
@@ -523,7 +548,7 @@ public class AirlineGwt implements EntryPoint {
         TextColumn<Flight>  airlineNameColumn = new TextColumn<Flight>() {
             @Override
             public String getValue(Flight flight) {
-                return String.valueOf(flight.getAirlineName());
+                return flight.getAirlineName();
             }
         };
         flightTable.addColumn(airlineNameColumn,"Airline");
@@ -541,7 +566,7 @@ public class AirlineGwt implements EntryPoint {
         TextColumn<Flight>  sourceAirportColumn = new TextColumn<Flight>() {
             @Override
             public String getValue(Flight flight) {
-                return String.valueOf(flight.getSourceName());
+                return flight.getSourceName();
             }
         };
         flightTable.addColumn(sourceAirportColumn,"Source Airport");
@@ -550,7 +575,7 @@ public class AirlineGwt implements EntryPoint {
         TextColumn<Flight>  departureDateColumn = new TextColumn<Flight>() {
             @Override
             public String getValue(Flight flight) {
-                return String.valueOf(flight.getDepartureDateString());
+                return flight.getDepartureDateString();
             }
         };
         flightTable.addColumn(departureDateColumn,"Departure Date");
@@ -559,7 +584,7 @@ public class AirlineGwt implements EntryPoint {
         TextColumn<Flight>  departureTimeColumn = new TextColumn<Flight>() {
             @Override
             public String getValue(Flight flight) {
-                return String.valueOf(flight.getDepartureTimeString());
+                return flight.getDepartureTimeString();
             }
         };
         flightTable.addColumn(departureTimeColumn,"Departure Time");
@@ -568,7 +593,7 @@ public class AirlineGwt implements EntryPoint {
         TextColumn<Flight>  destinationAirportColumn = new TextColumn<Flight>() {
             @Override
             public String getValue(Flight flight) {
-                return String.valueOf(flight.getDestinationName());
+                return flight.getDestinationName();
             }
         };
         flightTable.addColumn(destinationAirportColumn,"Destination Airport");
@@ -577,7 +602,7 @@ public class AirlineGwt implements EntryPoint {
         TextColumn<Flight>  arrivalDateColumn = new TextColumn<Flight>() {
             @Override
             public String getValue(Flight flight) {
-                return String.valueOf(flight.getArrivalDateString());
+                return flight.getArrivalDateString();
             }
         };
         flightTable.addColumn(arrivalDateColumn,"Departure Date");
@@ -586,10 +611,20 @@ public class AirlineGwt implements EntryPoint {
         TextColumn<Flight>  arrivalTimeColumn = new TextColumn<Flight>() {
             @Override
             public String getValue(Flight flight) {
-                return String.valueOf(flight.getArrivalTimeString());
+                return flight.getArrivalTimeString();
             }
         };
         flightTable.addColumn(arrivalTimeColumn,"Arrival Time");
+
+        // Duration
+        TextColumn<Flight>  flightDurationColumn = new TextColumn<Flight>() {
+            @Override
+            public String getValue(Flight flight) {
+                return flight.getFlightDuration();
+            }
+        };
+        flightTable.addColumn(flightDurationColumn,"Duration");
+
 
         final SingleSelectionModel<Flight> flightSelectionModel = new SingleSelectionModel<Flight>();
         flightTable.setSelectionModel(flightSelectionModel);
@@ -602,24 +637,36 @@ public class AirlineGwt implements EntryPoint {
             }
         });
 
-
+        flightTable.setRowCount(10);
 
     }
-    private void refreshFlightTextBox()
+    private void updateFlightCellTable()
     {
-        StringBuilder completeDump = new StringBuilder();
+        final int[] count = {0};
+        flightCellTableData = new ArrayList<Flight>();
+        logger.info("Looking at " + airlineListBox.getItemCount() + " airlines");
+
         for(int i = 0; i < airlineListBox.getItemCount(); i++)
         {
-
             if(airlineListBox.isItemSelected(i))
             {
-                airlineService.getAirline(airlineListBox.getItemText(i), new AsyncCallback<Airline>() {
+                 logger.info("Adding flights from " + airlineListBox.getItemText(i) );
+                 airlineService.getAirline(airlineListBox.getItemText(i), new AsyncCallback<Airline>() {
                     @Override
                     public void onFailure(Throwable throwable) {
                         alertOnException(throwable);
                     }
                     @Override
                     public void onSuccess(Airline airline) {
+                        for(Flight flight: airline.getFlights())
+                        {
+                            logger.info("Adding flight number " + flight.getNumber());
+                            flightCellTableData.add(flight);
+                            count[0]++;
+                        }
+                        logger.info("Added " + count[0] + " flights to the table");
+                        flightTable.setRowCount(flightCellTableData.size()+2);
+                        flightTable.setRowData(0,flightCellTableData);
 
                     }
                 });
@@ -713,10 +760,6 @@ public class AirlineGwt implements EntryPoint {
 
     }
 
-    private void createFlightListPanel()
-    {
-
-    }
     private void createFlightSearchPanel()
     {
         // departureDateFilter();
@@ -791,6 +834,7 @@ public class AirlineGwt implements EntryPoint {
             @Override
             public void onClick(ClickEvent clickEvent) {
                 new newFlightPopup().show();
+                updateFlightList();
             }
         });
         flightFilterButtonPanel.add(addFlightButton);
@@ -799,6 +843,10 @@ public class AirlineGwt implements EntryPoint {
         flightFilterPanel.add(flightFilterButtonPanel);
     }
 
+    private void updateFlightList()
+    {
+
+    }
     private void filterFlights() {
         Window.alert("Need to implement Filter Flights Command");
     }
@@ -818,26 +866,23 @@ public class AirlineGwt implements EntryPoint {
         airlineInfoPanel.setWidth("250px");
         airlineInfoPanel.setStyleName("airlinePanel");
         createAirlinePanel();
+        updateAirlineListBox();
         dock.add(airlineInfoPanel, DockPanel.WEST);
 
 
+        createFlightCellTable();
 
         flightTablePanel = new VerticalPanel();
-        flightTablePanel.setSize( "200px", "40px");
-        TextBox noFlights = new TextBox();
-        noFlights.setText("No Flights Available");
-        flightTablePanel.add(noFlights);
-        //flightTable.setSize("600px", "200pm");
+        flightTablePanel.setSize( "800px", "300px");
+        //TextBox noFlights = new TextBox();
+        //noFlights.setText("No Flights Available");
+        //flightTablePanel.add(noFlights);
+        flightTablePanel.add(flightTable);
         dock.add(flightTablePanel, DockPanel.CENTER);
 
         createFlightSearchPanel();
         dock.add(flightFilterPanel, DockPanel.SOUTH);
 
-        // Add scrollable text in the center
-
-
-
-        // Return the content
         dock.ensureDebugId("cwDockPanel");
 
         RootPanel rootPanel = RootPanel.get();
