@@ -12,8 +12,6 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.i18n.client.DateTimeFormat;
 
-import com.google.gwt.safehtml.*;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
