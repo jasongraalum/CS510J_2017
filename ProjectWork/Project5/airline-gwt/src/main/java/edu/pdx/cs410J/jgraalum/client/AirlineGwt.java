@@ -118,165 +118,108 @@ public class AirlineGwt implements EntryPoint {
 
     /**
      *
-     * @param alerter
      */
-    @VisibleForTesting
-    AirlineGwt(Alerter alerter) {
-        this.alerter = alerter;
-        this.airlineService = GWT.create(AirlineService.class);
-        this.logger = Logger.getLogger("airline");
-        Logger.getLogger("").setLevel(Level.INFO);  // Quiet down the default logging
+    private void setupUI() {
+
+        // Create top level Dock Panel
+        DockPanel dock = new DockPanel();
+        dock.setStyleName("dockpanel2");
+        dock.setSpacing(4);
+        dock.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
+
+        // Create helpPopup window - will be "showed" on help button push
+        helpPopupWindow = new helpPopup();
+
+
+        sourceAirportFilterString = "";
+        destinationAirportFilterString = "";
+        arrivalDateFilterString = "";
+        departureDateFilterString = "";
+
+
+        // Create Airline Panel
+        airlineInfoPanel = new VerticalPanel();
+        airlineInfoPanel.setWidth("250px");
+        airlineInfoPanel.setStyleName("airlinePanel");
+        createAirlinePanel();
+        updateAirlineListBox();
+        dock.add(airlineInfoPanel, DockPanel.WEST);
+
+        // Create Flight Panel with data table.
+        createFlightCellTable();
+        flightTablePanel = new VerticalPanel();
+        flightTablePanel.setSize( "800px", "300px");
+        flightTablePanel.add(flightTable);
+        dock.add(flightTablePanel, DockPanel.CENTER);
+
+        // Create Add Flight and Flight Search popups and Flight button panel
+        newFlightPopupWindow = new newFlightPopup();
+        createFlightButtonPanel();
+        dock.add(flightButtonPanel, DockPanel.SOUTH);
+        flightSearchPopupWindow = new flightSearchPopup();
+        flightSearchPopupWindow.clear();
+
+        dock.ensureDebugId("cwDockPanel");
+        RootPanel rootPanel = RootPanel.get();
+        rootPanel.add(dock);
     }
 
     /**
-     *
-     * @param throwable
+     * Creates PopUp Widget to display Help Text
+     * Need to replace with a reference to the Help HTML file in the resources.
      */
-    private void alertOnException(Throwable throwable) {
-        Throwable unwrapped = unwrapUmbrellaException(throwable);
-        StringBuilder sb = new StringBuilder();
-        sb.append(unwrapped.toString());
-        sb.append('\n');
-        Window.alert(sb.toString());
-    }
+    private class helpPopup extends PopupPanel {
 
-    /**
-     *
-     * @param throwable
-     * @return
-     */
-    private Throwable unwrapUmbrellaException(Throwable throwable) {
-        if (throwable instanceof UmbrellaException) {
-            UmbrellaException umbrella = (UmbrellaException) throwable;
-            if (umbrella.getCauses().size() == 1) {
-                return unwrapUmbrellaException(umbrella.getCauses().iterator().next());
+
+        public helpPopup() {
+            super(true);
+
+            this.setSize("500px", "500px");
+            VerticalPanel helpTextPanel = new VerticalPanel();
+            helpTextPanel.setSize("500px", "500px");
+
+
+            List<String> helpTextStrings = Arrays.asList(
+                    "Airline Functions - Left side of the window",
+                    "In the top left corner, there are three buttons:",
+                    " ",
+                    "Add - Brings up the Add Airline window",
+                    "Delete - Deletes the Airline selected in the Airline Selection window",
+                    "Delete All - Deletes all Airlines",
+                    "",
+                    "Below the buttons in the Airline Selection window.",
+                    "Click an Airline name to display its flights.",
+                    "",
+                    "Flight Functions - Right side of the window",
+                    "",
+                    "The top window shows all of the Flight for the selected Airline.",
+                    "This list is also filtered based as defined by the Flight Filters",
+                    "",
+                    "Below the Flight information window are the function buttons:",
+                    "Add Flight - Brings up the Add Flight window",
+                    "Flight Flights - Brings up the Filter window",
+                    "Clear Filters - Removes all filters",
+                    "Print Flights - Opens a Text Window with the selected flights",
+                    "Help - Opens this window\n",
+                    "Click outside of the help window to dismiss"
+            );
+            for (String line : helpTextStrings) {
+                TextBox helpText = new TextBox();
+                helpText.setText(line);
+                helpText.setWidth("500px");
+                helpTextPanel.add(helpText);
             }
 
+            setWidget(helpTextPanel);
         }
-        return throwable;
     }
 
     /**
-     *
-     * @param airlineName
-     */
-    private void addAirline(String airlineName) {
-        logger.info("Calling addAirline with: " + airlineName);
-        airlineService.addAirline(airlineName, new AsyncCallback<String>() {
-            @Override
-            public void onFailure(Throwable throwable) {
-                alertOnException(throwable);
-            }
-            @Override
-            public void onSuccess(String name) {
-                updateAirlineListBox();
-            }
-        });
-    }
-
-    /**
-     *
-     * @param airlineName
-     */
-    private void deleteAirline(String airlineName) {
-        logger.info("Calling deleteAirline with: " + airlineName);
-        airlineService.deleteAirline(airlineName, new AsyncCallback<String>() {
-            @Override
-            public void onFailure(Throwable throwable) {
-                alertOnException(throwable);
-            }
-            @Override
-            public void onSuccess(String name) {
-                updateAirlineListBox();
-            }
-        });
-    }
-
-    private void updateAirlineListBox()
-    {
-        airlineService.getAirlineNames(new AsyncCallback<ArrayList<String>>() {
-            @Override
-            public void onFailure(Throwable throwable) {
-            }
-            @Override
-            public void onSuccess(ArrayList<String> airlineNames) {
-                airlineListBox.clear();
-                for(String name : airlineNames)
-                    airlineListBox.addItem(name);
-            }
-        });
-    }
-    /**
-     *
-     */
-    private void deleteAllAirline() {
-        logger.info("Calling deleteAllAirline");
-        airlineService.deleteAllAirline(new AsyncCallback<Void>() {
-            @Override
-            public void onFailure(Throwable throwable) {
-                alertOnException(throwable);
-            }
-            @Override
-            public void onSuccess(Void aVoid) {
-                updateAirlineListBox();
-            }
-        });
-    }
-
-    /**
-     *
-     * @param airlineName
-     */
-    private void addFlight(String airlineName, String flightNumber,
-                           String departureAirportCode,
-                           String departureDate,
-                           String departureTime,
-                           String arrivalAirportCode,
-                           String arrivalDate,
-                           String arrivalTime) {
-
-        logger.info("AirlineGWT - Adding flight to airline: " + airlineName);
-        logger.info("Flight details: " + flightNumber + " " +
-                departureAirportCode + " " +
-                departureDate + " " + departureTime + " " +
-                arrivalAirportCode + " " +
-                arrivalDate + " " + arrivalTime);
-
-        airlineService.addFlight(airlineName,
-                flightNumber,
-                departureAirportCode,
-                departureDate,
-                departureTime,
-                arrivalAirportCode,
-                arrivalDate,
-                arrivalTime,
-                new AsyncCallback<String>() {
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        alertOnException(throwable);
-                    }
-                    @Override
-                    public void onSuccess(String name) {
-                        logger.info("Updating Flight Table");
-                        for(int i = 0; i < airlineListBox.getItemCount(); i++)
-                        {
-                            logger.info(name);
-                            if(airlineListBox.getItemText(i).equals(name)) {
-                                airlineListBox.setSelectedIndex(i);
-                                logger.info("Selecting " + name + " " + i);
-                            }
-                        }
-                        updateFlightCellTable();
-                    }
-                });
-
-    }
-
-    /**
-     *
+     *  Create Panel containing Airline Buttons and Airline List Box
      */
     private void createAirlinePanel() {
 
+        // Create Buttons
         addAirlineButton = new Button("Add");
         addAirlineButton.addClickHandler(new ClickHandler() {
             @Override
@@ -307,30 +250,9 @@ public class AirlineGwt implements EntryPoint {
         addDeleteButtonPanel.add(addAirlineButton);
         addDeleteButtonPanel.add(deleteAirlineButton);
         addDeleteButtonPanel.add(deleteAllAirlineButton);
-
-        importAirlineXMLButton = new Button("Import");
-        importAirlineXMLButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                importAirlineXML();
-            }
-        });
-
-        exportAirlineXMLButton = new Button("Export");
-        exportAirlineXMLButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                exportAirlineXML();
-            }
-        });
-
-        HorizontalPanel importExportButtonPanel = new HorizontalPanel();
-        importExportButtonPanel.add(importAirlineXMLButton);
-        importExportButtonPanel.add(exportAirlineXMLButton);
-
         airlineInfoPanel.add(addDeleteButtonPanel);
-        //airlineInfoPanel.add(importExportButtonPanel);
 
+        // Create ListBox for displaying Airline Names
         airlineListBox = new ListBox();
         airlineListBox.ensureDebugId("airline-multiBox");
         airlineListBox.setMultipleSelect(false);
@@ -338,6 +260,7 @@ public class AirlineGwt implements EntryPoint {
         airlineListBox.setWidth("210px");
         airlineInfoPanel.add(airlineListBox);
 
+        // If an item in the ListBox is Clicked, update the FlightCellTable
         airlineListBox.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -347,21 +270,7 @@ public class AirlineGwt implements EntryPoint {
     }
 
     /**
-     *
-     */
-    private void exportAirlineXML() {
-        Window.alert("Need to implement Airline Export Command");
-    }
-
-    /**
-     *
-     */
-    private void importAirlineXML() {
-        Window.alert("Need to implement Airline Import Command");
-    }
-
-    /**
-     *
+     * Method to create Popup Panel for adding new Airline
      */
     private class newAirlinePopup extends PopupPanel
     {
@@ -406,309 +315,88 @@ public class AirlineGwt implements EntryPoint {
     }
 
     /**
+     * Method called by the Add Airline Button
      *
+     * @param airlineName
      */
-    private class newFlightPopup extends PopupPanel
+    private void addAirline(String airlineName) {
+        logger.info("Calling addAirline with: " + airlineName);
+        airlineService.addAirline(airlineName, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                alertOnException(throwable);
+            }
+            @Override
+            public void onSuccess(String name) {
+                updateAirlineListBox();
+            }
+        });
+    }
+
+    /**
+     * Method called by Delete Airline Button
+     *
+     * @param airlineName
+     */
+    private void deleteAirline(String airlineName) {
+        logger.info("Calling deleteAirline with: " + airlineName);
+        airlineService.deleteAirline(airlineName, new AsyncCallback<String>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                alertOnException(throwable);
+            }
+            @Override
+            public void onSuccess(String name) {
+                updateAirlineListBox();
+            }
+        });
+    }
+
+    /**
+     * Method call by Delete All Airlines Button
+     */
+    private void deleteAllAirline() {
+        logger.info("Calling deleteAllAirline");
+        airlineService.deleteAllAirline(new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                alertOnException(throwable);
+            }
+            @Override
+            public void onSuccess(Void aVoid) {
+                updateAirlineListBox();
+            }
+        });
+    }
+
+    /**
+     * Update the Airline List Box with the latest list of Airlines
+     * from the Server
+     */
+    private void updateAirlineListBox()
     {
-        final ListBox newFlightAirlineListBox;
-
-        public newFlightPopup()
-        {
-            super(false);
-
-            final Label   airlineNameLabel = new Label("Airline Name:");
-            newFlightAirlineListBox = new ListBox();
-
-
-            newFlightAirlineListBox.ensureDebugId("airline-dropBox");
-            newFlightAirlineListBox.setMultipleSelect(false);
-            for(int i = 0; i < airlineListBox.getItemCount(); i++)
-                newFlightAirlineListBox.addItem(airlineListBox.getValue(i));
-
-            HorizontalPanel airlineNameDropBoxPanel = new HorizontalPanel();
-            airlineNameDropBoxPanel.add(airlineNameLabel);
-            airlineNameDropBoxPanel.add(newFlightAirlineListBox);
-
-            HorizontalPanel airlineNumberPanel = new HorizontalPanel();
-            final TextBox flightNumberTextBox = new TextBox();
-            final Label flightNumberLabel = new Label("Flight Number");
-            airlineNumberPanel.add(flightNumberLabel);
-            airlineNumberPanel.add(flightNumberTextBox);
-
-            final AirlineDateTimePanel departDateTime = new AirlineDateTimePanel("addFlightDepart","Departure");
-            final AirportNamesSelector sourceAirport = new AirportNamesSelector("Departure");
-            final AirlineDateTimePanel arrivalDateTime = new AirlineDateTimePanel("addFlightArrival", "Arrival");
-            final AirportNamesSelector destinationAirport = new AirportNamesSelector("Arrival");
-
-            final Button OKNewFlightButton = new Button("OK");
-            OKNewFlightButton.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent clickEvent) {
-
-                    String departureDateString = departDateTime.getDate();
-                    String arrivalDateString = arrivalDateTime.getDate();
-                    String departureTimeString = departDateTime.getTime();
-                    String arrivalTimeString = arrivalDateTime.getTime();
-
-                    logger.info("AirlineGWT - Adding new flight with fields: ");
-                    logger.info(newFlightAirlineListBox.getSelectedItemText() + " " +
-                            flightNumberTextBox.getText() + " " +
-                            sourceAirport.getSelectedAirportCode() + " " +
-                            departureDateString + " " + departureTimeString + " " +
-                            destinationAirport.getSelectedAirportCode() + " " +
-                            arrivalDateString + " " + arrivalTimeString);
-                    addFlight(newFlightAirlineListBox.getSelectedItemText(),
-                            flightNumberTextBox.getText(),
-                            sourceAirport.getSelectedAirportCode(),
-                            departureDateString,
-                            departureTimeString,
-                            destinationAirport.getSelectedAirportCode(),
-                            arrivalDateString,
-                            arrivalTimeString);
-
-
-                    newFlightPopup.super.hide();
-                }
-            });
-
-            final Button CancelNewFlightButton = new Button("Cancel");
-            CancelNewFlightButton.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent clickEvent) {
-                    newFlightPopup.super.hide();
-                }
-            });
-            HorizontalPanel buttonPanel = new HorizontalPanel();
-            buttonPanel.add(OKNewFlightButton);
-            buttonPanel.add(CancelNewFlightButton);
-
-            VerticalPanel topPanel = new VerticalPanel();
-            //topPanel.setSize("200px","200px");
-            topPanel.add(airlineNameDropBoxPanel);
-            topPanel.add(airlineNumberPanel);
-            topPanel.add(departDateTime);
-            topPanel.add(sourceAirport);
-            topPanel.add(arrivalDateTime);
-            topPanel.add(destinationAirport);
-            topPanel.add(buttonPanel);
-            setWidget(topPanel);
-        }
-
-        public void showPopup()
-        {
-            newFlightAirlineListBox.clear();
-            for(int i = 0; i < airlineListBox.getItemCount(); i++)
-                newFlightAirlineListBox.addItem(airlineListBox.getValue(i));
-            super.show();
-        }
+        airlineService.getAirlineNames(new AsyncCallback<ArrayList<String>>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+            }
+            @Override
+            public void onSuccess(ArrayList<String> airlineNames) {
+                airlineListBox.clear();
+                for(String name : airlineNames)
+                    airlineListBox.addItem(name);
+            }
+        });
     }
 
 
     /**
+     *  Create the Flight Cell Table.
      *
-     */
-    private class flightSearchPopup extends PopupPanel {
-
-        private final AirlineDatePanel departDate = new AirlineDatePanel("Departure");
-        private final AirportNamesSelector sourceAirport = new AirportNamesSelector("Departure");
-        private final AirlineDatePanel arrivalDate = new AirlineDatePanel("Arrival");
-        private final AirportNamesSelector destinationAirport = new AirportNamesSelector("Arrival");
-
-        public flightSearchPopup() {
-            super(false);
-
-            AbsolutePanel flightSearchPanel = new AbsolutePanel();
-
-            sourceAirportNamesDropBox = new ListBox();
-            destinationAirportNamesDropBox = new ListBox();
-
-            Map<String, String> airportNamesMap = AirportNames.getNamesMap();
-            sourceAirportNamesDropBox.addItem("");
-            destinationAirportNamesDropBox.addItem("");
-            for (Map.Entry<String, String> airport : airportNamesMap.entrySet()) {
-                String airportItemString = airport.getValue() + "(" + airport.getKey() + ")";
-                sourceAirportNamesDropBox.addItem(airportItemString);
-                destinationAirportNamesDropBox.addItem(airportItemString);
-            }
-
-            sourceAirportNamesDropBox.ensureDebugId("AirlineGWT-FlightSearch-SourceAirport-DropBox");
-            destinationAirportNamesDropBox.ensureDebugId("AirlineGWT-FlightSearch-DestinationAirport-DropBox");
-
-            final Button OKFlightSearchButton = new Button("OK");
-            OKFlightSearchButton.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent clickEvent) {
-                    sourceAirportFilterString = sourceAirport.getSelectedAirportCode();
-                    destinationAirportFilterString = destinationAirport.getSelectedAirportCode();
-                    arrivalDateFilterString = arrivalDate.getDate().toString();
-                    departureDateFilterString = departDate.getDate().toString();
-                    updateFlightCellTable();
-                    flightSearchPopup.super.hide();
-                }
-            });
-
-            final Button CancelFlightSearchButton = new Button("Cancel");
-            CancelFlightSearchButton.addClickHandler(new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent clickEvent) {
-                    flightSearchPopup.super.hide();
-                }
-            });
-
-            flightSearchPanel.setSize("350px", "250px");
-            flightSearchPanel.add(new Label("Flight Filter"),95,0);
-            flightSearchPanel.add(departDate,10,15);
-            flightSearchPanel.add(sourceAirport,10,60);
-            flightSearchPanel.add(arrivalDate,10, 105);
-            flightSearchPanel.add(destinationAirport,10,150);
-            flightSearchPanel.add(OKFlightSearchButton,40,220);
-            flightSearchPanel.add(CancelFlightSearchButton,90,220);
-            setWidget(flightSearchPanel);
-        }
-
-        public void clear()
-        {
-            sourceAirportFilterString = "";
-            destinationAirportFilterString = "";
-            arrivalDateFilterString = "";
-            departureDateFilterString = "";
-            departDate.clearDate();
-            arrivalDate.clearDate();
-            sourceAirport.clear();
-            destinationAirport.clear();
-        }
-
-    }
-    /**
+     *  The cellTable is not editable. It uses a ListDataProvider to update the
+     *  rows of flights.
+     *  The CellTable has columns for each of the Flight data fields - including the Airline name and Duration
      *
-     */
-    private class helpPopup extends PopupPanel {
-
-
-        public helpPopup() {
-            super(true);
-
-            this.setSize("500px","500px");
-            VerticalPanel helpTextPanel = new VerticalPanel();
-            helpTextPanel.setSize("500px","500px");
-
-
-            List<String> helpTextStrings = Arrays.asList(
-                    "Airline Functions - Left side of the window",
-                    "In the top left corner, there are three buttons:",
-                    " ",
-                    "Add - Brings up the Add Airline window",
-                    "Delete - Deletes the Airline selected in the Airline Selection window",
-                    "Delete All - Deletes all Airlines",
-                    "",
-                    "Below the buttons in the Airline Selection window.",
-                    "Click an Airline name to display its flights.",
-                    "",
-                    "Flight Functions - Right side of the window",
-                    "",
-                    "The top window shows all of the Flight for the selected Airline.",
-                    "This list is also filtered based as defined by the Flight Filters",
-                    "",
-                    "Below the Flight information window are the function buttons:",
-                    "Add Flight - Brings up the Add Flight window",
-                    "Flight Flights - Brings up the Filter window",
-                    "Clear Filters - Removes all filters",
-                    "Print Flights - Opens a Text Window with the selected flights",
-                    "Help - Opens this window\n",
-                    "Click outside of the help window to dismiss"
-            );
-            for(String line : helpTextStrings)
-            {
-                TextBox helpText = new TextBox();
-                helpText.setText(line);
-                helpText.setWidth("500px");
-                helpTextPanel.add(helpText);
-            }
-
-            setWidget(helpTextPanel);
-        }
-
-    }
-    private void createFlightButtonPanel()
-    {
-        flightButtonPanel = new HorizontalPanel();
-
-        flightButtonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        addFlightButton = new Button("Add Flight");
-        addFlightButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                newFlightPopupWindow.showPopup();
-            }
-        });
-        flightButtonPanel.add(addFlightButton);
-
-        filterFlightsButton = new Button("Filter Flights");
-        filterFlightsButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                flightSearchPopupWindow.show();
-                updateFlightCellTable();
-            }
-        });
-        flightButtonPanel.add(filterFlightsButton);
-
-        clearFilterButton = new Button("Clear Filters");
-        clearFilterButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                flightSearchPopupWindow.clear();
-                updateFlightCellTable();
-            }
-        });
-        flightButtonPanel.add(clearFilterButton);
-
-        flightButtonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        printFlightsButton = new Button("Print Flights");
-        printFlightsButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                printSelectedFlights();
-            }
-        });
-        flightButtonPanel.add(printFlightsButton);
-
-        helpButton = new Button("Help");
-        helpButton.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                helpPopupWindow.show();
-            }
-        });
-        flightButtonPanel.add(helpButton);
-    }
-
-
-    public void printSelectedFlights()
-    {
-        ArrayList<Flight> flightsToPrint = new ArrayList<Flight>();
-
-        PopupPanel printWindow = new PopupPanel();
-        TextBox flightText = new TextBox();
-        flightText.setText(flightTable.toString());
-        printWindow.setWidget(flightText);
-        printWindow.setAutoHideEnabled(true);
-        printWindow.show();
-
-    }
-    /**
-     *
-     */
-    private static final ProvidesKey<Flight> KEY_PROVIDER =
-            new ProvidesKey<Flight>() {
-                @Override
-                public Object getKey(Flight item) {
-                    return item.getNumber();
-                }
-            };
-
-    /**
-     *
+     *  The updateFlighCellTable method fills loads the data from the server.
      */
     private void createFlightCellTable()
     {
@@ -809,8 +497,8 @@ public class AirlineGwt implements EntryPoint {
             @Override
             public void onSelectionChange(SelectionChangeEvent selectionChangeEvent) {
                 Flight selectedFlight = flightSelectionModel.getSelectedObject();
-                if(selectedFlight != null)
-                    Window.alert("Selected flight " + selectedFlight.getNumber());
+                //if(selectedFlight != null)
+                    //Window.alert("Selected flight " + selectedFlight.getNumber());
             }
         });
         flightTable.setRowCount(10);
@@ -820,74 +508,181 @@ public class AirlineGwt implements EntryPoint {
         flightDataProviderList = flightDataProvider.getList();
     }
 
+    /**
+     * Simple method to provide sort Key in FlightCellTable.
+     */
+    private static final ProvidesKey<Flight> KEY_PROVIDER =
+            new ProvidesKey<Flight>() {
+                @Override
+                public Object getKey(Flight item) {
+                    return item.getNumber();
+                }
+            };
 
     /**
-     *
+     * Method to create the Flight Button Panel - which sits below the FlightCellTable
      */
-    private void updateFlightCellTable()
+    private void createFlightButtonPanel()
     {
-        logger.info("Adding flights from " + airlineListBox.getSelectedItemText() );
-        //flightDataProviderList = flightDataProvider.getList();
-        for(Flight flight: flightDataProviderList)
-            flightDataProviderList.remove(flight);
-        flightDataProviderList.clear();
-        flightDataProvider.flush();
+        flightButtonPanel = new HorizontalPanel();
 
-        airlineService.getAirline(airlineListBox.getSelectedItemText(), new AsyncCallback<Airline>() {
-
+        flightButtonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        addFlightButton = new Button("Add Flight");
+        addFlightButton.addClickHandler(new ClickHandler() {
             @Override
-            public void onFailure(Throwable throwable) {
-                alertOnException(throwable);
-            }
-            @Override
-            public void onSuccess(Airline airline) {
-                logger.info("Airline " + airline.getName() + " has " + airline.getFlights().size() + " flights");
-                //flightDataProviderList = flightDataProvider.getList();
-                for(Flight flight: airline.getFlights())
-                {
-                    logger.info("Checking flight number " + flight.getNumber());
-                    if(checkFlightFilter(flight)) {
-                        logger.info("Adding flight number " + flight.getNumber());
-                        flightDataProviderList.add(flight);
-                    }
-                }
-                flightDataProvider.flush();
-                flightTable.setRowCount(5);
+            public void onClick(ClickEvent clickEvent) {
+                newFlightPopupWindow.showPopup();
             }
         });
-    }
+        flightButtonPanel.add(addFlightButton);
 
-    private boolean checkFlightFilter(Flight flight) {
-        String flightSourceCode = flight.getSourceAirportCode();
-        String flightDestinationCode = flight.getDestinationAirportCode();
-        String flightDepartureDate = flight.getDepartureDateString();
-        String flightArrivalDate = flight.getArrivalDateString();
+        filterFlightsButton = new Button("Filter Flights");
+        filterFlightsButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+                if(airlineListBox.getSelectedIndex() == -1)
+                    Window.alert("Please select an airline to filter");
+                else {
+                    flightSearchPopupWindow.show();
+                    updateFlightCellTable();
+                }
+            }
+        });
+        flightButtonPanel.add(filterFlightsButton);
 
-        logger.info("Checking codes: " + flightSourceCode + " " + flightDestinationCode);
-        logger.info("Checking date: " + flightDepartureDate + " " + flightArrivalDate);
-        logger.info("Checking filter: " + sourceAirportFilterString + " " + destinationAirportFilterString);
-        logger.info("Checking filter: " + departureDateFilterString + " " + arrivalDateFilterString);
+        clearFilterButton = new Button("Clear Filters");
+        clearFilterButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+                flightSearchPopupWindow.clear();
+                updateFlightCellTable();
+            }
+        });
+        flightButtonPanel.add(clearFilterButton);
 
+        flightButtonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        printFlightsButton = new Button("Print Flights");
+        printFlightsButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+                printSelectedFlights();
+            }
+        });
+        flightButtonPanel.add(printFlightsButton);
 
-        if((sourceAirportFilterString.equals("") || sourceAirportFilterString.equals(flightSourceCode))           &&
-                (destinationAirportFilterString.equals("") || destinationAirportFilterString.equals(flightDestinationCode)) &&
-                (departureDateFilterString.equals("") || departureDateFilterString.equals(flightArrivalDate))          &&
-                (arrivalDateFilterString.equals("") || arrivalDateFilterString.equals(flightDepartureDate)))
-            logger.info("Filter True");
-        else
-            logger.info("Filter False");
-
-
-
-        return((sourceAirportFilterString.equals("") || sourceAirportFilterString.equals(flightSourceCode))           &&
-                (destinationAirportFilterString.equals("") || destinationAirportFilterString.equals(flightDestinationCode)) &&
-                (departureDateFilterString.equals("") || departureDateFilterString.equals(flightArrivalDate))          &&
-                (arrivalDateFilterString.equals("") || arrivalDateFilterString.equals(flightDepartureDate))
-        );
+        helpButton = new Button("Help");
+        helpButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+                helpPopupWindow.show();
+            }
+        });
+        flightButtonPanel.add(helpButton);
     }
 
     /**
+     *  Popup Panel to Add new Flight - this is persistent - created only once
      *
+     */
+    private class newFlightPopup extends PopupPanel
+    {
+        final ListBox newFlightAirlineListBox;
+
+        public newFlightPopup()
+        {
+            super(false);
+
+            final Label   airlineNameLabel = new Label("Airline Name:");
+            newFlightAirlineListBox = new ListBox();
+
+            newFlightAirlineListBox.ensureDebugId("airline-dropBox");
+            newFlightAirlineListBox.setMultipleSelect(false);
+            for(int i = 0; i < airlineListBox.getItemCount(); i++)
+                newFlightAirlineListBox.addItem(airlineListBox.getValue(i));
+
+            HorizontalPanel airlineNameDropBoxPanel = new HorizontalPanel();
+            airlineNameDropBoxPanel.add(airlineNameLabel);
+            airlineNameDropBoxPanel.add(newFlightAirlineListBox);
+
+            HorizontalPanel airlineNumberPanel = new HorizontalPanel();
+            final TextBox flightNumberTextBox = new TextBox();
+            final Label flightNumberLabel = new Label("Flight Number");
+            airlineNumberPanel.add(flightNumberLabel);
+            airlineNumberPanel.add(flightNumberTextBox);
+
+            final AirlineDateTimePanel departDateTime = new AirlineDateTimePanel("addFlightDepart","Departure");
+            final AirportNamesSelector sourceAirport = new AirportNamesSelector("Departure");
+            final AirlineDateTimePanel arrivalDateTime = new AirlineDateTimePanel("addFlightArrival", "Arrival");
+            final AirportNamesSelector destinationAirport = new AirportNamesSelector("Arrival");
+
+            final Button OKNewFlightButton = new Button("OK");
+            OKNewFlightButton.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+
+                    String departureDateString = departDateTime.getDate();
+                    String arrivalDateString = arrivalDateTime.getDate();
+                    String departureTimeString = departDateTime.getTime();
+                    String arrivalTimeString = arrivalDateTime.getTime();
+
+
+                    logger.info("AirlineGWT - Adding new flight with fields: ");
+                    logger.info(newFlightAirlineListBox.getSelectedItemText() + " " +
+                            flightNumberTextBox.getText() + " " +
+                            sourceAirport.getSelectedAirportCode() + " " +
+                            departureDateString + " " + departureTimeString + " " +
+                            destinationAirport.getSelectedAirportCode() + " " +
+                            arrivalDateString + " " + arrivalTimeString);
+                    addFlight(newFlightAirlineListBox.getSelectedItemText(),
+                            flightNumberTextBox.getText(),
+                            sourceAirport.getSelectedAirportCode(),
+                            departureDateString,
+                            departureTimeString,
+                            destinationAirport.getSelectedAirportCode(),
+                            arrivalDateString,
+                            arrivalTimeString);
+
+
+                    newFlightPopup.super.hide();
+                }
+            });
+
+            final Button CancelNewFlightButton = new Button("Cancel");
+            CancelNewFlightButton.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+                    newFlightPopup.super.hide();
+                }
+            });
+            HorizontalPanel buttonPanel = new HorizontalPanel();
+            buttonPanel.add(OKNewFlightButton);
+            buttonPanel.add(CancelNewFlightButton);
+
+            VerticalPanel topPanel = new VerticalPanel();
+            //topPanel.setSize("200px","200px");
+            topPanel.add(airlineNameDropBoxPanel);
+            topPanel.add(airlineNumberPanel);
+            topPanel.add(departDateTime);
+            topPanel.add(sourceAirport);
+            topPanel.add(arrivalDateTime);
+            topPanel.add(destinationAirport);
+            topPanel.add(buttonPanel);
+            setWidget(topPanel);
+        }
+
+        // Need method to update the airline - as this is a persistent panel
+        public void showPopup()
+        {
+            newFlightAirlineListBox.clear();
+            for(int i = 0; i < airlineListBox.getItemCount(); i++)
+                newFlightAirlineListBox.addItem(airlineListBox.getValue(i));
+            super.show();
+        }
+    }
+
+    /**
+     *  Create a commonly used sub-panel with Date and Time fields
+     *  This is a private class extending the AbsolutePanel class
      */
     private class AirlineDateTimePanel extends AbsolutePanel {
 
@@ -902,11 +697,14 @@ public class AirlineGwt implements EntryPoint {
         private RadioButton amButton;
         private RadioButton pmButton;
         private String timeValue= "12:00";
+        private String groupName;
+        boolean AM;
+        boolean PM;
 
-
-        public AirlineDateTimePanel(String groupName, String label) {
+        public AirlineDateTimePanel(String group, String label) {
 
             super();
+            groupName = group;
             boxLabel = new Label(label);
 
             DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
@@ -924,7 +722,6 @@ public class AirlineGwt implements EntryPoint {
                     dateString = DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
                 }
             });
-
 
             timeBox = new TextBox();
             timeBox.setText(timeValue);
@@ -949,6 +746,21 @@ public class AirlineGwt implements EntryPoint {
                 }
             });
 
+            amButton.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+                   AM = true;
+                   PM = false;
+                }
+            });
+
+            pmButton.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+                    PM = true;
+                    AM = false;
+                }
+            });
             this.setSize("250px","70px");
             this.add(boxLabel,0, 15);
             this.add(dateLabel, 60, 0);
@@ -958,18 +770,191 @@ public class AirlineGwt implements EntryPoint {
             this.add(amButton, 170, 45);
             this.add(pmButton, 210, 45);
         }
+
+        // Local methods to grab data from the fields.
         public String getDate()
         {
             return(dateString);
         }
         public String getTime()
         {
-            return(timeValue + (amButton.isEnabled() ? " AM" : " PM"));
+            return(timeValue + (this.AM ? " AM" : " PM"));
+        }
+
+    }
+
+    /**
+     * Commonly used Panel to build Airline Name selector
+     */
+    private class AirportNamesSelector extends AbsolutePanel
+    {
+        ListBox dropBox = new ListBox();
+        Label selectorLabel;
+
+        public AirportNamesSelector(String label) {
+            super();
+            selectorLabel = new Label(label + " Airport");
+
+            Map<String, String> airportNamesMap = AirportNames.getNamesMap();
+            this.dropBox.addItem("");
+
+            for (Map.Entry<String, String> airport : airportNamesMap.entrySet()) {
+                String airportItemString = airport.getValue() + "(" + airport.getKey() + ")";
+                dropBox.addItem(airportItemString);
+            }
+            this.setSize("310px","70px");
+            this.add(selectorLabel,100,0);
+            this.add(dropBox,1,30);
+        }
+
+        public String getSelectedAirportCode()
+        {
+            if(this.dropBox.getSelectedIndex() != -1) {
+                String airportName = this.dropBox.getSelectedItemText();
+                return (airportName.substring(airportName.length() - 4, airportName.length() - 1));
+            }
+            else
+                return null;
+        }
+
+        public void clear() {
+            dropBox.setSelectedIndex(0);
+        }
+    }
+
+    /**
+     * Method to add Flights to airlineName via a server call
+     * Following successful call, the flightTableCell is updated
+     * The airline for the new flight is selected in the Airline DropBox list
+     * before the flight data is updated.
+     *
+     * @param airlineName
+     */
+    private void addFlight(String airlineName, String flightNumber,
+                           String departureAirportCode,
+                           String departureDate,
+                           String departureTime,
+                           String arrivalAirportCode,
+                           String arrivalDate,
+                           String arrivalTime) {
+
+        logger.info("AirlineGWT - Adding flight to airline: " + airlineName);
+        logger.info("Flight details: " + flightNumber + " " +
+                departureAirportCode + " " +
+                departureDate + " " + departureTime + " " +
+                arrivalAirportCode + " " +
+                arrivalDate + " " + arrivalTime);
+
+        airlineService.addFlight(airlineName,
+                flightNumber,
+                departureAirportCode,
+                departureDate,
+                departureTime,
+                arrivalAirportCode,
+                arrivalDate,
+                arrivalTime,
+                new AsyncCallback<String>() {
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        alertOnException(throwable);
+                    }
+                    @Override
+                    public void onSuccess(String name) {
+                        logger.info("Updating Flight Table");
+                        for(int i = 0; i < airlineListBox.getItemCount(); i++)
+                        {
+                            logger.info(name);
+                            if(airlineListBox.getItemText(i).equals(name)) {
+                                airlineListBox.setSelectedIndex(i);
+                                logger.info("Selecting " + name + " " + i);
+                            }
+                        }
+                        updateFlightCellTable();
+                    }
+                });
+
+    }
+
+    /**
+     *  Defines new derived of PopupPanel to implement a Popup panel for applying
+     *  search/filter parameters to the Fligh Cell Table.
+     *  On a successful application of the filters, the cell table is updated.
+     */
+    private class flightSearchPopup extends PopupPanel {
+
+        private final AirlineDatePanel departDate = new AirlineDatePanel("Departure");
+        private final AirportNamesSelector sourceAirport = new AirportNamesSelector("Departure");
+        private final AirlineDatePanel arrivalDate = new AirlineDatePanel("Arrival");
+        private final AirportNamesSelector destinationAirport = new AirportNamesSelector("Arrival");
+
+        public flightSearchPopup() {
+            super(false);
+
+            AbsolutePanel flightSearchPanel = new AbsolutePanel();
+
+            sourceAirportNamesDropBox = new ListBox();
+            destinationAirportNamesDropBox = new ListBox();
+
+            Map<String, String> airportNamesMap = AirportNames.getNamesMap();
+            sourceAirportNamesDropBox.addItem("");
+            destinationAirportNamesDropBox.addItem("");
+            for (Map.Entry<String, String> airport : airportNamesMap.entrySet()) {
+                String airportItemString = airport.getValue() + "(" + airport.getKey() + ")";
+                sourceAirportNamesDropBox.addItem(airportItemString);
+                destinationAirportNamesDropBox.addItem(airportItemString);
+            }
+
+            sourceAirportNamesDropBox.ensureDebugId("AirlineGWT-FlightSearch-SourceAirport-DropBox");
+            destinationAirportNamesDropBox.ensureDebugId("AirlineGWT-FlightSearch-DestinationAirport-DropBox");
+
+            final Button OKFlightSearchButton = new Button("OK");
+            OKFlightSearchButton.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+                    sourceAirportFilterString = sourceAirport.getSelectedAirportCode();
+                    destinationAirportFilterString = destinationAirport.getSelectedAirportCode();
+                    arrivalDateFilterString = arrivalDate.getDate().toString();
+                    departureDateFilterString = departDate.getDate().toString();
+                    updateFlightCellTable();
+                    flightSearchPopup.super.hide();
+                }
+            });
+
+            final Button CancelFlightSearchButton = new Button("Cancel");
+            CancelFlightSearchButton.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+                    flightSearchPopup.super.hide();
+                }
+            });
+
+            flightSearchPanel.setSize("350px", "250px");
+            flightSearchPanel.add(new Label("Flight Filter"),95,0);
+            flightSearchPanel.add(departDate,10,15);
+            flightSearchPanel.add(sourceAirport,10,60);
+            flightSearchPanel.add(arrivalDate,10, 105);
+            flightSearchPanel.add(destinationAirport,10,150);
+            flightSearchPanel.add(OKFlightSearchButton,40,220);
+            flightSearchPanel.add(CancelFlightSearchButton,90,220);
+            setWidget(flightSearchPanel);
+        }
+
+        public void clear()
+        {
+            sourceAirportFilterString = "";
+            destinationAirportFilterString = "";
+            arrivalDateFilterString = "";
+            departureDateFilterString = "";
+            departDate.clearDate();
+            arrivalDate.clearDate();
+            sourceAirport.clear();
+            destinationAirport.clear();
         }
 
     }
     /**
-     *
+     * Simplified version of the DateTime panel - only includes Date
+     * Could probably combine with the DateTime panel - alas No Time <- That's a joke.
      */
     private class AirlineDatePanel extends AbsolutePanel {
 
@@ -1010,93 +995,137 @@ public class AirlineGwt implements EntryPoint {
         public void clearDate()
         {
             dateString = "";
+            dateBox.setValue(null);
         }
 
     }
 
-    private class AirportNamesSelector extends AbsolutePanel
+    /**
+     * Quick and dirty print of flight - removing as the FlightCellTable
+     * provides the same functionality
+     */
+    public void printSelectedFlights()
     {
-        ListBox dropBox = new ListBox();
-        Label selectorLabel;
+        ArrayList<Flight> flightsToPrint = new ArrayList<Flight>();
 
-        public AirportNamesSelector(String label) {
-            super();
-            selectorLabel = new Label(label + " Airport");
-
-            Map<String, String> airportNamesMap = AirportNames.getNamesMap();
-            this.dropBox.addItem("");
-
-            for (Map.Entry<String, String> airport : airportNamesMap.entrySet()) {
-                String airportItemString = airport.getValue() + "(" + airport.getKey() + ")";
-                dropBox.addItem(airportItemString);
-            }
-            this.setSize("310px","70px");
-            this.add(selectorLabel,100,0);
-            this.add(dropBox,1,30);
-        }
-
-        public String getSelectedAirportCode()
-        {
-            if(this.dropBox.getSelectedIndex() != -1) {
-                String airportName = this.dropBox.getSelectedItemText();
-                return (airportName.substring(airportName.length() - 4, airportName.length() - 1));
-            }
-            else
-                return null;
-        }
-
-        public void clear() {
-            dropBox.setSelectedIndex(0);
-        }
+        PopupPanel printWindow = new PopupPanel();
+        TextBox flightText = new TextBox();
+        flightText.setText(flightTable.toString());
+        printWindow.setWidget(flightText);
+        printWindow.setAutoHideEnabled(true);
+        printWindow.show();
 
     }
+    /**
+     * Method to update the FlightCellTable
+     * First, clears out the data provide list <- must do this to avoid duplicates in the list.
+     * Grabs the airline(with flights) from the Server
+     * Checks if each flight meet search criteria. If yes, adds the flight to the data provider list.
+     */
+    private void updateFlightCellTable()
+    {
+        logger.info("Adding flights from " + airlineListBox.getSelectedItemText() );
+        //flightDataProviderList = flightDataProvider.getList();
+        for(Flight flight: flightDataProviderList)
+            flightDataProviderList.remove(flight);
+        flightDataProviderList.clear();
+        flightDataProvider.flush();
 
+        airlineService.getAirline(airlineListBox.getSelectedItemText(), new AsyncCallback<Airline>() {
 
-
-    private void setupUI() {
-
-        helpPopupWindow = new helpPopup();
-        sourceAirportFilterString = "";
-        destinationAirportFilterString = "";
-        arrivalDateFilterString = "";
-        departureDateFilterString = "";
-
-        DockPanel dock = new DockPanel();
-        dock.setStyleName("dockpanel2");
-        dock.setSpacing(4);
-        dock.setHorizontalAlignment(DockPanel.ALIGN_CENTER);
-
-        airlineInfoPanel = new VerticalPanel();
-        airlineInfoPanel.setWidth("250px");
-        airlineInfoPanel.setStyleName("airlinePanel");
-        createAirlinePanel();
-        updateAirlineListBox();
-        dock.add(airlineInfoPanel, DockPanel.WEST);
-
-
-        createFlightCellTable();
-        flightTablePanel = new VerticalPanel();
-        flightTablePanel.setSize( "800px", "300px");
-        //TextBox noFlights = new TextBox();
-        //noFlights.setText("No Flights Available");
-        //flightTablePanel.add(noFlights);
-        flightTablePanel.add(flightTable);
-        dock.add(flightTablePanel, DockPanel.CENTER);
-
-
-        flightSearchPopupWindow = new flightSearchPopup();
-        newFlightPopupWindow = new newFlightPopup();
-
-        createFlightButtonPanel();
-        dock.add(flightButtonPanel, DockPanel.SOUTH);
-
-        dock.ensureDebugId("cwDockPanel");
-
-        RootPanel rootPanel = RootPanel.get();
-        rootPanel.add(dock);
-
+            @Override
+            public void onFailure(Throwable throwable) {
+                alertOnException(throwable);
+            }
+            @Override
+            public void onSuccess(Airline airline) {
+                logger.info("Airline " + airline.getName() + " has " + airline.getFlights().size() + " flights");
+                //flightDataProviderList = flightDataProvider.getList();
+                for(Flight flight: airline.getFlights())
+                {
+                    logger.info("Checking flight number " + flight.getNumber());
+                    if(checkFlightFilter(flight)) {
+                        logger.info("Adding flight number " + flight.getNumber());
+                        flightDataProviderList.add(flight);
+                    }
+                }
+                flightDataProvider.flush();
+                flightTable.setRowCount(5);
+            }
+        });
     }
 
+    /**
+     * Method that checks if a flight meets the filter/search criteria
+     * @param flight
+     * @return boolean - true if flight matches criteria.
+     */
+    private boolean checkFlightFilter(Flight flight) {
+        String flightSourceCode = flight.getSourceAirportCode();
+        String flightDestinationCode = flight.getDestinationAirportCode();
+        String flightDepartureDate = flight.getDepartureDateString();
+        String flightArrivalDate = flight.getArrivalDateString();
+
+        logger.info("Checking codes: " + flightSourceCode + " " + flightDestinationCode);
+        logger.info("Checking date: " + flightDepartureDate + " " + flightArrivalDate);
+        logger.info("Checking filter: " + sourceAirportFilterString + " " + destinationAirportFilterString);
+        logger.info("Checking filter: " + departureDateFilterString + " " + arrivalDateFilterString);
+
+        return((sourceAirportFilterString.equals("") || sourceAirportFilterString.equals(flightSourceCode))           &&
+                (destinationAirportFilterString.equals("") || destinationAirportFilterString.equals(flightDestinationCode)) &&
+                (departureDateFilterString.equals("") || departureDateFilterString.equals(flightArrivalDate))          &&
+                (arrivalDateFilterString.equals("") || arrivalDateFilterString.equals(flightDepartureDate))
+        );
+    }
+
+    /*************************************/
+
+    /**
+     * Provided method to log exceptions
+     *
+     * @param alerter
+     */
+    @VisibleForTesting
+    AirlineGwt(Alerter alerter) {
+        this.alerter = alerter;
+        this.airlineService = GWT.create(AirlineService.class);
+        this.logger = Logger.getLogger("airline");
+        Logger.getLogger("").setLevel(Level.INFO);  // Quiet down the default logging
+    }
+
+    /**
+     * Provided method to alert on Exception
+     *
+     * @param throwable
+     */
+    private void alertOnException(Throwable throwable) {
+        Throwable unwrapped = unwrapUmbrellaException(throwable);
+        StringBuilder sb = new StringBuilder();
+        sb.append(unwrapped.toString());
+        sb.append('\n');
+        Window.alert(sb.toString());
+    }
+
+    /**
+     * Provided method to unwrap multiple exceptions
+     *
+     * @param throwable
+     * @return
+     */
+    private Throwable unwrapUmbrellaException(Throwable throwable) {
+        if (throwable instanceof UmbrellaException) {
+            UmbrellaException umbrella = (UmbrellaException) throwable;
+            if (umbrella.getCauses().size() == 1) {
+                return unwrapUmbrellaException(umbrella.getCauses().iterator().next());
+            }
+
+        }
+        return throwable;
+    }
+
+    /**
+     * Provided method to catch exceptions
+     */
     private void setUpUncaughtExceptionHandler() {
         GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
             @Override
@@ -1106,6 +1135,9 @@ public class AirlineGwt implements EntryPoint {
         });
     }
 
+    /**
+     * Provided method to alert.
+     */
     @VisibleForTesting
     interface Alerter {
         void alert(String message);
