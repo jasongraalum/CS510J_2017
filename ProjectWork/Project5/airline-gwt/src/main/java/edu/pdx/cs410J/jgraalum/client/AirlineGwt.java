@@ -588,32 +588,44 @@ public class AirlineGwt implements EntryPoint {
         public helpPopup() {
             super(true);
 
-            Label helpText = new HTML(
-                    "Help Menu\n" +
-                            "\n" +
-                            "Airline Functions - Left side of the window\n" +
-                            "In the top left corner, there are three buttons:\n" +
-                            "Add - Brings up the Add Airline window\n" +
-                            "Delete - Deletes the Airline selected in the Airline Selection window\n" +
-                            "Delete All - Deletes all Airlines\n" +
-                            "\n" +
-                            "Below the buttons in the Airline Selection window.\n" +
-                            "Click an Airline name to display its flights.\n" +
-                            "\n" +
-                            "Flight Functions - Right side of the window\n" +
-                            "\n" +
-                            "The top window shows all of the Flight for the selected Airline.\n" +
-                            "This list is also filtered based as defined by the Flight Filters\n" +
-                            "\n" +
-                            "Below the Flight information window are the function buttons:\n" +
-                            "Add Flight - Brings up the Add Flight window\n" +
-                            "Flight Flights - Brings up the Filter window\n" +
-                            "Clear Filters - Removes all filters\n" +
-                            "Print Flights - Opens a Text Window with the selected flights\n" +
-                            "Help - Opens this window\n\n" +
-                            "Click outside of the help window to dismiss\n"
+            this.setSize("500px","500px");
+            VerticalPanel helpTextPanel = new VerticalPanel();
+            helpTextPanel.setSize("500px","500px");
+
+
+            List<String> helpTextStrings = Arrays.asList(
+                    "Airline Functions - Left side of the window",
+                    "In the top left corner, there are three buttons:",
+                    " ",
+                    "Add - Brings up the Add Airline window",
+                    "Delete - Deletes the Airline selected in the Airline Selection window",
+                    "Delete All - Deletes all Airlines",
+                    "",
+                    "Below the buttons in the Airline Selection window.",
+                    "Click an Airline name to display its flights.",
+                    "",
+                    "Flight Functions - Right side of the window",
+                    "",
+                    "The top window shows all of the Flight for the selected Airline.",
+                    "This list is also filtered based as defined by the Flight Filters",
+                    "",
+                    "Below the Flight information window are the function buttons:",
+                    "Add Flight - Brings up the Add Flight window",
+                    "Flight Flights - Brings up the Filter window",
+                    "Clear Filters - Removes all filters",
+                    "Print Flights - Opens a Text Window with the selected flights",
+                    "Help - Opens this window\n",
+                    "Click outside of the help window to dismiss"
             );
-            setWidget(helpText);
+            for(String line : helpTextStrings)
+            {
+                TextBox helpText = new TextBox();
+                helpText.setText(line);
+                helpText.setWidth("500px");
+                helpTextPanel.add(helpText);
+            }
+
+            setWidget(helpTextPanel);
         }
 
     }
