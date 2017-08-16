@@ -18,7 +18,7 @@ public interface AirlineService extends RemoteService {
   String deleteAirline(String airlineName);
   void deleteAllAirline();
 
-  void addFlight(String airlineName,
+  String addFlight(String airlineName,
                  String flightNumber,
                  String departureAirportCode,
                  String departureDate,

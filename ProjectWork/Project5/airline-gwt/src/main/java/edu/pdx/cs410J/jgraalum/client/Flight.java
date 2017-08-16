@@ -181,6 +181,16 @@ public class Flight extends AbstractFlight implements Comparable<Flight> {
     }
 
 
+    public String getSourceAirportCode()
+    {
+        return(sourceAirportCode);
+    }
+
+    public String getDestinationAirportCode()
+    {
+        return(destinationAirportCode);
+    }
+
     public String getDepartureTimeString() { return (departureTime); }
     public String getArrivalTimeString() { return (arrivalTime); }
     public String getDepartureDateString() { return (departureDate); }

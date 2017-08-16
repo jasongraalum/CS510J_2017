@@ -71,7 +71,7 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
     }
 
     @Override
-    public void addFlight(String airlineName,
+    public String addFlight(String airlineName,
                           String flightNumber,
                           String departureAirportCode,
                           String departureDate,
@@ -127,7 +127,7 @@ public class AirlineServiceImpl extends RemoteServiceServlet implements AirlineS
         }
 
         System.out.println("Total flights for airline: " + airline.getName() + " == " + airline.getFlights().size());
-
+        return(airlineName);
     }
 
 

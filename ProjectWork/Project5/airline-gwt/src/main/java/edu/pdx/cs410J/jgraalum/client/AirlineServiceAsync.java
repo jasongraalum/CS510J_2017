@@ -31,7 +31,7 @@ public interface AirlineServiceAsync {
                  String arrivalAirportCode,
                  String arrivalDate,
                  String arrivalTime,
-                 AsyncCallback<Void> async);
+                 AsyncCallback<String> async);
 
   void addAirline(String airlineName, AsyncCallback<String> async);
   void deleteAirline(String airlineName, AsyncCallback<String> async);
